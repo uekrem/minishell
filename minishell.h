@@ -23,5 +23,6 @@ typedef struct s_list
 }			t_list;
 
 int		ft_str_shred(char *input);
+void	ft_uname(char *input, t_list *list);
 
 #endif

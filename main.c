@@ -11,6 +11,13 @@ int	main()
 		add_history(input);
 		list = malloc(sizeof(list) * ft_str_shred(input));
 		ft_uname(input, list);
+		break;
 	}
+
+	int	i;
+
+	i = -1;
+	while (++i < ft_str_shred(input))
+		printf("%s\n", list[i].value);
 	return 0;
 }
