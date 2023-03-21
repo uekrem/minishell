@@ -15,10 +15,7 @@ int	main()
 	}
 	
 	int	i;
-
 	i = -1;
-	//printf("sayi:%d\n", ft_str_shred(input));
-	printf("ilk değer:%s ilk tipi:%d\n", list[1].value, list[1].type);
 	while (++i < ft_str_shred(input))
 		printf("%s  %u\n", list[i].value, list[i].type);
 	return 0;
