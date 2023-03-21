@@ -13,11 +13,13 @@ int	main()
 		ft_uname(input, list);
 		break;
 	}
-
+	
 	int	i;
 
 	i = -1;
+	//printf("sayi:%d\n", ft_str_shred(input));
+	printf("ilk değer:%s ilk tipi:%d\n", list[1].value, list[1].type);
 	while (++i < ft_str_shred(input))
-		printf("%s\n", list[i].value);
+		printf("%s  %u\n", list[i].value, list[i].type);
 	return 0;
 }

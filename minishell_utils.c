@@ -34,7 +34,7 @@ int	ft_str_shred(char *input)
 	{
 		while ((input[i] == ' ' || input[i] == '"') && input[i])
 			i++;
-		if (input[i])
+		if (input[i] && !ft_opr_which(input[i]))
 			flag++;
 		while (input[i] != ' ' && input[i] != '"' && input[i])
 			i++;
@@ -42,7 +42,7 @@ int	ft_str_shred(char *input)
 	return (flag);
 }
 
-void	ft_str_base(t_list *list, char *input, int *index)
+int		ft_str_base(t_list *list, char *input, int *index)
 {
 	int			i;
 	static int	now;
@@ -56,20 +56,32 @@ void	ft_str_base(t_list *list, char *input, int *index)
 	}
 	list[now].value[++i] = '\0'; 
 	now++;
+	return (now - 1);
 }
 
 void	ft_uname(char *input, t_list *list)
 {
 	int	i;
+	int	flag;
+	int	now;
 
+	flag = 0;
 	i = -1;
 	while (input[++i])
 	{
 		while (input[i] == ' ')
 			i++;
-		if (ft_opr_which(input[i]) == 1)
+		if (ft_opr_which(input[i]))
+		{
+			flag = 1;
 			i++;
+		}
 		if (input[i] != ' ' && input[i])
-			ft_str_base(list, input, &i);
+			now = ft_str_base(list, input, &i);
+		/*if (flag == 1)
+			list[now].type = 5;
+		else
+			list[now].type = 4;*/
+		flag = 0;
 	}
 }
