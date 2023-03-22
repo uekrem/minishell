@@ -89,6 +89,8 @@ void	ft_untype(char *input, t_list *list)
 	{
 		if (i - 1 == -1)
 			list[i].type = COMMAND;
+		else if (list[i].value[0] == '|')
+			list[i].type = PIPE;
 		else if (list[i - 1].value[0] == '|' 
 			&& list[i].value[0] != '|')
 		{
