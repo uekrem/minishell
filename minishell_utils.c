@@ -4,8 +4,10 @@ int	ft_opr_which(char input)
 {
 	if (input == '|')
 		return (1);
-	//if (input == '<' || input == '>')
-	//	return (2);
+	if (input == '<')
+		return (2);
+	if (input == '>')
+		return (3);
 	return (0);
 }
 
@@ -87,7 +89,21 @@ void	ft_untype(char *input, t_list *list)
 	{
 		if (i - 1 == -1)
 			list[i].type = COMMAND;
-		else if (list[i - 1].value[0] == '|')
+		else if (list[i - 1].value[0] == '|' 
+			&& list[i].value[0] != '|')
+		{
+			list[i].type = COMMAND;
+			list[i - 1].type = PIPE;
+		}
+		else if (list[i - 1].value[0] == '>' || list[i - 1].value[0] == '<')
+		{
+			list[i].type = FILE_NAME;
+			list[i - 1].type = OUTPUT_R;
+			if (list[i - 1].value[0] == '<')
+				list[i - 1].type = INPUT_R;
+		}
+		else if (i - 3 == -1 && list[i - 1].type == FILE_NAME && list[i - 2].type != COMMAND 
+			&& list[i - 3].type != COMMAND)
 			list[i].type = COMMAND;
 		else
 			list[i].type = ARG;

@@ -13,6 +13,7 @@ enum		e_token
 	INPUT_R,
 	ARG,
 	COMMAND,
+	FILE_NAME,
 	END
 };
 
