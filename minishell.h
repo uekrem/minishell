@@ -11,6 +11,8 @@ enum		e_token
 	PIPE,
 	OUTPUT_R,
 	INPUT_R,
+	D_OUTPUT_R,
+	D_INPUT_R,
 	ARG,
 	COMMAND,
 	FILE_NAME,
