@@ -57,7 +57,6 @@ void		ft_str_base(t_list *list, char *input, int *index, int now)
 		i++;
 	}
 	list[now].value[i] = '\0';
-	list[now].type = 3;
 	now++;
 }
 
@@ -89,7 +88,7 @@ void	ft_untype(char *input, t_list *list)
 	{
 		if (list[i].value[0] == '|')
 			list[i].type = PIPE;
-		if (i - 1 == -1)
+		else if (i - 1 == -1)
 			list[i].type = COMMAND;
 		else if (list[i - 1].value[0] == '|' 
 			&& list[i].value[0] != '|')
@@ -97,12 +96,16 @@ void	ft_untype(char *input, t_list *list)
 			list[i].type = COMMAND;
 			list[i - 1].type = PIPE;
 		}
-		else if (list[i - 1].value[0] == '>' || list[i - 1].value[0] == '<')
+		else if (ft_opr_which(list[i - 1].value[0]) > 1)
 		{
 			list[i].type = FILE_NAME;
 			list[i - 1].type = OUTPUT_R;
 			if (list[i - 1].value[0] == '<')
 				list[i - 1].type = INPUT_R;
+			if (list[i - 1].value[1] == '<')
+				list[i - 1].type = D_INPUT_R;
+			else if (list[i - 1].value[1] == '>')
+				list[i - 1].type = D_OUTPUT_R;
 		}
 		else if (i - 3 == -1 || (list[i - 1].type == FILE_NAME && list[i - 2].type != COMMAND 
 			&& list[i - 3].type != COMMAND))
@@ -110,4 +113,4 @@ void	ft_untype(char *input, t_list *list)
 		else
 			list[i].type = ARG;
 	}
-}
+}				//harun | < utku ekrem | sil < yeterli bu kadar >> nasıl oldu
