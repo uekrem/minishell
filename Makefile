@@ -2,8 +2,10 @@ NAME := minishell
 CC := gcc
 FLAGS := -Wall -Wextra -Werror
 
-SRCS := main.c \
+SRCS := minishell_main.c \
 		minishell_utils.c \
+		minishell_sum.c \
+
 
 OBJS := $(SRCS:.c=.o)
 
