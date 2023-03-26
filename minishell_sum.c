@@ -34,10 +34,17 @@ int	ft_str_shred(char *input)
 
 	while (input[i])
 	{
-		while ((input[i] == ' ' || input[i] == '"') && input[i])
+		while (input[i] == ' ' && input[i])
 			i++;
 		if (input[i])
+		{
 			flag++;
+			if (input[i] == '"')
+			{
+				i++;
+				continue;
+			}
+		}
 		while (input[i] != ' ' && input[i] != '"' && input[i])
 			i++;
 	}
