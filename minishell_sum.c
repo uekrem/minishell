@@ -19,13 +19,19 @@ int	ft_strlen(char *input, int index)
 	while (input[index] && input[index] != ' ')
 	{
 		i++;
-		if (input[index] == '"')
-			break;
 		index++;
-		if (input[index] == '"')
-			break;
 	}
 	return (i);
+}
+
+void	ft_couple_core(char	*input, int	*i)
+{
+	while (input[*i])
+	{
+		*i += 1;
+		if (input[*i] == '"')
+			break;
+	}
 }
 
 int	ft_str_shred(char *input)
@@ -40,16 +46,11 @@ int	ft_str_shred(char *input)
 	{
 		while (input[i] == ' ' && input[i])
 			i++;
+		//if (input[i] == '"')				(basştan yazılacak)
+			//ft_couple_core(input, &i);
 		if (input[i])
-		{
 			flag++;
-			if (input[i] == '"')
-			{
-				i++;
-				continue;
-			}
-		}
-		while (input[i] != ' ' && input[i] != '"' && input[i])
+		while (input[i] != ' ' && input[i])
 			i++;
 	}
 	return (flag);

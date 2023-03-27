@@ -1,45 +1,33 @@
 #include "minishell.h"
 
-void		ft_str_base(t_list *list, char *input, int *index, int now)
+void		ft_str_base(t_list *list, char *input, int *index)
 {
 	int			i;
+	static int	now;
 
 	i = 0;
 	list[now].value = malloc(sizeof(char) * (ft_strlen(input, *index) + 1));
 	while (input[*index] && input[*index] != ' ')
 	{
-		if (input[*index] == '"')
-		{
-			list[now].value[i] = input[*index];
-			i++;
-			break;
-		}
 		list[now].value[i] = input[*index];
-		i++;
-		if (input[*index + 1] == '"')
-			break;
 		*index += 1;
-
+		i++;
 	}
 	list[now].value[i] = '\0';
+	now++;
 }
 
 void	ft_uname(char *input, t_list *list)
 {
 	int	i;
-	int	now;
 
-	now = 0;
 	i = -1;
 	while (input[++i])
 	{
 		while (input[i] == ' ')
 			i++;
 		if (input[i] != ' ' && input[i])
-		{
-			ft_str_base(list, input, &i, now);
-			now++;
-		}
+			ft_str_base(list, input, &i);
 	}
 }
 
