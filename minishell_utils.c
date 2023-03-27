@@ -8,12 +8,20 @@ void		ft_str_base(t_list *list, char *input, int *index, int now)
 	list[now].value = malloc(sizeof(char) * (ft_strlen(input, *index) + 1));
 	while (input[*index] && input[*index] != ' ')
 	{
+		if (input[*index] == '"')
+		{
+			list[now].value[i] = input[*index];
+			i++;
+			break;
+		}
 		list[now].value[i] = input[*index];
-		*index += 1;
 		i++;
+		if (input[*index + 1] == '"')
+			break;
+		*index += 1;
+
 	}
 	list[now].value[i] = '\0';
-	now++;
 }
 
 void	ft_uname(char *input, t_list *list)

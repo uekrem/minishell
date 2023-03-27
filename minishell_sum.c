@@ -18,8 +18,12 @@ int	ft_strlen(char *input, int index)
 	i = 0;
 	while (input[index] && input[index] != ' ')
 	{
-		index++;
 		i++;
+		if (input[index] == '"')
+			break;
+		index++;
+		if (input[index] == '"')
+			break;
 	}
 	return (i);
 }
