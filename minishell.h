@@ -25,6 +25,7 @@ typedef struct s_list
 	char			*value;
 }			t_list;
 
+int		ft_opr_pair(char *input);
 int		ft_str_shred(char *input);
 int		ft_strlen(char *input, int index);
 int		ft_opr_which(char input);
