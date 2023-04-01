@@ -13,7 +13,7 @@ int	main()
 			return (0);
 		list = malloc(sizeof(t_list) * ft_str_shred(input));
 		ft_uname(input, list);
-		//ft_untype(input, list);
+		ft_untype(input, list);
 		break;
 	}
 	printf("Value:%d\n", ft_str_shred(input));
