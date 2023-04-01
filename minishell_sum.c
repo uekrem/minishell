@@ -2,9 +2,9 @@
 
 int	ft_opr_pair(char *input)
 {
-	int	i;
-	int	arg;
-	int arg2;
+	int			i;
+	int			arg;
+	int			arg2;
 	static int	flag;
 	static int	flag2;
 
@@ -36,6 +36,37 @@ int	ft_opr_pair(char *input)
 	return (1);
 }
 
+void	ft_couple_core(char *input, int *i, char c)
+{
+	while (input[*i])
+	{
+		*i += 1;
+		if (input[*i] == c)
+			break ;
+	}
+}
+
+int	ft_str_shred(char *input)
+{
+	int	i;
+	int	flag;
+
+	flag = 0;
+	i = 0;
+	while (input[i])
+	{
+		while (input[i] == ' ' && input[i])
+			i++;
+		if (input[i] == '"' || input[i] == 39)
+			ft_couple_core(input, &i, input[i]);
+		if (input[i])
+			flag++;
+		while (input[i] != ' ' && input[i])
+			i++;
+	}
+	return (flag);
+}
+
 int	ft_opr_which(char input)
 {
 	if (input == '|')
@@ -47,47 +78,15 @@ int	ft_opr_which(char input)
 	return (0);
 }
 
-int	ft_strlen(char *input, int index)
+int	ft_strlen(char *input, int index, char c)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	while (input[index] && input[index] != ' ')
+	while (input[index] && input[index] != c)
 	{
 		i++;
 		index++;
 	}
 	return (i);
-}
-
-void	ft_couple_core(char	*input, int	*i, char c)
-{
-	while (input[*i])
-	{
-		*i += 1;
-		if (input[*i] == c)
-			break;
-	}
-}
-
-int	ft_str_shred(char *input)
-{
-	int	i;
-	int	flag;
-
-	flag = 0;
-	i = 0;
-
-	while (input[i])
-	{
-		while (input[i] == ' ' && input[i])
-			i++;
-		if (input[i] == '"' || input[i] == 39)		
-			ft_couple_core(input, &i, input[i]);
-		if (input[i])
-			flag++;
-		while (input[i] != ' ' && input[i])
-			i++;
-	}
-	return (flag);
 }

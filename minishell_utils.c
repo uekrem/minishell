@@ -3,11 +3,18 @@
 void		ft_str_base(t_list *list, char *input, int *index)
 {
 	int			i;
+	char		c;
 	static int	now;
 
 	i = 0;
-	list[now].value = malloc(sizeof(char) * (ft_strlen(input, *index) + 1));
-	while (input[*index] && input[*index] != ' ')
+	c = ' ';
+	if (input[*index] == '"' || input[*index] == 39)
+	{
+		c = input[*index];
+		*index += 1;
+	}
+	list[now].value = malloc(sizeof(char) * (ft_strlen(input, *index, c) + 1));
+	while (input[*index] && input[*index] != c)
 	{
 		list[now].value[i] = input[*index];
 		*index += 1;
