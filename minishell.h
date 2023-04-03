@@ -16,6 +16,7 @@ enum		e_token
 	ARG,
 	COMMAND,
 	FILE_NAME,
+	ENV,
 	END
 };
 
@@ -23,6 +24,7 @@ typedef struct s_list
 {
 	enum e_token	type;
 	char			*value;
+	char			quates;
 }			t_list;
 
 int		ft_opr_pair(char *input);

@@ -21,5 +21,5 @@ int	main()
 	int	i;
 	i = -1;
 	while (++i < ft_str_shred(input))
-		printf("%stype:%d\n", list[i].value, list[i].type); 
+		printf("%s	type:%d quates:%c\n", list[i].value, list[i].type,list[i].quates); 
 }

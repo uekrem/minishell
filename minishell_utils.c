@@ -21,6 +21,7 @@ void		ft_str_base(t_list *list, char *input, int *index)
 		i++;
 	}
 	list[now].value[i] = '\0';
+	list[now].quates = c;
 	now++;
 }
 
@@ -41,6 +42,7 @@ void	ft_uname(char *input, t_list *list)
 void	ft_untype(char *input, t_list *list)
 {
 	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < ft_str_shred(input))
@@ -70,6 +72,12 @@ void	ft_untype(char *input, t_list *list)
 					|| i - 3 == -1)
 			list[i].type = COMMAND;
 		else
+		{
 			list[i].type = ARG;
+			j = -1;
+			while (list[i].value[++j])
+				if (list[i].value[j] == '$' && list[i].quates == '"')
+					list[i].type = ENV;
+		}
 	}
 }
