@@ -14,10 +14,11 @@ int	main()
 		list = malloc(sizeof(t_list) * ft_str_shred(input));
 		ft_uname(input, list);
 		ft_untype(input, list);
+		//ft_env_check(input, list);
 		break;
 	}
-	printf("Value:%d\n", ft_str_shred(input));
 
+	printf("Value:%d\n", ft_str_shred(input));
 	int	i;
 	i = -1;
 	while (++i < ft_str_shred(input))

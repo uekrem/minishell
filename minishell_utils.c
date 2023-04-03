@@ -1,5 +1,22 @@
 #include "minishell.h"
+/*
+void		ft_env_check(char *input, t_list *list)		//$ girince değerini diziye ekleme (" ve ' arasındaki farka göre / drive'a bak) (quates değeri ' ' olduğu zamanda çalışmalı -> echo $USER)
+{
+	int	i;
+	int	j;
 
+	i = -1;
+	while (++i < ft_str_shred(input))
+	{
+		j = -1;
+		while (list[i].value[++j])
+		{
+			if (list[i].value[j] == '$' && list[i].quates == '"')
+				ft_str_rebuild(list, i);
+		}
+	}
+}
+*/
 void		ft_str_base(t_list *list, char *input, int *index)
 {
 	int			i;
