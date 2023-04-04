@@ -20,10 +20,10 @@ int	main(int argc, char **argv, char **env)
 		ft_env_check(input, list);
 		break;
 	}
-	/*
+	
 	printf("Value:%d\n", ft_str_shred(input));
 	int	i;
 	i = -1;
 	while (++i < ft_str_shred(input))
-		printf("%s	type:%d quates:%c\n", list[i].value, list[i].type,list[i].quates);*/
+		printf("%s	type:%d quates:%c\n", list[i].value, list[i].type,list[i].quates);
 }

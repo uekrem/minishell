@@ -204,7 +204,7 @@ char	*ft_restrlen(t_list *list, char *str, int *j)
 	total = 0;
 	step = 0;
 	search = ft_how_far(str, j);			// _ ! gibi özel karakterlere bak
-	search = ft_env_search(list, search);	//NULL durumunu kontrol et
+	search = ft_env_search(list, search);
 	if (search == NULL)
 		return (ft_env_null(str, j));
 	total += ft_strlen(str, 0, '$');
