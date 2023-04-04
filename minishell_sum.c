@@ -90,3 +90,43 @@ int	ft_strlen(char *input, int index, char c)
 	}
 	return (i);
 }
+
+char	*ft_how_far(char *str, int *j)
+{
+	int		counter;
+	int		value;
+	char	*search;
+
+	value = 0;
+	counter = 0;
+	while (1)
+	{
+		if (((str[*j] >= 32 && str[*j] <= 47) 
+			|| (str[*j] >= 58 && str[*j] <= 64)
+			|| (str[*j] >= 91 && str[*j] <= 96)
+			|| (str[*j] >= 123 && str[*j] <= 126)) 
+			&& str[*j])
+			break;
+		value++;
+		*j += 1;
+	}
+	search = malloc(sizeof(char) * (value + 1));
+	search[value - 1] = '\0';
+	while (value > 0)
+	{
+		search[counter] = str[*j - value];
+		counter++;
+		value--;
+	}
+	return (search);
+}
+
+int	ft_restrlen(t_list *list, char *str, int *j)
+{
+	(void)list;
+	char	*search;
+	
+	search = ft_how_far(str, j);
+	printf("%s\n", search);
+	return (0);
+}
