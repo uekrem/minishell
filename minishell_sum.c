@@ -121,12 +121,55 @@ char	*ft_how_far(char *str, int *j)
 	return (search);
 }
 
+char	*ft_piece(char *env)
+{
+	char	*piece;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = -1;
+	while (env[i] != '=')
+		++i;
+	++i;
+	piece = malloc(sizeof(char) * (ft_strlen(env, i, '\0') + 1));
+	while (env[i])
+	{
+		piece[++j] = env[i];
+		i++;
+	}
+	piece[++j] = '\0';
+	return (piece);
+}
+
+char	*ft_env_search(t_list *list, char *str)
+{
+	int i;
+    int j;
+
+    i = -1;
+    while (list->env[++i])
+    {
+        j = -1;
+        while (list->env[i][++j])
+        {
+            if (str[j] == list->env[i][j])
+                continue;
+            break;
+        }
+        if (list->env[i][j] == '=' && str[j] == '\0')
+            break;
+    }
+    if (list->env[i])
+        return(ft_piece(list->env[i]));
+	return (NULL);
+}
+
 int	ft_restrlen(t_list *list, char *str, int *j)
 {
-	(void)list;
 	char	*search;
 	
 	search = ft_how_far(str, j);
-	printf("%s\n", search);
+	search = ft_env_search(list, search);	//NULL durumunu kontrol et
 	return (0);
 }
