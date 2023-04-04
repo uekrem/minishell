@@ -178,7 +178,23 @@ void	ft_strwrite(char *new_str, char *str, int *step, char c)
 	}
 }
 
-int	ft_restrlen(t_list *list, char *str, int *j)
+char	*ft_env_null(char *str, int *j)
+{
+	char	*new_char;
+	int		total;
+	int		step;
+
+	total = 0;
+	total += ft_strlen(str, 0, '$');
+	total += ft_strlen(str, *j, '\0');
+	new_char = malloc(sizeof(char) * (total + 1));
+	ft_strwrite(new_char, str, &step, '$');
+	ft_strwrite(new_char, &str[*j], &step, '\0');
+	new_char[step] = '\0';
+	return (new_char);
+}
+
+char	*ft_restrlen(t_list *list, char *str, int *j)
 {
 	char	*search;
 	char	*new_char;
@@ -189,6 +205,8 @@ int	ft_restrlen(t_list *list, char *str, int *j)
 	step = 0;
 	search = ft_how_far(str, j);			// _ ! gibi özel karakterlere bak
 	search = ft_env_search(list, search);	//NULL durumunu kontrol et
+	if (search == NULL)
+		return (ft_env_null(str, j));
 	total += ft_strlen(str, 0, '$');
 	total += ft_strlen(search, 0, '\0');
 	total += ft_strlen(str, *j, '\0');
@@ -197,6 +215,5 @@ int	ft_restrlen(t_list *list, char *str, int *j)
 	ft_strwrite(new_char, search, &step, '\0');
 	ft_strwrite(new_char, &str[*j], &step, '\0');
 	new_char[step] = '\0';
-	printf("%s", new_char);
-	return (0);
+	return (new_char);
 }

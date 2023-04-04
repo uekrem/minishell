@@ -2,20 +2,19 @@
 
 void		ft_str_rebuild(t_list *list, int i)
 {
-	int	j;
-	//int	len;
+	char	*new_char;
+	int		j;
 
 	j = -1;
-	//len = 0;
 	while (list[i].value[++j])
 	{
 		if (list[i].value[j] == '$')
 		{
 			j++;
-			ft_restrlen(list, list[i].value, &j);
+			new_char = ft_restrlen(list, list[i].value, &j);
 		}
-		//len++;
 	}
+	printf("%s\n", new_char);
 }
 
 void		ft_env_check(char *input, t_list *list)		//$ girince değerini diziye ekleme (" ve ' arasındaki farka göre / drive'a bak) (quates değeri ' ' olduğu zamanda çalışmalı -> echo $USER)

@@ -25,5 +25,5 @@ int	main(int argc, char **argv, char **env)
 	int	i;
 	i = -1;
 	while (++i < ft_str_shred(input))
-		printf("%s	type:%d quates:%c\n", list[i].value, list[i].type,list[i].quates); */
+		printf("%s	type:%d quates:%c\n", list[i].value, list[i].type,list[i].quates);*/
 }

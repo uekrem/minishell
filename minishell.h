@@ -35,6 +35,6 @@ int		ft_opr_which(char input);
 void	ft_uname(char *input, t_list *list);
 void	ft_untype(char *input, t_list *list);
 void	ft_env_check(char *input, t_list	*list);
-int		ft_restrlen(t_list *list, char *str, int *j);
+char	*ft_restrlen(t_list *list, char *str, int *j);
 
 #endif
