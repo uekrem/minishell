@@ -30,11 +30,10 @@ void		ft_env_check(char *input, t_list *list)		//$ girince değerini diziye ekle
 	}
 }
 
-void		ft_str_base(t_list *list, char *input, int *index)
+void		ft_str_base(t_list *list, char *input, int *index, int *now)
 {
 	int			i;
 	char		c;
-	static int	now;
 
 	i = 0;
 	c = ' ';
@@ -43,29 +42,31 @@ void		ft_str_base(t_list *list, char *input, int *index)
 		c = input[*index];
 		*index += 1;
 	}
-	list[now].value = malloc(sizeof(char) * (ft_strlen(input, *index, c) + 1));
+	list[*now].value = malloc(sizeof(char) * (ft_strlen(input, *index, c) + 1));
 	while (input[*index] && input[*index] != c)
 	{
-		list[now].value[i] = input[*index];
+		list[*now].value[i] = input[*index];
 		*index += 1;
 		i++;
 	}
-	list[now].value[i] = '\0';
-	list[now].quates = c;
-	now++;
+	list[*now].value[i] = '\0';
+	list[*now].quates = c;
+	*now += 1;
 }
 
 void	ft_uname(char *input, t_list *list)
 {
 	int	i;
+	int	now;
 
 	i = -1;
+	now = 0;
 	while (input[++i])
 	{
 		while (input[i] == ' ')
 			i++;
 		if (input[i] != ' ' && input[i])
-			ft_str_base(list, input, &i);
+			ft_str_base(list, input, &i, &now);
 	}
 }
 
@@ -78,7 +79,7 @@ void	ft_untype(char *input, t_list *list)
 	while (++i < ft_str_shred(input))
 	{
 		if (ft_opr_which(list[i].value[0]))
-			list[i].type = PIPE;
+		 	list[i].type = PIPE;
 		else if (i - 1 == -1)
 			list[i].type = COMMAND;
 		else if (ft_opr_which(list[i - 1].value[0]) == 1 

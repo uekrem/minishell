@@ -165,11 +165,38 @@ char	*ft_env_search(t_list *list, char *str)
 	return (NULL);
 }
 
+void	ft_strwrite(char *new_str, char *str, int *step, char c)
+{
+	int	j;
+
+	j = 0;
+	while (str[j] != c && str[j])
+	{
+		new_str[*step] = str[j];
+		*step += 1;
+		j++;
+	}
+}
+
 int	ft_restrlen(t_list *list, char *str, int *j)
 {
 	char	*search;
-	
-	search = ft_how_far(str, j);
+	char	*new_char;
+	int		total;
+	int		step;
+
+	total = 0;
+	step = 0;
+	search = ft_how_far(str, j);			// _ ! gibi özel karakterlere bak
 	search = ft_env_search(list, search);	//NULL durumunu kontrol et
+	total += ft_strlen(str, 0, '$');
+	total += ft_strlen(search, 0, '\0');
+	total += ft_strlen(str, *j, '\0');
+	new_char = malloc(sizeof(char) * (total + 1));
+	ft_strwrite(new_char, str, &step, '$');
+	ft_strwrite(new_char, search, &step, '\0');
+	ft_strwrite(new_char, &str[*j], &step, '\0');
+	new_char[step] = '\0';
+	printf("%s", new_char);
 	return (0);
 }
