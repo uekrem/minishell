@@ -99,7 +99,7 @@ char	*ft_how_far(char *str, int *j)
 
 	value = 0;
 	counter = 0;
-	while (1)
+	while (str[*j])
 	{
 		if (((str[*j] >= 32 && str[*j] <= 47) 
 			|| (str[*j] >= 58 && str[*j] <= 64)
@@ -203,7 +203,8 @@ char	*ft_restrlen(t_list *list, char *str, int *j)
 
 	total = 0;
 	step = 0;
-	search = ft_how_far(str, j);			// _ ! gibi özel karakterlere bak
+	search = ft_how_far(str, j);	
+	printf("%s\n", search);					// _ ! gibi özel karakterlere bak
 	search = ft_env_search(list, search);
 	if (search == NULL)
 		return (ft_env_null(str, j));
