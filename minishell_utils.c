@@ -16,14 +16,14 @@ void		ft_str_rebuild(t_list *list, int i)
 	}
 }
 
-void		ft_env_check(char *input, t_list *list)		//$ girince değerini diziye ekleme (" ve ' arasındaki farka göre / drive'a bak) (quates değeri ' ' olduğu zamanda çalışmalı -> echo $USER)
+void		ft_env_check(char *input, t_list *list)		//(quates değeri ' ' olduğu zamanda çalışmalı -> echo $USER)
 {
 	int	i;
 
 	i = -1;
 	while (++i < ft_str_shred(input))
 	{
-		if (list[i].quates == '"' && list[i].type == ENV)
+		if ((list[i].quates = ' ' || list[i].quates == '"') && list[i].type == ENV)
 			ft_str_rebuild(list, i);
 	}
 }
@@ -105,7 +105,7 @@ void	ft_untype(char *input, t_list *list)
 			list[i].type = ARG;
 			j = -1;
 			while (list[i].value[++j])
-				if (list[i].value[j] == '$' && list[i].quates == '"')
+				if (list[i].value[j] == '$' && list[i].quates != 39)
 					list[i].type = ENV;
 		}
 	}

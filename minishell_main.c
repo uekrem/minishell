@@ -4,6 +4,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_list		*list;
 	char		*input;
+	static int	flag;
 
 	(void)argc;
 	(void)argv;
@@ -14,10 +15,12 @@ int	main(int argc, char **argv, char **env)
 		if (ft_opr_pair(input))
 			return (0);
 		list = malloc(sizeof(t_list) * ft_str_shred(input));
-		list->env = env;
+		if (!flag)
+			list->env = env;
 		ft_uname(input, list);
 		ft_untype(input, list);
 		ft_env_check(input, list);
+		flag++;
 		break;
 	}
 	
