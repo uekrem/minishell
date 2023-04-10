@@ -32,20 +32,41 @@ void		ft_str_base(t_list *list, char *input, int *index, int *now)
 {
 	int			i;
 	char		c;
+	int			len;
 
 	i = 0;
 	c = ' ';
+	len = ft_strlen(input, 0, '\0');
 	if (input[*index] == '"' || input[*index] == 39)
 	{
 		c = input[*index];
 		*index += 1;
 	}
-	list[*now].value = malloc(sizeof(char) * (ft_strlen(input, *index, c) + 1));
-	while (input[*index] && input[*index] != c)
+	if (c != ' ')
 	{
-		list[*now].value[i] = input[*index];
-		*index += 1;
-		i++;
+		while (*index < len - 1)
+		{
+			if (input[len - 1] == c)
+				break;
+			len--;
+		}
+		list[*now].value = malloc(sizeof(char) * (((len - 1) - *index) + 1));
+		while (input[*index] && *index != len - 1)
+		{
+			list[*now].value[i] = input[*index];
+			*index += 1;
+			i++;
+		}
+	}
+	else
+	{
+		list[*now].value = malloc(sizeof(char) * (ft_strlen(input, *index, c) + 1));
+		while (input[*index] && input[*index] != ' ')
+		{
+			list[*now].value[i] = input[*index];
+			*index += 1;
+			i++;
+		}
 	}
 	list[*now].value[i] = '\0';
 	list[*now].quates = c;

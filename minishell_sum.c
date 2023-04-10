@@ -38,11 +38,28 @@ int	ft_opr_pair(char *input)
 
 void	ft_couple_core(char *input, int *i, char c)
 {
-	while (input[*i])
+	int	len;
+
+	len = ft_strlen(input, 0, '\0');
+	len--;
+	if (c == 39 || c == '"')
 	{
-		*i += 1;
-		if (input[*i] == c)
-			break ;
+		while (*i <= len)
+		{
+			if (input[len] == c)
+			{
+				while (input[len] != ' ' && input[len])
+					len++;
+				break;
+			}
+			len--;
+		}
+		*i = len + 1;
+	}
+	else
+	{
+		while (input[*i] != ' ' && input[*i])
+			*i += 1;
 	}
 }
 
@@ -57,12 +74,10 @@ int	ft_str_shred(char *input)
 	{
 		while (input[i] == ' ' && input[i])
 			i++;
-		if (input[i] == '"' || input[i] == 39)
-			ft_couple_core(input, &i, input[i]);
 		if (input[i])
 			flag++;
-		while (input[i] != ' ' && input[i])
-			i++;
+		if (input[i])
+			ft_couple_core(input, &i, input[i]);
 	}
 	return (flag);
 }
