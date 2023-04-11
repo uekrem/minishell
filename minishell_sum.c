@@ -40,8 +40,7 @@ void	ft_couple_core(char *input, int *i, char c)
 {
 	int	len;
 
-	len = ft_strlen(input, 0, '\0');
-	len--;
+	len = ft_strlen(input, 0, '\0') - 1;
 	if (c == 39 || c == '"')
 	{
 		while (*i <= len)
@@ -58,8 +57,17 @@ void	ft_couple_core(char *input, int *i, char c)
 	}
 	else
 	{
-		while (input[*i] != ' ' && input[*i])
+		c = ' ';
+		while (input[*i] != c && input[*i])
+		{
+			if ((input[*i] == '"' || input[*i] == 39) 
+				&& c == ' ')
+				c = input[*i];
+			else if (input[*i + 1] == c && input[*i + 2] != ' ')
+				c = ' ';
 			*i += 1;
+		}
+		*i += 1;
 	}
 }
 

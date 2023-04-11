@@ -36,7 +36,7 @@ void		ft_str_base(t_list *list, char *input, int *index, int *now)
 
 	i = 0;
 	c = ' ';
-	len = ft_strlen(input, 0, '\0');
+	len = ft_strlen(input, 0, '\0') - 1;
 	if (input[*index] == '"' || input[*index] == 39)
 	{
 		c = input[*index];
@@ -44,14 +44,16 @@ void		ft_str_base(t_list *list, char *input, int *index, int *now)
 	}
 	if (c != ' ')
 	{
-		while (*index < len - 1)
+		while (*index < len)
 		{
-			if (input[len - 1] == c)
+			if (input[len] == c)
 				break;
 			len--;
 		}
-		list[*now].value = malloc(sizeof(char) * (((len - 1) - *index) + 1));
-		while (input[*index] && *index != len - 1)
+		while (input[len] != ' ' && input[len])
+			len++;
+		list[*now].value = malloc(sizeof(char) * ((len - *index) + 1));
+		while (input[*index] && *index != len)
 		{
 			list[*now].value[i] = input[*index];
 			*index += 1;
@@ -60,8 +62,20 @@ void		ft_str_base(t_list *list, char *input, int *index, int *now)
 	}
 	else
 	{
-		list[*now].value = malloc(sizeof(char) * (ft_strlen(input, *index, c) + 1));
-		while (input[*index] && input[*index] != ' ')
+		len = *index;
+		while (input[len])
+		{
+			if ((input[len] == '"' || input[len] == 39)
+				&& c == ' ')
+				c = input[len];
+			else if (input[len] == c && input[len])
+				break;
+			len++;
+		}
+		//printf("*index:%d\n", *index);
+		//printf("len:%d\n", len);
+		list[*now].value = malloc(sizeof(char) * ((len - *index) + 2));
+		while (input[*index] && *index != len)
 		{
 			list[*now].value[i] = input[*index];
 			*index += 1;
