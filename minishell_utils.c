@@ -36,19 +36,18 @@ void		ft_str_base(t_list *list, char *input, int *index, int *now)
 
 	i = 0;
 	c = ' ';
-	len = ft_strlen(input, 0, '\0') - 1;
 	if (input[*index] == '"' || input[*index] == 39)
 		c = input[*index];
 	if (c != ' ')
 	{
-		while (*index < len)
+		len = *index + 1;
+		while (input[len] != c && input[len])
 		{
+			len += 1;
 			if (input[len] == c)
-				break;
-			len--;
+				c = ' ';
 		}
-		while (input[len] != ' ' && input[len])	//boşluğun üzerinde out
-			len++;
+		c = input[*index];
 		list[*now].value = malloc(sizeof(char) * ((len - *index) + 1));
 		while (input[*index] && *index != len)
 		{
@@ -138,5 +137,31 @@ void	ft_untype(char *input, t_list *list)
 				if (list[i].value[j] == '$' && list[i].quates != 39)
 					list[i].type = ENV;
 		}
+	}
+}
+
+void	ft_appro_name(t_list *list)
+{
+	int		i;
+	int		j;
+	int		flag;
+	int		value;
+
+	i = -1;
+	while (++i < list->list_len)
+	{
+		flag = 0;
+		value = 0;
+		j = -1;
+		while (list[i].value[++j])
+		{
+			if ((list[i].value[j] == '"' || list[i].value[j] == 39) && flag == 0)
+				flag = list[i].value[j];
+			else if (flag != 0 && list[i].value[j] == flag)
+				flag = 0;
+			else
+				value++;
+		}
+		printf("%d. dizi %s uzunluğu -> %d\n", i, list[i].value, value);
 	}
 }

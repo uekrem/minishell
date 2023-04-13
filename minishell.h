@@ -23,6 +23,7 @@ enum		e_token
 typedef struct s_list
 {
 	enum e_token	type;
+	int				list_len;
 	char			*value;
 	char			quates;
 	char			**env;
@@ -36,5 +37,6 @@ void	ft_uname(char *input, t_list *list);
 void	ft_untype(char *input, t_list *list);
 void	ft_env_check(char *input, t_list	*list);
 char	*ft_restrlen(t_list *list, char *str, int *j);
+void	ft_appro_name(t_list *list);
 
 #endif
