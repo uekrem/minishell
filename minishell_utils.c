@@ -140,6 +140,30 @@ void	ft_untype(char *input, t_list *list)
 	}
 }
 
+char	*ft_appro_proc(char *str, int value)
+{
+	int		i;
+	int		flag;
+	int		indepent;
+	char	*new_str;
+
+	i = -1;
+	flag = 0;
+	indepent = -1;
+	new_str = malloc(sizeof(char) * (value + 1));
+	while (str[++i])
+	{
+		if ((str[i] == '"' || str[i] == 39) && flag == 0)
+				flag = str[i];
+			else if (flag != 0 && str[i] == flag)
+				flag = 0;
+			else
+				new_str[++indepent] = str[i];
+	}
+	new_str[++indepent] = '\0';
+	return (new_str);
+}
+
 void	ft_appro_name(t_list *list)
 {
 	int		i;
@@ -162,6 +186,7 @@ void	ft_appro_name(t_list *list)
 			else
 				value++;
 		}
-		printf("%d. dizi %s uzunluğu -> %d\n", i, list[i].value, value);
+		list[i].value = ft_appro_proc(list[i].value, value);
+		//printf("%i. dizi:%s -> uzunluk:%d\n", i, list[i].value, value);
 	}
 }

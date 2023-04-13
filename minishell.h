@@ -37,6 +37,7 @@ void	ft_uname(char *input, t_list *list);
 void	ft_untype(char *input, t_list *list);
 void	ft_env_check(char *input, t_list	*list);
 char	*ft_restrlen(t_list *list, char *str, int *j);
+char	*ft_appro_proc(char *str, int value);
 void	ft_appro_name(t_list *list);
 
 #endif
