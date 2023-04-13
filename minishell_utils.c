@@ -75,6 +75,7 @@ void		ft_str_base(t_list *list, char *input, int *index, int *now)
 			*index += 1;
 			i++;
 		}
+		c = ' ';
 	}
 	list[*now].value[i] = '\0';
 	list[*now].quates = c;

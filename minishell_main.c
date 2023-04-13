@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **env)
 	}
 
 	printf("list range:%d\n", ft_str_shred(input));
-	/*
+
 	int	i;
 	i = -1;
 	while (++i < ft_str_shred(input))
