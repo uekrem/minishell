@@ -18,16 +18,15 @@ int	main(int argc, char **argv, char **env)
 		list->list_len = ft_str_shred(input);
 		ft_uname(input, list);
 		ft_appro_name(list);
-		//ft_untype(input, list);
-		//ft_env_check(input, list);
-		break;
+		ft_untype(input, list);
+		ft_env_check(input, list);
+		ft_builtins(input, list);
 	}
 
-	printf("list range:%d\n", ft_str_shred(input));
+	// printf("list range:%d\n", ft_str_shred(input));
 
-	int	i;
-	i = -1;
-	while (++i < ft_str_shred(input))
-		printf("value:%s\n", list[i].value);
-	*/
+	// int	i;
+	// i = -1;
+	// while (++i < ft_str_shred(input))
+	// 	printf("value:%s\n", list[i].value);
 }
