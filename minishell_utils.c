@@ -36,19 +36,18 @@ void		ft_str_base(t_list *list, char *input, int *index, int *now)
 
 	i = 0;
 	c = ' ';
-	len = ft_strlen(input, 0, '\0') - 1;
 	if (input[*index] == '"' || input[*index] == 39)
 		c = input[*index];
 	if (c != ' ')
 	{
-		while (*index < len)
+		len = *index + 1;
+		while (input[len] != c && input[len])
 		{
+			len += 1;
 			if (input[len] == c)
-				break;
-			len--;
+				c = ' ';
 		}
-		while (input[len] != ' ' && input[len])	//boşluğun üzerinde out
-			len++;
+		c = input[*index];
 		list[*now].value = malloc(sizeof(char) * ((len - *index) + 1));
 		while (input[*index] && *index != len)
 		{
@@ -76,6 +75,7 @@ void		ft_str_base(t_list *list, char *input, int *index, int *now)
 			*index += 1;
 			i++;
 		}
+		c = ' ';
 	}
 	list[*now].value[i] = '\0';
 	list[*now].quates = c;
@@ -138,5 +138,56 @@ void	ft_untype(char *input, t_list *list)
 				if (list[i].value[j] == '$' && list[i].quates != 39)
 					list[i].type = ENV;
 		}
+	}
+}
+
+char	*ft_appro_proc(char *str, int value)
+{
+	int		i;
+	int		flag;
+	int		indepent;
+	char	*new_str;
+
+	i = -1;
+	flag = 0;
+	indepent = -1;
+	new_str = malloc(sizeof(char) * (value + 1));
+	while (str[++i])
+	{
+		if ((str[i] == '"' || str[i] == 39) && flag == 0)
+				flag = str[i];
+			else if (flag != 0 && str[i] == flag)
+				flag = 0;
+			else
+				new_str[++indepent] = str[i];
+	}
+	new_str[++indepent] = '\0';
+	return (new_str);
+}
+
+void	ft_appro_name(t_list *list)
+{
+	int		i;
+	int		j;
+	int		flag;
+	int		value;
+
+	i = -1;
+	while (++i < list->list_len)
+	{
+		flag = 0;
+		value = 0;
+		j = -1;
+		while (list[i].value[++j])
+		{
+			if ((list[i].value[j] == '"' || list[i].value[j] == 39) && flag == 0)
+				flag = list[i].value[j];
+			else if (flag != 0 && list[i].value[j] == flag)
+				flag = 0;
+			else
+				value++;
+		}
+		list[i].value = ft_appro_proc(list[i].value, value);
+		//printf("%i. dizi:%s -> uzunluk:%d\n", i, list[i].value, value);
 	}
 }

@@ -38,22 +38,15 @@ int	ft_opr_pair(char *input)
 
 void	ft_couple_core(char *input, int *i, char c)
 {
-	int	len;
-
-	len = ft_strlen(input, 0, '\0') - 1;
 	if (c == 39 || c == '"')
 	{
-		while (*i <= len)
+		*i += 1;
+		while (input[*i] != c && input[*i])
 		{
-			if (input[len] == c)
-			{
-				while (input[len] != ' ' && input[len])
-					len++;
-				break;
-			}
-			len--;
+			*i += 1;
+			if (input[*i] == c)
+				c = ' ';
 		}
-		*i = len;
 	}
 	else
 	{
