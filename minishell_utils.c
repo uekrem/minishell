@@ -106,7 +106,7 @@ void	ft_untype(char *input, t_list *list)
 	i = -1;
 	while (++i < ft_str_shred(input))
 	{
-		if (ft_opr_which(list[i].value[0]))
+		if (ft_opr_which(list[i].value[0]) == 1)
 		 	list[i].type = PIPE;
 		else if (i - 1 == -1)
 			list[i].type = COMMAND;
@@ -128,7 +128,7 @@ void	ft_untype(char *input, t_list *list)
 				list[i - 1].type = D_OUTPUT_R;
 		}
 		else if ((list[i - 1].type == FILE_NAME && list[i - 3].type != COMMAND) 
-					|| i - 3 == -1)
+					&& i - 3 == -1)
 			list[i].type = COMMAND;
 		else
 		{

@@ -7,6 +7,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <errno.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -47,7 +48,7 @@ void	ft_appro_name(t_list *list);
 
 char	*ft_piece(char *env);
 void	ft_builtins(char *input, t_list *list);
-void	ft_echo(char *input, t_list *list);
+void	ft_echo(char *input, t_list *list, int *i);
 void	ft_pwd(void);
 void	ft_cd(t_list *list);
 void	ft_export(t_list *list);

@@ -28,5 +28,5 @@ int	main(int argc, char **argv, char **env)
 	// int	i;
 	// i = -1;
 	// while (++i < ft_str_shred(input))
-	// 	printf("value:%s\n", list[i].value);
+	// 	printf("value:%s type: %d\n", list[i].value, list[i].type);
 }

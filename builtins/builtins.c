@@ -39,7 +39,7 @@ void	ft_builtins(char *input, t_list *list)
 		if (list[i].type == COMMAND)
 		{
 			if (which_commant(list, &i, "echo"))
-				ft_echo(input, list);
+				ft_echo(input, list, &i);
 			else if (which_commant(list, &i, "cd"))
 				ft_cd(list);
 			else if (which_commant(list, &i, "pwd"))
