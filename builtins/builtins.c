@@ -41,9 +41,9 @@ void	ft_builtins(char *input, t_list *list)
 			if (which_commant(list, &i, "echo"))
 				ft_echo(input, list, &i);
 			else if (which_commant(list, &i, "cd"))
-				ft_cd(list);
+				ft_cd(list, &i);
 			else if (which_commant(list, &i, "pwd"))
-				ft_pwd();
+				ft_pwd(list, &i);
 			else if (which_commant(list, &i, "export"))
 				ft_export(list);
 			else if (which_commant(list, &i, "unset"))
