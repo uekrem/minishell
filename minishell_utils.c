@@ -139,6 +139,7 @@ void	ft_untype(char *input, t_list *list)
 					list[i].type = ENV;
 		}
 	}
+	list[i].type = END;
 }
 
 char	*ft_appro_proc(char *str, int value)

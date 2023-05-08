@@ -15,6 +15,7 @@ int	main(int argc, char **argv, char **env)
 			return (0);
 		list = malloc(sizeof(t_list) * (ft_str_shred(input) + 1));
 		list->env = env;
+		list->flag = 0;
 		list->list_len = ft_str_shred(input);
 		ft_uname(input, list);
 		ft_appro_name(list);

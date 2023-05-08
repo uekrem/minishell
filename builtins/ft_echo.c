@@ -3,14 +3,49 @@
 void ft_input_r(t_list *list, int *i)
 {
 	int fd;
+	// char	*buf;
 
-	fd = open(list[*i + 1].value, O_RDWR);
-	if (fd == -1)
+	//buf = malloc(sizeof(char) * 2);
+	if (list[*i].type == OUTPUT_R)
 	{
-		printf("Minishell: %s: No such file or directory\n", list[*i + 1].value);
+		// fd = open(list[*i + 1].value, O_RDWR, 0777);
+		// if (fd > 0)
+		// {
+		// 	while (buf[0] != '\n')
+		// 	{
+		// 		write(fd, "\0", 1);
+		// 		read(fd,buf,1);
+		// 		buf[1] = '\0';
+		// 		write(fd, "\0", 1);
+		// 	}
+		// 	write(fd, "\0", 1);
+		// }
+		fd = open(list[*i + 1].value, O_CREAT | O_RDWR | O_TRUNC, 0777);
+		int j;
+		j = 0;
+		while (list[j].type)
+		{
+			if (list[j].type != ARG)
+				j++;
+			else
+			{
+				ft_putstr_fd(list[j].value, fd);
+				if(list[j + 1].type != END)
+					write(fd, " ", 1);
+				j++;
+			}
+		}
+		if (list->flag == 0)
+			write(fd, "\n", 1);
+		close(fd);
 	}
 	else
 	{
+		fd = open(list[*i + 1].value, O_RDWR);
+		if (fd == -1)
+		{
+			printf("Minishell: %s: No such file or directory\n", list[*i + 1].value);
+		}
 		while (list[*i].type != COMMAND)
 			*i -= 1;
 		while (list[*i].type)
@@ -20,11 +55,13 @@ void ft_input_r(t_list *list, int *i)
 			else
 			{
 				printf("%s",list[*i].value);
-				printf(" ");
+				if(list[*i + 1].type != END)
+					printf(" ");
 				*i+=1;
 			}
 		}
-		printf("\n");
+		if (list->flag == 0)
+			printf("\n");
 	}
 }
 
@@ -35,11 +72,28 @@ void	ft_echo(char *input, t_list *list, int *i)
 	{
 		if (list[*i].type == PIPE)
 			exit (0);
-		else if (list[*i].type == INPUT_R || list[*i].type == OUTPUT_R)
+		else if (list[*i].value[0] == '-' &&list[*i].value[1] == 'n' && !list[*i].value[2])
 		{
-			if (list[*i].type == INPUT_R)
-				ft_input_r(list, i);
+			list[*i].type = FLAG;
+			list->flag = 1;
+		}
+		else if (list[*i].type == INPUT_R || list[*i].type == OUTPUT_R)
+			ft_input_r(list, i);
+		*i += 1;
+	}
+
+	*i = 1;
+	while (list[*i].type)
+	{
+		if (list[*i].type == ARG)
+		{
+			printf("%s",list[*i].value);
+			if (list[*i + 1].type != END)
+				printf(" ");
 		}
 		*i += 1;
 	}
+	if (list->flag == 0)
+		printf("\n");
+	
 }

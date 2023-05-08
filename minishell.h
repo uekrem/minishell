@@ -22,6 +22,7 @@ enum		e_token
 	COMMAND,
 	FILE_NAME,
 	ENV,
+	FLAG,
 	END
 };
 
@@ -29,6 +30,7 @@ typedef struct s_list
 {
 	enum e_token	type;
 	int				list_len;
+	int				flag;
 	char			*value;
 	char			quates;
 	char			**env;
