@@ -77,7 +77,9 @@ void	ft_add_export(t_list *list, char *arg)
 void	ft_add_which(t_list *list, int i)
 {
 	if (ft_strchr(list[i].value, '=') == NULL)
+	{
 		ft_add_export(list, list[i].value);
+	}
 
 }
 
@@ -103,16 +105,13 @@ void	ft_export(t_list *list)
 	int	i;
 
 	i = 1;
+	init_env(list);
 	if (arg_count(list) == -1)
-	{
-		printf("Selam");
 		ft_print_export(list);
-	}
 	else
 	{
 		while (list[i].value)
 		{
-			printf("nedennn\n");
 			if (check_arg(list))
 				continue ;
 			ft_add_which(list, i);

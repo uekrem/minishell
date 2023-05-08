@@ -1,5 +1,23 @@
 #include "minishell.h"
 
+void init_envair(t_list *list, char **env)
+{
+	int  i;
+
+	i = 0;
+
+	while (env[i])
+		i++;
+	list->env = malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (env[i])
+	{
+		list->env[i] = ft_strdup(env[i]);
+		i++;
+	}
+	list->env[i] = NULL;
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_list		*list;
@@ -14,7 +32,7 @@ int	main(int argc, char **argv, char **env)
 		if (ft_opr_pair(input))
 			return (0);
 		list = malloc(sizeof(t_list) * (ft_str_shred(input) + 1));
-		list->env = env;
+		init_envair(list,env);
 		list->flag = 0;
 		list->list_len = ft_str_shred(input);
 		ft_uname(input, list);
