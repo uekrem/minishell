@@ -1,6 +1,6 @@
 NAME        := minishell
 CC        := gcc
-FLAGS    := -Wall -Wextra -Werror
+FLAGS    := -Wall -Wextra -Werror -fsanitize=address -g
 
 SRCS        :=      libft/ft_atoi.c \
                           libft/ft_bzero.c \
@@ -52,6 +52,8 @@ SRCS        :=      libft/ft_atoi.c \
                           builtins/ft_echo.c \
                           builtins/ft_export.c \
                           builtins/ft_pwd.c \
+                          builtins/ft_env.c \
+                          builtins/ft_unset.c \
 
 OBJS        := $(SRCS:.c=.o)
 

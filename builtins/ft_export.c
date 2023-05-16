@@ -1,11 +1,11 @@
 #include "../minishell.h"
 
-int	export_size(t_list *list)
+int	export_size()
 {
 	int	i;
 
 	i = 0;
-	while (list->export[i])
+	while (g_glbl.export[i])
 		i++;
 	return (i);
 }
@@ -23,15 +23,15 @@ void	free_char(char **arg)
 	free(arg);
 }
 
-void	ft_print_export(t_list *list)
+void	ft_print_export()
 {
 	int		i;
 	char	**ag;
 
 	i = 0;
-	while (list->export[i])
+	while (g_glbl.export[i])
 	{
-		ag = ft_split(list->export[i], '=');
+		ag = ft_split(g_glbl.export[i], '=');
 		if (ag[1] == NULL)
 			printf("declare -x %s=\"\"\n", ag[0]);
 		else
@@ -48,56 +48,54 @@ int	check_arg(t_list *list)
 	return (1);
 }
 
-void	ft_add_export(t_list *list, char *arg)
+void	ft_add_export(char *arg)
 {
 	int		i;
 	char	**new_export;
 
-	new_export = malloc(sizeof(char *) * (export_size(list) + 2));
+	new_export = malloc(sizeof(char *) * (export_size() + 2));
 	i = 0;
-	while (list->export[i])
+	while (g_glbl.export[i])
 	{
-		new_export[i] = ft_strdup(list->export[i]);
+		new_export[i] = ft_strdup(g_glbl.export[i]);
 		i++;
 	}
 	new_export[i] = ft_strdup(arg);
 	new_export[i + 1] = NULL;
-	free_char(list->export);
-	list->export = new_export;
-	int j;
+	free_char(g_glbl.export);
+	g_glbl.export = new_export;
+}
 
-	j = 0;
-	while (list->export[j])
+void	ft_add_env(char *arg)
+{
+	int		i;
+	char	**new_env;
+
+	new_env = malloc(sizeof(char *) * (export_size() + 2));
+	i = 0;
+	while (g_glbl.env[i])
 	{
-		printf("%s\n",list->export[j]);
-		j++;
+		new_env[i] = ft_strdup(g_glbl.env[i]);
+		i++;
 	}
+	new_env[i] = ft_strdup(arg);
+	new_env[i + 1] = NULL;
+	free_char(g_glbl.env);
+	g_glbl.env = new_env;
 }
 
 void	ft_add_which(t_list *list, int i)
 {
 	if (ft_strchr(list[i].value, '=') == NULL)
 	{
-		ft_add_export(list, list[i].value);
+		ft_add_export(list[i].value);
 	}
-
-}
-
-void	init_env(t_list *list)
-{
-	int	i;
-
-	i = 0;
-	while (list->env[i])
-		i++;
-	list->export = malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	while (list->env[i])
+	else
 	{
-		list->export[i] = ft_strdup(list->env[i]);
-		i++;
+		ft_add_export(list[i].value);
+		ft_add_env(list[i].value);
 	}
-	list->export[i] = NULL;
+
 }
 
 void	ft_export(t_list *list)
@@ -105,13 +103,14 @@ void	ft_export(t_list *list)
 	int	i;
 
 	i = 1;
-	init_env(list);
 	if (arg_count(list) == -1)
-		ft_print_export(list);
+		ft_print_export();
 	else
 	{
-		while (list[i].value)
+		while (list[i].type != END)
 		{
+			if (list[i].type == PIPE)
+				exit (0);
 			if (check_arg(list))
 				continue ;
 			ft_add_which(list, i);

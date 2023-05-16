@@ -6,7 +6,7 @@ int	arg_count(t_list *list)
 
 	i = 0;
 
-	while (list[i].value)
+	while (list[i].type != END)
 		i++;
 	if (i > 2)
 		return (1);

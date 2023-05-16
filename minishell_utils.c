@@ -10,7 +10,7 @@ void		ft_str_rebuild(t_list *list, int i)
 		if (list[i].value[j] == '$')
 		{
 			j++;
-			list[i].value = ft_restrlen(list, list[i].value, &j);
+			list[i].value = ft_restrlen(list[i].value, &j);
 			j = -1;
 		}
 	}
@@ -110,7 +110,7 @@ void	ft_untype(char *input, t_list *list)
 		 	list[i].type = PIPE;
 		else if (i - 1 == -1)
 			list[i].type = COMMAND;
-		else if (ft_opr_which(list[i - 1].value[0]) == 1 
+		else if (ft_opr_which(list[i - 1].value[0]) == 1
 			&& ft_opr_which(list[i].value[0]) != 1)
 		{
 			list[i].type = COMMAND;
@@ -127,7 +127,7 @@ void	ft_untype(char *input, t_list *list)
 			else if (list[i - 1].value[1] == '>')
 				list[i - 1].type = D_OUTPUT_R;
 		}
-		else if ((list[i - 1].type == FILE_NAME && list[i - 3].type != COMMAND) 
+		else if ((list[i - 1].type == FILE_NAME && list[i - 3].type != COMMAND)
 					&& i - 3 == -1)
 			list[i].type = COMMAND;
 		else

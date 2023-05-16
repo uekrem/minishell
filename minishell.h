@@ -26,6 +26,14 @@ enum		e_token
 	END
 };
 
+typedef struct s_glbl
+{
+	char			**env;
+	char			**export;
+}			t_glbl;
+
+extern t_glbl g_glbl;
+
 typedef struct s_list
 {
 	enum e_token	type;
@@ -33,8 +41,6 @@ typedef struct s_list
 	int				flag;
 	char			*value;
 	char			quates;
-	char			**env;
-	char			**export;
 }			t_list;
 
 int		ft_opr_pair(char *input);
@@ -44,7 +50,7 @@ int		ft_opr_which(char input);
 void	ft_uname(char *input, t_list *list);
 void	ft_untype(char *input, t_list *list);
 void	ft_env_check(char *input, t_list	*list);
-char	*ft_restrlen(t_list *list, char *str, int *j);
+char	*ft_restrlen(char *str, int *j);
 char	*ft_appro_proc(char *str, int value);
 void	ft_appro_name(t_list *list);
 
@@ -55,6 +61,8 @@ void	ft_pwd(t_list *list, int *i);
 void	ft_cd(t_list *list, int *i);
 void	ft_export(t_list *list);
 int		arg_count(t_list *list);
+void	ft_env();
 void	init_env(t_list *list);
+void	ft_unset(t_list *list);
 
 #endif

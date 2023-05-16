@@ -3,23 +3,8 @@
 void ft_input_r(t_list *list, int *i)
 {
 	int fd;
-	// char	*buf;
-
-	//buf = malloc(sizeof(char) * 2);
 	if (list[*i].type == OUTPUT_R)
 	{
-		// fd = open(list[*i + 1].value, O_RDWR, 0777);
-		// if (fd > 0)
-		// {
-		// 	while (buf[0] != '\n')
-		// 	{
-		// 		write(fd, "\0", 1);
-		// 		read(fd,buf,1);
-		// 		buf[1] = '\0';
-		// 		write(fd, "\0", 1);
-		// 	}
-		// 	write(fd, "\0", 1);
-		// }
 		fd = open(list[*i + 1].value, O_CREAT | O_RDWR | O_TRUNC, 0777);
 		int j;
 		j = 0;
@@ -95,5 +80,5 @@ void	ft_echo(char *input, t_list *list, int *i)
 	}
 	if (list->flag == 0)
 		printf("\n");
-	
+
 }

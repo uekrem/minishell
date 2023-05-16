@@ -47,9 +47,9 @@ void	ft_builtins(char *input, t_list *list)
 			else if (which_commant(list, &i, "export"))
 				ft_export(list);
 			else if (which_commant(list, &i, "unset"))
-				printf("unset fonksiyonu çalıştı");
+				ft_unset(list);
 			else if (which_commant(list, &i, "env"))
-				printf("env fonksiyonu çalıştı");
+				ft_env();
 			else if (which_commant(list, &i, "exit"))
 				printf("exit fonksiyonu çalıştı");
 		}

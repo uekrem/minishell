@@ -53,7 +53,7 @@ void	ft_couple_core(char *input, int *i, char c)
 		c = ' ';
 		while (input[*i] != c && input[*i])
 		{
-			if ((input[*i] == '"' || input[*i] == 39) 
+			if ((input[*i] == '"' || input[*i] == 39)
 				&& c == ' ')
 				c = input[*i];
 			*i += 1;
@@ -116,10 +116,10 @@ char	*ft_how_far(char *str, int *j)
 	counter = 0;
 	while (str[*j])
 	{
-		if (((str[*j] >= 32 && str[*j] <= 47) 
+		if (((str[*j] >= 32 && str[*j] <= 47)
 			|| (str[*j] >= 58 && str[*j] <= 64)
 			|| (str[*j] >= 91 && str[*j] <= 96)
-			|| (str[*j] >= 123 && str[*j] <= 126)) 
+			|| (str[*j] >= 123 && str[*j] <= 126))
 			&& str[*j])
 			break;
 		value++;
@@ -157,26 +157,26 @@ char	*ft_piece(char *env)
 	return (piece);
 }
 
-char	*ft_env_search(t_list *list, char *str)
+char	*ft_env_search(char *str)
 {
 	int i;
     int j;
 
     i = -1;
-    while (list->env[++i])
+    while (g_glbl.env[++i])
     {
         j = -1;
-        while (list->env[i][++j])
+        while (g_glbl.env[i][++j])
         {
-            if (str[j] == list->env[i][j])
+            if (str[j] == g_glbl.env[i][j])
                 continue;
             break;
         }
-        if (list->env[i][j] == '=' && str[j] == '\0')
+        if (g_glbl.env[i][j] == '=' && str[j] == '\0')
             break;
     }
-    if (list->env[i])
-        return(ft_piece(list->env[i]));
+    if (g_glbl.env[i])
+        return(ft_piece(g_glbl.env[i]));
 	return (NULL);
 }
 
@@ -209,7 +209,7 @@ char	*ft_env_null(char *str, int *j)
 	return (new_char);
 }
 
-char	*ft_restrlen(t_list *list, char *str, int *j)
+char	*ft_restrlen(char *str, int *j)
 {
 	char	*search;
 	char	*new_char;
@@ -219,7 +219,7 @@ char	*ft_restrlen(t_list *list, char *str, int *j)
 	total = 0;
 	step = 0;
 	search = ft_how_far(str, j);					// _ ! gibi özel karakterlere bak
-	search = ft_env_search(list, search);
+	search = ft_env_search(search);
 	if (search == NULL)
 		return (ft_env_null(str, j));
 	total += ft_strlen(str, 0, '$');

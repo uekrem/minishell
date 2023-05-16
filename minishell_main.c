@@ -1,6 +1,8 @@
 #include "minishell.h"
 
-void init_envair(t_list *list, char **env)
+t_glbl g_glbl;
+
+void init_envair(char **env)
 {
 	int  i;
 
@@ -8,14 +10,17 @@ void init_envair(t_list *list, char **env)
 
 	while (env[i])
 		i++;
-	list->env = malloc(sizeof(char *) * (i + 1));
+	g_glbl.env = malloc(sizeof(char *) * (i + 1));
+	g_glbl.export = malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (env[i])
 	{
-		list->env[i] = ft_strdup(env[i]);
+		g_glbl.env[i] = ft_strdup(env[i]);
+		g_glbl.export[i] = ft_strdup(env[i]);
 		i++;
 	}
-	list->env[i] = NULL;
+	g_glbl.env[i] = NULL;
+	g_glbl.export[i] = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
@@ -25,6 +30,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	init_envair(env);
 	while(1)
 	{
 		input = readline("minishell: ");
@@ -32,7 +38,6 @@ int	main(int argc, char **argv, char **env)
 		if (ft_opr_pair(input))
 			return (0);
 		list = malloc(sizeof(t_list) * (ft_str_shred(input) + 1));
-		init_envair(list,env);
 		list->flag = 0;
 		list->list_len = ft_str_shred(input);
 		ft_uname(input, list);
