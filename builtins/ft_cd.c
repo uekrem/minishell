@@ -6,7 +6,7 @@ int	arg_count(t_list *list)
 
 	i = 0;
 
-	while (list[i].value)
+	while (list[i].type != END)
 		i++;
 	if (i > 2)
 		return (1);
@@ -15,10 +15,17 @@ int	arg_count(t_list *list)
 	return (0);
 }
 
-void	ft_cd(t_list *list)
+void	ft_cd(t_list *list, int *i)
 {
 	char	*str;
 
+	*i += 1;
+	while (list[*i].type != END)
+	{
+		if (list[*i].type == PIPE)
+			exit(0);
+		*i += 1;
+	}
 	if (arg_count(list) == 1)
 	{
 		printf("cd: too many arguments\n");

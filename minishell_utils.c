@@ -1,11 +1,11 @@
 #include "minishell.h"
-
+​
 char		ft_quartes_selec(char *str, int	i)
 {
 	int		num;
 	char	c;
 	int		check;
-
+​
 	num = -1;
 	check = 1;
 	while (++num < i)
@@ -23,7 +23,7 @@ char		ft_quartes_selec(char *str, int	i)
 	}
 	return (c);
 }
-
+​
 int			ft_stay_stop(char c)
 {
 	if (((c >= 32 && c <= 47) 
@@ -35,12 +35,12 @@ int			ft_stay_stop(char c)
 		return(1);
 	return (0);
 }
-
+​
 void		ft_str_rebuild(t_list *list, int i)
 {
 	int		j;
 	int		temp;
-
+​
 	j = -1;
 	if (list[i].value[j + 1] == '$')
 		if (!list[i].value[j + 2])
@@ -58,20 +58,20 @@ void		ft_str_rebuild(t_list *list, int i)
 		}
 	}
 }
-
+​
 void		ft_env_check(char *input, t_list *list)	
 {
 	int	i;
-
+​
 	i = -1;
 	while (++i < ft_str_shred(input))
 		ft_str_rebuild(list, i);
 }
-
+​
 void	ft_str_base(t_list *list, char *input, int start, int finish, int *now)
 {
 		int	i;
-
+​
 		i = 0;
 		list[*now].value = malloc(sizeof(char) * ((finish - start) + 1));
 		while (input[start] && start != finish)
@@ -83,13 +83,13 @@ void	ft_str_base(t_list *list, char *input, int start, int finish, int *now)
 		list[*now].value[i] = '\0';
 		*now += 1;
 }
-
+​
 void	ft_uname(t_list *list, char *input)
 {
 	int		i;
 	int		now;
 	int		temp;			
-
+​
 	i = 0;
 	now = 0;
 	while (input[i])
@@ -103,7 +103,7 @@ void	ft_uname(t_list *list, char *input)
 	}
 	list[now].value = NULL;
 }
-
+​
 int	ft_what_should(t_list *list, int i)
 {
 	while (list[i].type != PIPE && i != 0)
@@ -114,12 +114,12 @@ int	ft_what_should(t_list *list, int i)
 		return (0);
 	return (1);
 }
-
+​
 void	ft_untype(t_list *list)
 {
 	int	i;
 	int	which;
-
+​
 	i = -1;
 	while (++i < list->list_len)
 	{
@@ -155,14 +155,14 @@ void	ft_untype(t_list *list)
 	}
 	list[i].type = END;
 }
-
+​
 char	*ft_appro_proc(char *str, int value)
 {
 	int		i;
 	int		flag;
 	int		indepent;
 	char	*new_str;
-
+​
 	i = -1;
 	flag = 0;
 	indepent = -1;
@@ -179,14 +179,14 @@ char	*ft_appro_proc(char *str, int value)
 	new_str[++indepent] = '\0';
 	return (new_str);
 }
-
+​
 void	ft_appro_name(t_list *list)
 {
 	int		i;
 	int		j;
 	int		flag;
 	int		value;
-
+​
 	i = -1;
 	while (++i < list->list_len)
 	{
