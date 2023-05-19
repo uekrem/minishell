@@ -40,17 +40,9 @@ int	main(int argc, char **argv, char **env)
 		list = malloc(sizeof(t_list) * (ft_str_shred(input) + 1));
 		list->flag = 0;
 		list->list_len = ft_str_shred(input);
-		ft_uname(input, list);
-		ft_appro_name(list);
-		ft_untype(input, list);
+		ft_uname(list, input);
 		ft_env_check(input, list);
-		ft_builtins(input, list);
-	}
-
-	// printf("list range:%d\n", ft_str_shred(input));
-
-	// int	i;
-	// i = -1;
-	// while (++i < ft_str_shred(input))
-	// 	printf("value:%s type: %d\n", list[i].value, list[i].type);
+		ft_appro_name(list);
+		ft_untype(list);
+		//ft_builtins(input, list);
 }
