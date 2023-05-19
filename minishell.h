@@ -61,8 +61,9 @@ void	ft_pwd(t_list *list, int *i);
 void	ft_cd(t_list *list, int *i);
 void	ft_export(t_list *list);
 int		arg_count(t_list *list);
+int		export_size();
 void	ft_env();
 void	init_env(t_list *list);
-void	ft_unset(t_list *list);
+void	ft_unset(t_list *list, int *i);
 
 #endif

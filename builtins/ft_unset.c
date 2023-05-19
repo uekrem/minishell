@@ -1,18 +1,64 @@
 #include "../minishell.h"
 
-void	ft_unset(t_list *list)
+int	ft_strncmp2(const char *s1, const char *s2, int len)
 {
-	int i;
+	int	i;
 
-	i = 0;
-	char **ag;
-	(void)list;
-	while (g_glbl.env[i])
+	i = -1;
+	while (++i < len)
 	{
-		ag = ft_split(g_glbl.env[i], '=');
+		if (s1[i] != s2[i])
+			return (0);
+	}
+	return (1);
+}
+
+void del_export(t_list *list, int x)
+{
+	int i = 0;
+	int j;
+	x++;
+	while (g_glbl.export[i] != NULL && list[x].type == ARG)
+	{
+		if (ft_strncmp2(g_glbl.export[i], list[x].value, ft_strlen(list[x].value, 0, '=')))
+		{
+			j = i;
+			while (g_glbl.export[j] != NULL)
+			{
+				g_glbl.export[j] = g_glbl.export[j + 1];
+				j++;
+			}
+			x++;
+			i = -1;
+		}
 		i++;
 	}
+}
 
-	i = 1;
-	
+void del_env(t_list *list, int x)
+{
+	int i = 0;
+	int j;
+	x++;
+	while (g_glbl.env[i] != NULL && list[x].type == ARG)
+	{
+		if (ft_strncmp2(g_glbl.env[i], list[x].value, ft_strlen(list[x].value, 0, '=')))
+		{
+			j = i;
+			while (g_glbl.env[j] != NULL)
+			{
+				g_glbl.env[j] = g_glbl.env[j + 1];
+				j++;
+			}
+			x++;
+			i = -1;
+		}
+		i++;
+	}
+}
+
+void	ft_unset(t_list *list, int *i)
+{
+	del_export(list, *i);
+	del_env(list, *i);
 }

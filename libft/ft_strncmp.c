@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-
+#include <stdio.h>
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	unsigned char	*x;
@@ -21,6 +21,9 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	x = (unsigned char *)s1;
 	y = (unsigned char *)s2;
 	i = 0;
+	printf("strcmp: %s\n",y);
+	printf("i : %zu\n", i);
+	printf("n: %zu",n);
 	while ((x[i] != '\0' || y[i] != '\0') && i < n)
 	{
 		if (x[i] > y[i])

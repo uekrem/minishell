@@ -96,6 +96,7 @@ void	ft_uname(char *input, t_list *list)
 		if (input[i] != ' ' && input[i])
 			ft_str_base(list, input, &i, &now);
 	}
+	list[now].value = NULL;
 }
 
 void	ft_untype(char *input, t_list *list)

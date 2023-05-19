@@ -53,6 +53,11 @@ void ft_input_r(t_list *list, int *i)
 void	ft_echo(char *input, t_list *list, int *i)
 {
 	*i += 1;
+	if (!list[*i].value)
+	{
+		printf("\n");
+		return;
+	}
 	while (*i < ft_str_shred(input))
 	{
 		if (list[*i].type == PIPE)
