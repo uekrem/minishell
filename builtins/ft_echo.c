@@ -73,7 +73,7 @@ void	ft_echo(char *input, t_list *list, int *i)
 	}
 
 	*i = 1;
-	while (list[*i].type)
+	while (list[*i].type != END)
 	{
 		if (list[*i].type == ARG)
 		{

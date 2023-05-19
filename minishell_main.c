@@ -44,5 +44,10 @@ int	main(int argc, char **argv, char **env)
 		ft_env_check(input, list);
 		ft_appro_name(list);
 		ft_untype(list);
-		//ft_builtins(input, list);
+		ft_builtins(input, list);
+		int	i;
+		 i = -1;
+		 while (++i < ft_str_shred(input))
+		 	printf("value:%s type:%u\n", list[i].value, list[i].type);
+	}
 }
