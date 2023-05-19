@@ -38,28 +38,38 @@ int	ft_opr_pair(char *input)
 
 void	ft_couple_core(char *input, int *i, char c)
 {
-	if (c == 39 || c == '"')
+	c = ' ';
+	if (input[*i] == '|')
 	{
 		*i += 1;
-		while (input[*i] != c && input[*i])
-		{
+		return;
+	}
+	else if (ft_opr_which(input[*i]))
+	{
+		while (ft_opr_which(input[*i]) > 1)
 			*i += 1;
+		return;
+	}
+	if (input[*i] == 39 || input[*i] == '"')
+	{
+		c = input[*i];
+		*i += 1;
+		if (input[*i] == c)
+			c = ' ';
+	}
+	while (input[*i] && input[*i] != c)
+	{
+		*i += 1;						
+		if (input[*i] == c && c != ' ')
+			c = ' ';
+		else if ((input[*i] == '"' || input[*i] == 39) && c == ' ')
+		{
+			c = input[(*i)++];
 			if (input[*i] == c)
 				c = ' ';
 		}
-	}
-	else
-	{
-		c = ' ';
-		while (input[*i] != c && input[*i])
-		{
-			if ((input[*i] == '"' || input[*i] == 39) 
-				&& c == ' ')
-				c = input[*i];
-			*i += 1;
-		}
-		while (input[*i] != ' ' && input[*i])
-			*i += 1;
+		else if (ft_opr_which(input[*i]) && c == ' ')
+			break;
 	}
 }
 
@@ -193,20 +203,34 @@ void	ft_strwrite(char *new_str, char *str, int *step, char c)
 	}
 }
 
-char	*ft_env_null(char *str, int *j)
+char	*ft_env_null(char *str, int *j, int sil)
 {
 	char	*new_char;
 	int		total;
 	int		step;
 
 	total = 0;
-	total += ft_strlen(str, 0, '$');
+	step = 0;
+	total += sil;
 	total += ft_strlen(str, *j, '\0');
 	new_char = malloc(sizeof(char) * (total + 1));
-	ft_strwrite(new_char, str, &step, '$');
+	ft_strwrite2(new_char, str, &step, sil - 1);
 	ft_strwrite(new_char, &str[*j], &step, '\0');
 	new_char[step] = '\0';
 	return (new_char);
+}
+
+void	ft_strwrite2(char *new_str, char *str, int *step, int c)
+{
+	int	j;
+
+	j = 0;
+	while (j < c && str[j])
+	{
+		new_str[*step] = str[j];
+		*step += 1;
+		j++;
+	}
 }
 
 char	*ft_restrlen(t_list *list, char *str, int *j)
@@ -218,15 +242,21 @@ char	*ft_restrlen(t_list *list, char *str, int *j)
 
 	total = 0;
 	step = 0;
+
+	int		sil;
+
+	sil = *j;
+
 	search = ft_how_far(str, j);					// _ ! gibi özel karakterlere bak
 	search = ft_env_search(list, search);
 	if (search == NULL)
-		return (ft_env_null(str, j));
-	total += ft_strlen(str, 0, '$');
+		return (ft_env_null(str, j, sil));
+	total += sil;
 	total += ft_strlen(search, 0, '\0');
 	total += ft_strlen(str, *j, '\0');
+	printf("total:%d\n", total);
 	new_char = malloc(sizeof(char) * (total + 1));
-	ft_strwrite(new_char, str, &step, '$');
+	ft_strwrite2(new_char, str, &step, sil - 1);
 	ft_strwrite(new_char, search, &step, '\0');
 	ft_strwrite(new_char, &str[*j], &step, '\0');
 	new_char[step] = '\0';
