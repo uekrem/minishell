@@ -1,5 +1,6 @@
 #include "../minishell.h"
 
+
 void	ft_env(t_list	*list)
 {
 	int		i;
