@@ -7,6 +7,8 @@
 # include <unistd.h>
 # include <string.h>
 # include <errno.h>
+# include <signal.h>
+# include <sys/ioctl.h>
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -28,8 +30,10 @@ enum		e_token
 
 typedef struct s_glbl
 {
-	char			**env;
-	char			**export;
+	char		**env;
+	char		**export;
+	char		*input;
+
 }			t_glbl;
 
 extern t_glbl g_glbl;
@@ -56,16 +60,18 @@ void	ft_appro_name(t_list *list);
 void	ft_str_base(t_list *list, char *input, int start, int finish, int *now);
 
 char	*ft_piece(char *env);
-void	ft_builtins(char *input, t_list *list);
-void	ft_echo(char *input, t_list *list, int *i);
+void	ft_builtins(t_list *list);
+void	ft_echo(t_list *list, int *i);
 void	ft_pwd(t_list *list, int *i);
 void	ft_cd(t_list *list, int *i);
 void	ft_export(t_list *list);
 int		arg_count(t_list *list);
 int		export_size();
-void	ft_env();
+void	ft_env(t_list *list);
 void	init_env(t_list *list);
 void	ft_unset(t_list *list, int *i);
+void	ctrl_d(t_glbl *glbl);
+void	free_execute(t_glbl *glbl);
 
 void	ft_strwrite2(char *new_str, char *str, int *step, int c);
 

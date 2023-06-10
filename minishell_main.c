@@ -23,31 +23,47 @@ void init_envair(char **env)
 	g_glbl.export[i] = NULL;
 }
 
+void	free_execute(t_glbl *glbl)
+{
+	int	i;
+
+	i = 0;
+	while (glbl->env[i] != NULL)
+		free(glbl->env[i++]);
+	free(glbl->env);
+	i = 0;
+	while (glbl->export[i] != NULL)
+		free(glbl->export[i++]);
+	free(glbl->export);
+	free(glbl->input);
+}
 int	main(int argc, char **argv, char **env)
 {
 	t_list		*list;
-	char		*input;
 
 	(void)argc;
 	(void)argv;
 	init_envair(env);
+	signal(SIGQUIT, SIG_IGN);
 	while(1)
 	{
-		input = readline("minishell: ");
-		add_history(input);
-		if (ft_opr_pair(input))
+		g_glbl.input = readline("minishell: ");
+		add_history(g_glbl.input);
+		ctrl_d(&g_glbl);
+		if (ft_opr_pair(g_glbl.input))
 			return (0);
-		list = malloc(sizeof(t_list) * (ft_str_shred(input) + 1));
+		list = malloc(sizeof(t_list) * (ft_str_shred(g_glbl.input) + 1));
 		list->flag = 0;
-		list->list_len = ft_str_shred(input);
-		ft_uname(list, input);
-		ft_env_check(input, list);
+		list->list_len = ft_str_shred(g_glbl.input);
+		ft_uname(list, g_glbl.input);
+		ft_env_check(g_glbl.input, list);
 		ft_appro_name(list);
 		ft_untype(list);
-		ft_builtins(input, list);
-		int	i;
-		 i = -1;
-		 while (++i < ft_str_shred(input))
-		 	printf("value:%s type:%u\n", list[i].value, list[i].type);
+		ft_builtins(list);
+		// int	i;
+		//  i = -1;
+		//  while (++i < ft_str_shred(g_glbl.input))
+		//  	printf("value:%s type:%u\n", list[i].value, list[i].type);
+		//system("leaks minishell");
 	}
 }

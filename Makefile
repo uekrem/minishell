@@ -47,6 +47,7 @@ SRCS        :=      libft/ft_atoi.c \
                           minishell_main.c \
                           minishell_sum.c \
                           minishell_utils.c \
+                          minishell_signall.c \
                           builtins/builtins.c \
                           builtins/ft_cd.c \
                           builtins/ft_echo.c \

@@ -32,8 +32,10 @@ void	ft_print_export()
 	while (g_glbl.export[i])
 	{
 		ag = ft_split(g_glbl.export[i], '=');
-		if (ag[1] == NULL)
-			printf("declare -x %s=\"\"\n", ag[0]);
+		if (ag[1] == NULL && ft_strchr(g_glbl.export[i], '='))
+			printf("declare -x %s=\"\"\n", ag[0]);	
+		else if (ag[1] == NULL)
+			printf("declare -x %s\n", ag[0]);
 		else
 			printf("declare -x %s=\"%s\"\n", ag[0], ag[1]);
 		i++;
@@ -92,6 +94,17 @@ void	ft_add_which(t_list *list, int i)
 	}
 	else
 	{
+		if (!list[i].value[1])
+		{
+			printf("minishell: export: '%c': not a valid identifier", list[i].value[0]);
+			int i = -1;
+
+			while (++i < list->list_len)
+				free(list[i].value);
+			free(list);
+			system("leaks minishell");
+			exit(0);
+		}
 		ft_add_export(list[i].value);
 		ft_add_env(list[i].value);
 	}
