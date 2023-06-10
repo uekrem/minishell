@@ -21,7 +21,6 @@ enum		e_token
 	ARG,
 	COMMAND,
 	FILE_NAME,
-	ENV,
 	FLAG,
 	END
 };
@@ -56,17 +55,19 @@ void	ft_appro_name(t_list *list);
 void	ft_str_base(t_list *list, char *input, int start, int finish, int *now);
 
 char	*ft_piece(char *env);
-void	ft_builtins(char *input, t_list *list);
-void	ft_echo(char *input, t_list *list, int *i);
+void	ft_builtins(t_list *list);
+void	ft_echo(t_list *list, int *i);
 void	ft_pwd(t_list *list, int *i);
 void	ft_cd(t_list *list, int *i);
 void	ft_export(t_list *list);
 int		arg_count(t_list *list);
 int		export_size();
-void	ft_env();
+void	ft_env(t_list *list);
 void	init_env(t_list *list);
 void	ft_unset(t_list *list, int *i);
+void	free_char(char **arg);
 
 void	ft_strwrite2(char *new_str, char *str, int *step, int c);
+void	ft_free(t_list *list, char *input);
 
 #endif

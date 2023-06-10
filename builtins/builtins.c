@@ -29,17 +29,17 @@ int	which_commant(t_list *list, int *i,char *str)
 	return (0);
 }
 
-void	ft_builtins(char *input, t_list *list)
+void	ft_builtins(t_list *list)
 {
 	int	i;
 
 	i = 0;
-	while (i < ft_str_shred(input))
+	while (i < list->list_len)
 	{
 		if (list[i].type == COMMAND)
 		{
 			if (which_commant(list, &i, "echo"))
-				ft_echo(input, list, &i);
+				ft_echo(list, &i);
 			else if (which_commant(list, &i, "cd"))
 				ft_cd(list, &i);
 			else if (which_commant(list, &i, "pwd"))
@@ -49,7 +49,7 @@ void	ft_builtins(char *input, t_list *list)
 			else if (which_commant(list, &i, "unset"))
 				ft_unset(list, &i);
 			else if (which_commant(list, &i, "env"))
-				ft_env();
+				ft_env(list);
 			else if (which_commant(list, &i, "exit"))
 				printf("exit fonksiyonu çalıştı");
 		}

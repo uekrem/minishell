@@ -185,6 +185,7 @@ char    *ft_env_search(char *str)
         if (g_glbl.env[i][j] == '=' && str[j] == '\0')
             break;
     }
+	free(str);
     if (g_glbl.env[i])
         return(ft_piece(g_glbl.env[i]));
     return (NULL);
@@ -203,7 +204,7 @@ void	ft_strwrite(char *new_str, char *str, int *step, char c)
 	}
 }
 
-char	*ft_env_null(char *str, int *j, int sil)
+char	*ft_env_null(char *str, int *j, int temp)
 {
 	char	*new_char;
 	int		total;
@@ -211,12 +212,13 @@ char	*ft_env_null(char *str, int *j, int sil)
 
 	total = 0;
 	step = 0;
-	total += sil;
+	total += temp;
 	total += ft_strlen(str, *j, '\0');
 	new_char = malloc(sizeof(char) * (total + 1));
-	ft_strwrite2(new_char, str, &step, sil - 1);
+	ft_strwrite2(new_char, str, &step, temp - 1);
 	ft_strwrite(new_char, &str[*j], &step, '\0');
 	new_char[step] = '\0';
+	free(str);
 	return (new_char);
 }
 
@@ -239,25 +241,27 @@ char	*ft_restrlen(char *str, int *j)
 	char	*new_char;
 	int		total;
 	int		step;
+	int		temp;
 
 	total = 0;
 	step = 0;
-
-	int		sil;
-
-	sil = *j;
-
+	temp = *j;
 	search = ft_how_far(str, j);	
 	search = ft_env_search(search);
 	if (search == NULL)
-		return (ft_env_null(str, j, sil));
-	total += sil;
+	{
+		free(search);
+		return (ft_env_null(str, j, temp));
+	}
+	total += temp;
 	total += ft_strlen(search, 0, '\0');
 	total += ft_strlen(str, *j, '\0');
 	new_char = malloc(sizeof(char) * (total + 1));
-	ft_strwrite2(new_char, str, &step, sil - 1);
+	ft_strwrite2(new_char, str, &step, temp - 1);
 	ft_strwrite(new_char, search, &step, '\0');
 	ft_strwrite(new_char, &str[*j], &step, '\0');
 	new_char[step] = '\0';
+	free(search);
+	free(str);
 	return (new_char);
 }
