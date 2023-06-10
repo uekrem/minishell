@@ -23,6 +23,7 @@ void del_export(t_list *list, int x)
 		if (ft_strncmp2(g_glbl.export[i], list[x].value, ft_strlen(list[x].value, 0, '=')))
 		{
 			j = i;
+			free(g_glbl.export[j]);
 			while (g_glbl.export[j] != NULL)
 			{
 				g_glbl.export[j] = g_glbl.export[j + 1];
@@ -45,6 +46,7 @@ void del_env(t_list *list, int x)
 		if (ft_strncmp2(g_glbl.env[i], list[x].value, ft_strlen(list[x].value, 0, '=')))
 		{
 			j = i;
+			free(g_glbl.env[j]);
 			while (g_glbl.env[j] != NULL)
 			{
 				g_glbl.env[j] = g_glbl.env[j + 1];
@@ -60,5 +62,5 @@ void del_env(t_list *list, int x)
 void	ft_unset(t_list *list, int *i)
 {
 	del_export(list, *i);
-	del_env(list, *i);
+	//del_env(list, *i);
 }

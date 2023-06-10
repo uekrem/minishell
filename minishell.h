@@ -23,7 +23,6 @@ enum		e_token
 	ARG,
 	COMMAND,
 	FILE_NAME,
-	ENV,
 	FLAG,
 	END
 };
@@ -72,7 +71,10 @@ void	init_env(t_list *list);
 void	ft_unset(t_list *list, int *i);
 void	ctrl_d(t_glbl *glbl);
 void	free_execute(t_glbl *glbl);
+void	free_char(char **arg);
+
 
 void	ft_strwrite2(char *new_str, char *str, int *step, int c);
+void	ft_free(t_list *list, char *input);
 
 #endif

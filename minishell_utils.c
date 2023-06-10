@@ -81,6 +81,7 @@ void	ft_str_base(t_list *list, char *input, int start, int finish, int *now)
 			i++;
 		}
 		list[*now].value[i] = '\0';
+		list[*now].type = 99;
 		*now += 1;
 }
 
@@ -130,27 +131,29 @@ void	ft_untype(t_list *list)
 		{
 			list[i].type = PIPE;
 			if (list[i + 1].value)
-				list[++i].type = COMMAND;
+				list[i + 1].type = COMMAND;
 		}
 		else if (which == 2)
 		{
 			list[i].type = D_INPUT_R;
 			if (!list[i].value[1])
 				list[i].type = INPUT_R;
-			list[++i].type = FILE_NAME;
-			if(ft_what_should(list, i))
-				list[++i].type = COMMAND; 
+			list[i + 1].type = FILE_NAME;
 		}
 		else if (which == 3)
 		{
 			list[i].type = D_OUTPUT_R;
 			if (!list[i].value[1])
 				list[i].type = OUTPUT_R;
-			list[++i].type = FILE_NAME;
-			if(ft_what_should(list, i))
-				list[++i].type = COMMAND; 
+			list[i + 1].type = FILE_NAME;
 		}
-		else
+		else if (list[i - 1].type == FILE_NAME)
+		{
+			list[i].type = ARG;
+			if (i - 3 >= 0 && list[i - 3].type != COMMAND)
+				list[i].type = COMMAND; 
+		}
+		else if (list[i].type == 99)
 			list[i].type = ARG;
 	}
 	list[i].type = END;
@@ -177,6 +180,7 @@ char	*ft_appro_proc(char *str, int value)
 				new_str[++indepent] = str[i];
 	}
 	new_str[++indepent] = '\0';
+	free(str);
 	return (new_str);
 }
 
@@ -204,4 +208,15 @@ void	ft_appro_name(t_list *list)
 		}
 		list[i].value = ft_appro_proc(list[i].value, value);
 	}
+}
+
+void	ft_free(t_list *list, char *input)
+{
+	int	i;
+
+	i = -1;
+	while (++i < list->list_len)
+		free(list[i].value);
+	free(list);
+	free(input);
 }
