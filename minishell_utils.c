@@ -101,6 +101,8 @@ void	ft_uname(t_list *list, char *input)
 		if (input[i])
 			ft_couple_core(input, &i, input[i]);
 		ft_str_base(list, input, temp, i, &now);
+		if (list[now - 1].value[0] == '|')
+			list[now - 1].type = PIPE;
 	}
 	list[now].value = NULL;
 }
@@ -116,6 +118,23 @@ int	ft_what_should(t_list *list, int i)
 	return (1);
 }
 
+int		ft_check_flag(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[0] != '-')
+			break;
+		else if (i != 0 && str[i] == '-')
+			break;
+	}
+	if (!str[i])
+		return (1);
+	return (0);
+}
+
 void	ft_untype(t_list *list)
 {
 	int	i;
@@ -125,11 +144,12 @@ void	ft_untype(t_list *list)
 	while (++i < list->list_len)
 	{
 		which = ft_opr_which(list[i].value[0]);
-		if (i == 0 && !which)
+		if(ft_check_flag(list[i].value))
+			list[i].type = FLAG;
+		else if (i == 0 && !which)
 			list[i].type = COMMAND;
-		else if (which == 1)
+		else if (list[i].type == PIPE)
 		{
-			list[i].type = PIPE;
 			if (list[i + 1].value)
 				list[i + 1].type = COMMAND;
 		}
@@ -150,7 +170,8 @@ void	ft_untype(t_list *list)
 		else if (list[i - 1].type == FILE_NAME)
 		{
 			list[i].type = ARG;
-			if (i - 3 >= 0 && list[i - 3].type != COMMAND)
+			if (((i - 3 >= 0 && (list[i - 3].type != COMMAND && list[i - 3].type != FLAG 
+				&& list[i - 3].type != ARG))) || i - 2 == 0)
 				list[i].type = COMMAND; 
 		}
 		else if (list[i].type == 99)

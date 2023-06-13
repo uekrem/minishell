@@ -60,13 +60,12 @@ int	main(int argc, char **argv, char **env)
 		ft_appro_name(list);
 		ft_untype(list);
 		ft_builtins(list);
-		//silinecek - ara
 		int	i;
+
 		i = -1;
-		while (++i < ft_str_shred(input))
-			printf("value:%s type:%u\n", list[i].value, list[i].type);
-		//silinecek
-		ft_free(list, input);
-		system("leaks minishell");
+		while (++i < list->list_len)
+			printf("%s %d\n", list[i].value, list[i].type);
+		ft_free(list, g_glbl.input);
+		//system("leaks minishell");
 	}
 }

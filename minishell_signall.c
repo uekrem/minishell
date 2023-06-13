@@ -6,6 +6,7 @@ void	ctrl_d(t_glbl *glbl)
 	{
 		printf("\nexit\n");
 		free_execute(glbl);
+		system("leaks minishell");
 		exit(0);
 	}
 }

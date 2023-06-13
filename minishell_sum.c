@@ -46,7 +46,10 @@ void	ft_couple_core(char *input, int *i, char c)
 	}
 	else if (ft_opr_which(input[*i]))
 	{
-		while (ft_opr_which(input[*i]) > 1)
+		*i += 1;
+		if (ft_opr_which(input[*i]) > 1 && input[*i] != input[(*i) - 1])
+			return;
+		else if (ft_opr_which(input[*i]) > 1)
 			*i += 1;
 		return;
 	}
