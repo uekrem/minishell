@@ -56,16 +56,15 @@ int	main(int argc, char **argv, char **env)
 		list->flag = 0;
 		list->list_len = ft_str_shred(g_glbl.input);
 		ft_uname(list, g_glbl.input);
+		ft_untype(list);
 		ft_env_check(g_glbl.input, list);
 		ft_appro_name(list);
-		ft_untype(list);
 		ft_builtins(list);
+		
 		int	i;
-
 		i = -1;
 		while (++i < list->list_len)
 			printf("%s %d\n", list[i].value, list[i].type);
 		ft_free(list, g_glbl.input);
-		//system("leaks minishell");
 	}
 }

@@ -54,7 +54,7 @@ void		ft_str_rebuild(t_list *list, int i)
 				continue;
 			temp = ft_strlen(list[i].value, 0, '\0');
 			list[i].value = ft_restrlen(list[i].value, &j);
-			j = j - (temp - ft_strlen(list[i].value, 0, '\0'));
+			j = (j - (temp - ft_strlen(list[i].value, 0, '\0'))) - 1;
 		}
 	}
 }
@@ -135,6 +135,25 @@ int		ft_check_flag(char *str)
 	return (0);
 }
 
+char		ft_issue(char *str, char sea)
+{
+	int		i;
+	char 	c;
+
+	i = -1;
+	c = ' ';
+	while (str[++i])
+	{
+		if ((str[i] == '"' || str[i] == 39) && c == ' ')
+			c = str[i];
+		else if (str[i] == c)
+			c = ' ';
+		else if (str[i] == sea)
+			return (c);
+	}
+	return (0);
+}
+
 void	ft_untype(t_list *list)
 {
 	int	i;
@@ -144,23 +163,23 @@ void	ft_untype(t_list *list)
 	while (++i < list->list_len)
 	{
 		which = ft_opr_which(list[i].value[0]);
-		if(ft_check_flag(list[i].value))
-			list[i].type = FLAG;
-		else if (i == 0 && !which)
+		if (i == 0 && !which)		
 			list[i].type = COMMAND;
+		else if(ft_check_flag(list[i].value))
+			list[i].type = FLAG;
 		else if (list[i].type == PIPE)
 		{
 			if (list[i + 1].value)
 				list[i + 1].type = COMMAND;
 		}
-		else if (which == 2)
+		else if (which == 2 && ft_issue(list[i].value, list[i].value[0]))
 		{
 			list[i].type = D_INPUT_R;
 			if (!list[i].value[1])
 				list[i].type = INPUT_R;
 			list[i + 1].type = FILE_NAME;
 		}
-		else if (which == 3)
+		else if (which == 3	&& ft_issue(list[i].value, list[i].value[0]))
 		{
 			list[i].type = D_OUTPUT_R;
 			if (!list[i].value[1])
