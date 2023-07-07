@@ -45,13 +45,6 @@ typedef struct s_list
 	char			*value;
 }			t_list;
 
-typedef struct s_exec
-{
-	char	**word;
-	char	**radirec;
-	int		comd_count;
-}			t_exec;
-
 int		ft_opr_pair(char *input);
 int		ft_str_shred(char *input);
 int		ft_strlen(char *input, int index, char c);
@@ -83,7 +76,5 @@ void	free_char(char **arg);
 
 void	ft_strwrite2(char *new_str, char *str, int *step, int c);
 void	ft_free(t_list *list, char *input);
-t_exec	*ft_local_exec(t_list *list);
-void    ft_start_exec(t_list *list, t_exec *exec);
 
 #endif
