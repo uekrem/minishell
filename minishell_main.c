@@ -37,6 +37,7 @@ void	free_execute(t_glbl *glbl)
 	free(glbl->export);
 	free(glbl->input);
 }
+
 int	main(int argc, char **argv, char **env)
 {
 	t_list		*list;
@@ -61,10 +62,14 @@ int	main(int argc, char **argv, char **env)
 		ft_appro_name(list);
 		ft_builtins(list);
 		
+		
 		int	i;
+		
 		i = -1;
-		while (++i < list->list_len)
-			printf("%s %d\n", list[i].value, list[i].type);
+		while (++i < ft_str_shred(g_glbl.input))
+			printf("value:%s	type:%u\n", list[i].value, list[i].type);
+		
+		
 		ft_free(list, g_glbl.input);
 	}
 }
