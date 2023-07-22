@@ -107,16 +107,16 @@ void	ft_uname(t_list *list, char *input)
 	list[now].value = NULL;
 }
 
-int	ft_what_should(t_list *list, int i)
-{
-	while (list[i].type != PIPE && i != 0)
-		i--;
-	if (!ft_opr_which(list[i].value[0]) && i == 0)
-		i--;
-	if (list[++i].type == COMMAND)
-		return (0);
-	return (1);
-}
+// int	ft_what_should(t_list *list, int i)
+// {
+// 	while (list[i].type != PIPE && i != 0)
+// 		i--;
+// 	if (!ft_opr_which(list[i].value[0]) && i == 0)
+// 		i--;
+// 	if (list[++i].type == COMMAND)
+// 		return (0);
+// 	return (1);
+// }
 
 int		ft_check_flag(char *str)
 {
@@ -157,44 +157,23 @@ char		ft_issue(char *str, char sea)
 void	ft_untype(t_list *list)
 {
 	int	i;
-	int	which;
 
 	i = -1;
 	while (++i < list->list_len)
 	{
-		which = ft_opr_which(list[i].value[0]);
-		if (i == 0 && !which)		
-			list[i].type = COMMAND;
-		else if(ft_check_flag(list[i].value))
-			list[i].type = FLAG;
-		else if (list[i].type == PIPE)
-		{
-			if (list[i + 1].value)
-				list[i + 1].type = COMMAND;
-		}
-		else if (which == 2 && ft_issue(list[i].value, list[i].value[0]))
-		{
-			list[i].type = D_INPUT_R;
-			if (!list[i].value[1])
-				list[i].type = INPUT_R;
-			list[i + 1].type = FILE_NAME;
-		}
-		else if (which == 3	&& ft_issue(list[i].value, list[i].value[0]))
-		{
+		if (list[i].type != 99)
+			continue;
+		list[i].type = ARG;
+		if (list[i].value[0] == '<' && list[i].value[1] == '<')
 			list[i].type = D_OUTPUT_R;
-			if (!list[i].value[1])
-				list[i].type = OUTPUT_R;
-			list[i + 1].type = FILE_NAME;
-		}
-		else if (list[i - 1].type == FILE_NAME)
-		{
-			list[i].type = ARG;
-			if (((i - 3 >= 0 && (list[i - 3].type != COMMAND && list[i - 3].type != FLAG 
-				&& list[i - 3].type != ARG))) || i - 2 == 0)
-				list[i].type = COMMAND; 
-		}
-		else if (list[i].type == 99)
-			list[i].type = ARG;
+		else if (list[i].value[0] == '>' && list[i].value[1] == '>')
+			list[i].type = D_INPUT_R;
+		else if (list[i].value[0] == '>')
+			list[i].type = INPUT_R;
+		else if (list[i].value[0] == '<')
+			list[i].type = OUTPUT_R;	
+		else if (list[i].value[0] == '|')
+			list[i].type = PIPE;
 	}
 	list[i].type = END;
 }
@@ -250,7 +229,7 @@ void	ft_appro_name(t_list *list)
 	}
 }
 
-void	ft_free(t_list *list, char *input)
+void	ft_free(t_list *list)
 {
 	int	i;
 
@@ -258,5 +237,4 @@ void	ft_free(t_list *list, char *input)
 	while (++i < list->list_len)
 		free(list[i].value);
 	free(list);
-	free(input);
 }

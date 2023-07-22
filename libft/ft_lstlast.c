@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_listt	*ft_lstlast(t_listt *lst)
+t_listt	*ft_lstlastt(t_listt *lst)
 {
 	while (lst != NULL && lst->next != NULL)
 	{

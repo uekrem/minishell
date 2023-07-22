@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_listt	*ft_lstnew(void *content)
+t_listt	*ft_lstneww(void *content)
 {
 	t_listt	*root;
 

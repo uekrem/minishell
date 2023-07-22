@@ -85,5 +85,4 @@ void	ft_echo(t_list *list, int *i)
 	}
 	if (list->flag == 0)
 		printf("\n");
-
 }

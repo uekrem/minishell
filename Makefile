@@ -55,6 +55,9 @@ SRCS        :=      libft/ft_atoi.c \
                           builtins/ft_pwd.c \
                           builtins/ft_env.c \
                           builtins/ft_unset.c \
+                          minishell_link.c \
+                          minishell_parse_error.c \
+                          minishell_cmd_box.c \
 
 OBJS        := $(SRCS:.c=.o)
 

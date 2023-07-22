@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_listt **lst, t_listt *new)
+void	ft_lstadd_backk(t_listt **lst, t_listt *new)
 {
 	t_listt	*position;
 
@@ -22,7 +22,7 @@ void	ft_lstadd_back(t_listt **lst, t_listt *new)
 		*lst = new;
 	else
 	{
-		position = ft_lstlast(*lst);
+		position = ft_lstlastt(*lst);
 		position->next = new;
 	}
 }
