@@ -38,3 +38,24 @@ t_link	*ft_lstnew(t_list *list)
 	root->next = NULL;
 	return (root);
 }
+
+t_link	*ft_copy_list(t_list *list)
+{
+	int		i;
+	t_link	*link_block;
+	t_link	*link_ls;
+
+	i = 0;
+	link_ls = NULL;
+	while (i < list->list_len)
+	{
+		link_block = ft_lstnew(&list[i]);
+		if (i == 0)
+			link_block->prev=NULL;
+		else
+			link_block->prev= ft_lstlast(link_ls);
+		ft_lstadd_back(&link_ls, link_block);
+		i++;
+	}
+	return (link_ls);
+}

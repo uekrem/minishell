@@ -62,7 +62,6 @@ void	free_token(t_link *link)
 	token = link;
 	while (token)
 	{
-		printf("%s\n", token->value);
 		free(token->value);
 		token = token->next;
 	}

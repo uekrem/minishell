@@ -37,27 +37,6 @@ void	free_execute(t_glbl *glbl)
 	free(glbl->input);
 }
 
-t_link	*ft_copy_list(t_list *list)
-{
-	int		i;
-	t_link	*link_block;
-	t_link	*link_ls;
-
-	i = 0;
-	link_ls = NULL;
-	while (i < list->list_len)
-	{
-		link_block = ft_lstnew(&list[i]);
-		if (i == 0)
-			link_block->prev=NULL;
-		else
-			link_block->prev= ft_lstlast(link_ls);
-		ft_lstadd_back(&link_ls, link_block);
-		i++;
-	}
-	return (link_ls);
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	t_list		*list;
@@ -86,11 +65,11 @@ int	main(int argc, char **argv, char **env)
 		ft_env_check(g_glbl.input, list);
 		ft_appro_name(list);
 		link = ft_copy_list(list);
-		
-		//ft_parse_eror(link);
-		//ft_free(list); //çift freeleme kontrolü yapılmalı
-		
+		if(ft_parse_eror(link))
+			continue;
 		ft_fill_command(&cmd, link);
+		ft_free(list);
+		// ft_builtins(list);
 		// while (cmd)
 		// {
 		// 	while (cmd->execute)
@@ -107,6 +86,5 @@ int	main(int argc, char **argv, char **env)
 		// 	printf("----------------\n");
 		// 	cmd = cmd->next;
 		// }
-		// ft_builtins(list);
 	}
 }

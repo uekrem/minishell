@@ -117,6 +117,9 @@ void						ft_lstadd_back(t_link **lst, t_link *new);
 t_link						*ft_lstlast(t_link *lst);
 int	 						ft_parse_eror(t_link *link);
 void						ft_fill_command(t_command **cmd, t_link *link);
+t_link						*ft_copy_list(t_list *list);
+t_radira					*fill_redirect(t_link *link, t_radira **redirects);
+t_execute					*fill_execute(t_link *link, t_execute **execute);
 
 // void						fill_command(t_list *list, t_command *cmd);
 // int							count_arguman(t_list *list);

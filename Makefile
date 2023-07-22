@@ -58,6 +58,8 @@ SRCS        :=      libft/ft_atoi.c \
                           minishell_link.c \
                           minishell_parse_error.c \
                           minishell_cmd_box.c \
+                          minishell_exec_add.c \
+                          minishell_radi_add.c \
 
 OBJS        := $(SRCS:.c=.o)
 
