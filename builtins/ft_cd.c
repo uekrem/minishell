@@ -1,44 +1,36 @@
 #include "../minishell.h"
 
-int	arg_count(t_list *list)
+char	*check_tilde(char *str)
 {
-	int	i;
-
-	i = 0;
-
-	while (list[i].type != END)
-		i++;
-	if (i > 2)
-		return (1);
-	else if (i == 1)
-		return (-1);
-	return (0);
+	if (!ft_strlenn(str) || *str != '~' || !getenv("HOME"))
+		return (ft_strdup(str));
+	str++;
+	return (ft_strjoin(getenv("HOME"), str));
 }
 
-void	ft_cd(t_list *list, int *i)
+void ft_cd(t_command *cmd)
 {
-	char	*str;
+	char	*home;
+	char	*tmp;
 
-	*i += 1;
-	while (list[*i].type != END)
+	if (cmd->execute->next != 0)
 	{
-		if (list[*i].type == PIPE)
-			exit(0);
-		*i += 1;
+		tmp = check_tilde(cmd->execute->next->value);
+		if (chdir(tmp) != 0)
+		{
+			//g_glbl.erorno = 1;
+			perror("minishell ");
+		}
+		else
+			//g_glbl.erorno = 0;
+		free(tmp);
 	}
-	if (arg_count(list) == 1)
+	else
 	{
-		printf("cd: too many arguments\n");
-		return ;
-	}
-	if (arg_count(list) == -1)
-	{
-		printf("env HOME coment\n");
-		return ;
-	}
-	if (chdir(list[1].value) == -1)
-	{
-		str = strerror(errno);
-		printf("Minishell: cd: %s %s\n",list[1].value, str);
+		home = getenv("HOME");
+		if (home && *home)
+			if (chdir(home))
+				perror("minishell ");
+		//g_glbl.erorno = 0;
 	}
 }

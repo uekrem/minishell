@@ -1,66 +1,50 @@
 #include "../minishell.h"
 
-int	ft_strncmp2(const char *s1, const char *s2, int len)
+void	free_env(void)
 {
 	int	i;
 
-	i = -1;
-	while (++i < len)
+	i = 0;
+	while (g_glbl.env[i])
 	{
-		if (s1[i] != s2[i])
-			return (0);
+		free(g_glbl.env[i]);
+		i++;
 	}
-	return (1);
+	free(g_glbl.env);
 }
 
-void del_export(t_list *list, int x)
+void	remove_env(char *del)
 {
-	int i = 0;
-	int j;
-	x++;
-	while (g_glbl.export[i] != NULL && list[x].type == ARG)
+	int		i;
+	int		j;
+	char	**new_env;
+
+	i = 0;
+	j = 0;
+	while (g_glbl.env[i])
+		i++;
+	new_env = (char **)malloc(sizeof(char *) * i);
+	i = 0;
+	while (g_glbl.env[i])
 	{
-		if (ft_strncmp2(g_glbl.export[i], list[x].value, ft_strlen(list[x].value, 0, '=')))
+		if (ft_strncmp(g_glbl.env[i], del, ft_strlenn(del)))
 		{
-			j = i;
-			free(g_glbl.export[j]);
-			while (g_glbl.export[j] != NULL)
-			{
-				g_glbl.export[j] = g_glbl.export[j + 1];
-				j++;
-			}
-			x++;
-			i = -1;
+			new_env[j] = ft_strdup(g_glbl.env[i]);
+			j++;
 		}
 		i++;
 	}
+	new_env[j] = 0;
+	free_env();
+	g_glbl.env = new_env;
 }
 
-void del_env(t_list *list, int x)
+void	ft_unset(t_command *cmd)
 {
-	int i = 0;
-	int j;
-	x++;
-	while (g_glbl.env[i] != NULL && list[x].type == ARG)
+	cmd->execute = cmd->execute->next;
+	while (cmd->execute)
 	{
-		if (ft_strncmp2(g_glbl.env[i], list[x].value, ft_strlen(list[x].value, 0, '=')))
-		{
-			j = i;
-			free(g_glbl.env[j]);
-			while (g_glbl.env[j] != NULL)
-			{
-				g_glbl.env[j] = g_glbl.env[j + 1];
-				j++;
-			}
-			x++;
-			i = -1;
-		}
-		i++;
+		remove_env(cmd->execute->value);
+		cmd->execute = cmd->execute->next;
 	}
-}
-
-void	ft_unset(t_list *list, int *i)
-{
-	del_export(list, *i);
-	//del_env(list, *i);
 }

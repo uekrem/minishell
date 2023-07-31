@@ -1,5 +1,22 @@
 #include "../minishell.h"
 
+int	arg_count(t_execute *execute)
+{
+	int			i;
+
+	i = 0;
+	while (execute)
+	{
+		i++;
+		execute = execute->next;
+	}
+	if (i > 2)
+		return (1);
+	else if (i == 1)
+		return (-1);
+	return (0);
+}
+
 int	export_size()
 {
 	int	i;
@@ -22,7 +39,23 @@ void	free_char(char **arg)
 	}
 	free(arg);
 }
+int equal(char *env, char *arg)
+{
+	char **double_env;
+	char **double_arg;
+	
+	double_env = ft_split(env, '=');
+	double_arg = ft_split(arg, '=');
 
+	if (which_commant(double_env[0], double_arg[0]))
+	{
+		printf("%s\n", double_env[0]);
+		return 1;
+	}
+	free_char(double_env);
+	free_char(double_arg);
+	return 0;
+}
 void	ft_print_export()
 {
 	int		i;
@@ -43,28 +76,40 @@ void	ft_print_export()
 	}
 }
 
-int	check_arg(t_list *list)
+int	check_arg(char *str)
 {
-	if (ft_isalpha(list[1].value[0]) || list[1].value[0] == '_')
+	if (ft_isalpha(str[0]) || str[0] == '_')
 		return (0);
-	printf("minishell: export: '%s': not a valid indentifier", list[1].value);
+	printf("minishell: export: '%s': not a valid indentifier\n", str);
 	return (1);
 }
 
 void	ft_add_export(char *arg)
 {
 	int		i;
+	int		flag;
 	char	**new_export;
 
 	new_export = malloc(sizeof(char *) * (export_size() + 2));
 	i = 0;
+	flag = 0;
 	while (g_glbl.export[i])
 	{
 		new_export[i] = ft_strdup(g_glbl.export[i]);
+		if (equal(new_export[i], arg))
+		{
+			new_export[i] = ft_strdup(arg);
+			flag = 1;
+		}
 		i++;
 	}
-	new_export[i] = ft_strdup(arg);
-	new_export[i + 1] = NULL;
+	if(flag == 0)
+	{
+		new_export[i] = ft_strdup(arg);
+		new_export[i + 1] = NULL;
+	}
+	else
+		new_export[i] = NULL;
 	free_char(g_glbl.export);
 	g_glbl.export = new_export;
 	//free_char(new_export);
@@ -89,43 +134,37 @@ void	ft_add_env(char *arg)
 	//free_char(new_env);
 }
 
-void	ft_add_which(t_list *list, int i)
+void	ft_add_which(t_execute *execute)
 {
-	if (ft_strchr(list[i].value, '=') == NULL)
+	if (ft_strchr(execute->value, '=') == NULL)
 	{
-		ft_add_export(list[i].value);
+		ft_add_export(execute->value);
 	}
 	else
 	{
-		if (!list[i].value[1])
-		{
-			printf("minishell: export: '%c': not a valid identifier", list[i].value[0]);
-			system("leaks minishell");
-			exit(0);
-		}
-		ft_add_export(list[i].value);
-		ft_add_env(list[i].value);
+		ft_add_export(execute->value);
+		ft_add_env(execute->value);
 	}
 
 }
 
-void	ft_export(t_list *list)
+void	ft_export(t_command *cmd)
 {
-	int	i;
-
-	i = 1;
-	if (arg_count(list) == -1)
+	if (arg_count(cmd->execute) == -1)
 		ft_print_export();
 	else
 	{
-		while (list[i].type != END)
+		cmd->execute = cmd->execute->next;
+		while (cmd->execute)
 		{
-			if (list[i].type == PIPE)
-				exit (0);
-			if (check_arg(list))
-				continue ;
-			ft_add_which(list, i);
-			i++;
+			if (check_arg(cmd->execute->value))
+			{
+				cmd->execute = cmd->execute->next;
+				continue;
+			}
+			else
+				ft_add_which(cmd->execute);
+			cmd->execute = cmd->execute->next;
 		}
 	}
 }

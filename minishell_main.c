@@ -41,11 +41,9 @@ int	main(int argc, char **argv, char **env)
 {
 	t_list		*list;
 	t_link		*link;
-	t_command	*cmd;
 
 	(void)argc;
 	(void)argv;
-	(void) cmd;
 	(void) link;
 	link = NULL;
 	init_envair(env);
@@ -59,32 +57,33 @@ int	main(int argc, char **argv, char **env)
 			return (0);
 		list = malloc(sizeof(t_list) * (ft_str_shred(g_glbl.input) + 1));
 		list->flag = 0;
+		g_glbl.flag = 0;
 		list->list_len = ft_str_shred(g_glbl.input);
 		ft_uname(list, g_glbl.input);
 		ft_untype(list);
-		ft_env_check(g_glbl.input, list);
 		ft_appro_name(list);
 		link = ft_copy_list(list);
 		if(ft_parse_eror(link))
 			continue;
-		ft_fill_command(&cmd, link);
-		ft_free(list);
-		// ft_builtins(list);
-		// while (cmd)
+		ft_fill_command(link);
+		// while (g_glbl.cmd)
 		// {
-		// 	while (cmd->execute)
+		// 	while (g_glbl.cmd->execute)
 		// 	{
-		// 		printf("%s\n", cmd->execute->value);
-		// 		cmd->execute = cmd->execute->next;
+		// 		printf("%s\n", g_glbl.cmd->execute->value);
+		// 		g_glbl.cmd->execute = g_glbl.cmd->execute->next;
 		// 	}
 		// 	printf("***\n");
-		// 	while (cmd->radi)
+		// 	while (g_glbl.cmd->radi)
 		// 	{
-		// 		printf("%s\n", cmd->radi->value);
-		// 		cmd->radi = cmd->radi->next;
+		// 		printf("%s\n", g_glbl.cmd->radi->value);
+		// 		g_glbl.cmd->radi = g_glbl.cmd->radi->next;
 		// 	}
 		// 	printf("----------------\n");
-		// 	cmd = cmd->next;
+		// 	g_glbl.cmd = g_glbl.cmd->next;
 		// }
+		// continue;
+		ft_builtins();
+		ft_free(list);
 	}
 }

@@ -21,13 +21,13 @@ void	add_arguman(t_command *cmd, t_link **link)
 	}
 }
 
-void	add_back_cmd(t_command **cmd, t_command *new_cmd)
+void	add_back_cmd(t_command *new_cmd)
 {
 	t_command	*tmp;
 
-	tmp = *cmd;
+	tmp = g_glbl.cmd;
 	if (!(tmp))
-		*cmd = new_cmd;
+		g_glbl.cmd = new_cmd;
 	else
 	{
 		while (tmp->next)
@@ -47,13 +47,12 @@ t_command	*setup_cmd(void)
 	return (new_cmd);
 }
 
-void	ft_fill_command(t_command **cmd, t_link *link)
+void	ft_fill_command(t_link *link)
 {
 	t_command	*new_cmd;
-    (void) cmd;
     (void) new_cmd;
     
-    *cmd = NULL;
+    g_glbl.cmd = NULL;
 	new_cmd = NULL;
 	while (link)
 	{
@@ -62,7 +61,7 @@ void	ft_fill_command(t_command **cmd, t_link *link)
 			if (link->type == PIPE)
 				link = link->next;
 			new_cmd = setup_cmd();
-			add_back_cmd(cmd, new_cmd);
+			add_back_cmd(new_cmd);
 		}
 		if (!link)
 			break ;

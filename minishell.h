@@ -29,35 +29,6 @@ enum						e_token
 	END
 };
 
-typedef struct s_glbl
-{
-	char					**env;
-	char					**export;
-	char					*input;
-
-}							t_glbl;
-
-extern t_glbl				g_glbl;
-
-typedef struct s_list
-{
-	enum e_token			type;
-	int						list_len;
-	int						flag;
-	char					*value;
-}							t_list;
-
-typedef	struct s_link
-{
-	enum e_token			type;
-	int						list_len;
-	int						flag;
-	char					*value;
-	struct s_link			*prev;
-	struct s_link			*next;
-}	t_link;
-
-
 typedef struct s_radira
 {
 	char					*value;
@@ -81,6 +52,35 @@ typedef struct s_command
 	struct s_command	*next;
 }	t_command;
 
+typedef struct s_glbl
+{
+	char					**env;
+	char					**export;
+	char					*input;
+	int						flag;
+	t_command				*cmd;
+}							t_glbl;
+
+extern t_glbl				g_glbl;
+
+typedef struct s_list
+{
+	enum e_token			type;
+	int						list_len;
+	int						flag;
+	char					*value;
+}							t_list;
+
+typedef	struct s_link
+{
+	enum e_token			type;
+	int						list_len;
+	int						flag;
+	char					*value;
+	struct s_link			*prev;
+	struct s_link			*next;
+}	t_link;
+
 int							ft_opr_pair(char *input);
 int							ft_str_shred(char *input);
 int							ft_strlen(char *input, int index, char c);
@@ -96,16 +96,18 @@ void						ft_str_base(t_list *list, char *input, int start,
 							int finish, int *now);
 
 char						*ft_piece(char *env);
-void						ft_builtins(t_list *list);
-void						ft_echo(t_list *list, int *i);
-void						ft_pwd(t_list *list, int *i);
-void						ft_cd(t_list *list, int *i);
-void						ft_export(t_list *list);
-int							arg_count(t_list *list);
+void						ft_builtins();
+void						ft_echo(t_command *cmd);
+void						ft_pwd(void);
+void						ft_cd(t_command *cmd);
+void						ft_export(t_command *cmd);
+int							which_commant(char *str1, char *str2);
+int							arg_count(t_execute *execute);
 int							export_size(void);
-void						ft_env(t_list *list);
+void						ft_env(t_command *cmd);
 void						init_env(t_list *list);
-void						ft_unset(t_list *list, int *i);
+void						ft_unset(t_command *cmd);
+void						ft_exit(t_command *cmd);
 void						ctrl_d(t_glbl *glbl);
 void						free_execute(t_glbl *glbl);
 void						free_char(char **arg);
@@ -116,7 +118,7 @@ t_link						*ft_lstnew(t_list *list);
 void						ft_lstadd_back(t_link **lst, t_link *new);
 t_link						*ft_lstlast(t_link *lst);
 int	 						ft_parse_eror(t_link *link);
-void						ft_fill_command(t_command **cmd, t_link *link);
+void						ft_fill_command(t_link *link);
 t_link						*ft_copy_list(t_list *list);
 t_radira					*fill_redirect(t_link *link, t_radira **redirects);
 t_execute					*fill_execute(t_link *link, t_execute **execute);
