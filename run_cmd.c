@@ -27,7 +27,7 @@ void	wait_cmd(void)
 		if (cmd->pid != -1)
 		{
 			waitpid(cmd->pid, &errno, 0);
-			//g_glbl.erorno = WEXITSTATUS(errno); -> Düzeltilecek
+			g_glbl.erorno = WEXITSTATUS(errno);
 		}
 		cmd = cmd->next;
 	}

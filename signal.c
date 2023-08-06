@@ -18,7 +18,7 @@ static void	handle_sigint(int sig)
 	rl_on_new_line();
 	//rl_replace_line("", 0);
 	rl_redisplay();
-	//g_glb.erorno = 1;
+	g_glbl.erorno = 1;
 }
 
 static void	handle_sigquit(int sig)

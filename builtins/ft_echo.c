@@ -76,4 +76,7 @@ void	ft_echo(t_command *cmp)
 	}
 	if (flag)
 		write(STDOUT_FILENO, "\n", 1);
+	if (!is_parent())
+		exit(errno);
+	g_glbl.erorno = 0;
 }

@@ -18,11 +18,11 @@ void ft_cd(t_command *cmd)
 		tmp = check_tilde(cmd->execute->next->value);
 		if (chdir(tmp) != 0)
 		{
-			//g_glbl.erorno = 1;
+			g_glbl.erorno = 1;
 			perror("minishell ");
 		}
 		else
-			//g_glbl.erorno = 0;
+			g_glbl.erorno = 0;
 		free(tmp);
 	}
 	else
@@ -31,6 +31,8 @@ void ft_cd(t_command *cmd)
 		if (home && *home)
 			if (chdir(home))
 				perror("minishell ");
-		//g_glbl.erorno = 0;
+		g_glbl.erorno = 0;
 	}
+	if (!is_parent())
+		exit(errno);
 }

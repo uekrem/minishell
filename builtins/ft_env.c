@@ -6,11 +6,13 @@ void	ft_env(t_command *cmd)
 	int		i;
 	char	**ag;
 
+	(void)cmd;
 	i = 0;
 	if (arg_count(cmd->execute) == 0 || arg_count(cmd->execute) == 1)
 	{
-		printf("env: %s: No such file or directory", cmd->execute->value);
-		exit(0);
+		printf("env: %s: No such file or directory\n", cmd->execute->next->value);
+		g_glbl.erorno = 127;
+		return;
 	}
 	while (g_glbl.env[i])
 	{
@@ -22,4 +24,7 @@ void	ft_env(t_command *cmd)
 		i++;
 		free_char(ag);
 	}
+	if (!is_parent())
+		exit(errno);
+	g_glbl.erorno = 0;
 }

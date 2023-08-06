@@ -47,4 +47,5 @@ void	ft_unset(t_command *cmd)
 		remove_env(cmd->execute->value);
 		cmd->execute = cmd->execute->next;
 	}
+	g_glbl.erorno = 0;
 }

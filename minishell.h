@@ -72,6 +72,7 @@ typedef struct s_glbl
 	int						heredoc;
 	int						cmd_count;
 	int						parent_pid;
+	int						erorno;
 	t_command				*cmd;
 }							t_glbl;
 

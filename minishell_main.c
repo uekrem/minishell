@@ -66,6 +66,9 @@ int	main(int argc, char **argv, char **env)
 		ft_uname(list, g_glbl.input);
 		ft_untype(list);
 		ft_env_check(g_glbl.input, list);
+		int	j = -1;
+		while (list[++j].value)
+			printf("%s\n", list[j].value);
 		ft_appro_name(list);
 		link = ft_copy_list(list);
 		if(ft_parse_eror(link))
@@ -91,5 +94,6 @@ int	main(int argc, char **argv, char **env)
 		// continue;
 		//ft_builtins();
 		//ft_free(list);
+		//printf("error:%d\n", g_glbl.erorno);
 	}
 }
