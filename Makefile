@@ -1,6 +1,6 @@
 NAME        := minishell
 CC        := gcc
-FLAGS    := -Wall -Wextra -Werror 
+FLAGS    := -Wall -Wextra -Werror
 
 SRCS        :=      libft/ft_atoi.c \
                           libft/ft_bzero.c \
@@ -61,6 +61,17 @@ SRCS        :=      libft/ft_atoi.c \
                           minishell_cmd_box.c \
                           minishell_exec_add.c \
                           minishell_radi_add.c \
+                          run_cmd.c \
+                          heredoc.c \
+                          actuation.c \
+                          redirects.c \
+                          close_fd.c \
+                          get_path.c \
+                          get_path_error.c \
+                          actuation2.c \
+                          create_file.c \
+                          fill_path.c \
+                          signal.c \
 
 OBJS        := $(SRCS:.c=.o)
 

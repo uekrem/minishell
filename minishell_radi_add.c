@@ -46,12 +46,12 @@ t_radira	*fill_redirect(t_link *link, t_radira **redirects)
 
 	if (link->type == OUTPUT_R)
 	{
-		new_redirect = lst_new_elem_redirect(OUT_FILE, link->next->value);
+		new_redirect = lst_new_elem_redirect(IN_FILE, link->next->value);
 		lst_add_back_redirect(redirects, new_redirect);
 	}
 	else if (link->type == INPUT_R)
 	{
-		new_redirect = lst_new_elem_redirect(IN_FILE, link->next->value);
+		new_redirect = lst_new_elem_redirect(OUT_FILE, link->next->value);
 		lst_add_back_redirect(redirects, new_redirect);
 	}
 	else if (link->type == D_INPUT_R)

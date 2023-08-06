@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 # include "libft/libft.h"
+# include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
@@ -11,6 +12,9 @@
 # include <stdlib.h>
 # include <string.h>
 # include <sys/ioctl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <termios.h>
 # include <unistd.h>
 
 enum						e_token
@@ -46,8 +50,14 @@ typedef	struct s_execute
 
 typedef struct s_command
 {
+	pid_t				pid;
+	int					fd[2];
+	int					heredoc_fd[2];
 	t_execute			*execute;
 	t_radira			*radi;
+	//t_execute			*tmp;
+	//t_radira			*tmp2;
+
 	struct s_command	*prev;
 	struct s_command	*next;
 }	t_command;
@@ -56,8 +66,12 @@ typedef struct s_glbl
 {
 	char					**env;
 	char					**export;
+	char					**path;
 	char					*input;
 	int						flag;
+	int						heredoc;
+	int						cmd_count;
+	int						parent_pid;
 	t_command				*cmd;
 }							t_glbl;
 
@@ -122,6 +136,25 @@ void						ft_fill_command(t_link *link);
 t_link						*ft_copy_list(t_list *list);
 t_radira					*fill_redirect(t_link *link, t_radira **redirects);
 t_execute					*fill_execute(t_link *link, t_execute **execute);
+
+
+void	run_cmd(void);
+void	heredoc(int *fd, char *endline);
+void	actuation(t_command *cmd);
+void	redirect_inputs(t_command *cmd);
+void	redirect_outputs(t_command *cmd);
+void	close_all_fd(void);
+char	*get_path(char *cmd);
+void	directory_err(char *str);
+int		is_parent(void);
+void	no_file_err(char *str);
+char	**get_arg_fill(t_execute *execute);
+void	command_err(char *str);
+void	input(char *file);
+void	output(char *file, int mode);
+int		contain_heredoc();
+void	fill_paths(void);
+void	signal_init(void);
 
 // void						fill_command(t_list *list, t_command *cmd);
 // int							count_arguman(t_list *list);

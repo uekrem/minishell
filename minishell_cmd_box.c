@@ -40,8 +40,10 @@ void	add_back_cmd(t_command *new_cmd)
 t_command	*setup_cmd(void)
 {
 	t_command	*new_cmd;
-    
+
 	new_cmd = ft_calloc(sizeof(t_command), 1);
+	pipe(new_cmd->fd);
+	new_cmd->pid = -1;
 	new_cmd->prev = NULL;
 	new_cmd->next = NULL;
 	return (new_cmd);
@@ -51,7 +53,7 @@ void	ft_fill_command(t_link *link)
 {
 	t_command	*new_cmd;
     (void) new_cmd;
-    
+
     g_glbl.cmd = NULL;
 	new_cmd = NULL;
 	while (link)
@@ -62,6 +64,7 @@ void	ft_fill_command(t_link *link)
 				link = link->next;
 			new_cmd = setup_cmd();
 			add_back_cmd(new_cmd);
+			g_glbl.cmd_count++;
 		}
 		if (!link)
 			break ;

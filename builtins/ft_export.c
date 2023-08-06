@@ -43,13 +43,13 @@ int equal(char *env, char *arg)
 {
 	char **double_env;
 	char **double_arg;
-	
+
 	double_env = ft_split(env, '=');
 	double_arg = ft_split(arg, '=');
 
 	if (which_commant(double_env[0], double_arg[0]))
 	{
-		printf("%s\n", double_env[0]);
+		//printf("%s\n", double_env[0]);
 		return 1;
 	}
 	free_char(double_env);
@@ -118,17 +118,29 @@ void	ft_add_export(char *arg)
 void	ft_add_env(char *arg)
 {
 	int		i;
+	int		flag;
 	char	**new_env;
 
 	new_env = malloc(sizeof(char *) * (export_size() + 2));
 	i = 0;
+	flag = 0;
 	while (g_glbl.env[i])
 	{
 		new_env[i] = ft_strdup(g_glbl.env[i]);
+		if (equal(new_env[i], arg))
+		{
+			new_env[i] = ft_strdup(arg);
+			flag = 1;
+		}
 		i++;
 	}
-	new_env[i] = ft_strdup(arg);
-	new_env[i + 1] = NULL;
+	if (flag == 0)
+	{
+		new_env[i] = ft_strdup(arg);
+		new_env[i + 1] = NULL;
+	}
+	else
+		new_env[i] = NULL;
 	free_char(g_glbl.env);
 	g_glbl.env = new_env;
 	//free_char(new_env);

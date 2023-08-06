@@ -47,9 +47,11 @@ int	main(int argc, char **argv, char **env)
 	(void) link;
 	link = NULL;
 	init_envair(env);
-	signal(SIGQUIT, SIG_IGN);
+	signal_init();
+	fill_paths();
 	while (1)
 	{
+		g_glbl.parent_pid = 1;
 		g_glbl.input = readline("minishell: ");
 		add_history(g_glbl.input);
 		ctrl_d(&g_glbl);
@@ -58,14 +60,18 @@ int	main(int argc, char **argv, char **env)
 		list = malloc(sizeof(t_list) * (ft_str_shred(g_glbl.input) + 1));
 		list->flag = 0;
 		g_glbl.flag = 0;
+		g_glbl.cmd_count = 0;
+		g_glbl.heredoc = 0;
 		list->list_len = ft_str_shred(g_glbl.input);
 		ft_uname(list, g_glbl.input);
 		ft_untype(list);
+		ft_env_check(g_glbl.input, list);
 		ft_appro_name(list);
 		link = ft_copy_list(list);
 		if(ft_parse_eror(link))
 			continue;
 		ft_fill_command(link);
+		run_cmd();
 		// while (g_glbl.cmd)
 		// {
 		// 	while (g_glbl.cmd->execute)
@@ -83,7 +89,7 @@ int	main(int argc, char **argv, char **env)
 		// 	g_glbl.cmd = g_glbl.cmd->next;
 		// }
 		// continue;
-		ft_builtins();
-		ft_free(list);
+		//ft_builtins();
+		//ft_free(list);
 	}
 }
