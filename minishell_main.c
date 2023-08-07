@@ -37,6 +37,36 @@ void	free_execute(t_glbl *glbl)
 	free(glbl->input);
 }
 
+
+int	ft_sil(t_list *list)
+{
+	int	i;
+	int	flag;
+
+	i = 0;
+	while (list[i].value)
+	{
+		flag = 0;
+		while (list[i].type == PIPE && list[i].type != END){
+			flag++;
+			i++;
+		}
+		if (flag > 2)
+		{
+			printf("syntax error near unexpected token `");
+			printf("|");
+			if (flag > 3)
+				printf("|");
+			printf("'\n");
+			return (1);
+		}
+		if (list[i].type == END)
+			return(0);
+		i++;
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_list		*list;
@@ -62,14 +92,14 @@ int	main(int argc, char **argv, char **env)
 		g_glbl.flag = 0;
 		g_glbl.cmd_count = 0;
 		g_glbl.heredoc = 0;
+		g_glbl.erorno = 0;
 		list->list_len = ft_str_shred(g_glbl.input);
 		ft_uname(list, g_glbl.input);
 		ft_untype(list);
 		ft_env_check(g_glbl.input, list);
-		int	j = -1;
-		while (list[++j].value)
-			printf("%s\n", list[j].value);
 		ft_appro_name(list);
+		if(ft_sil(list))
+			continue;
 		link = ft_copy_list(list);
 		if(ft_parse_eror(link))
 			continue;
@@ -91,9 +121,8 @@ int	main(int argc, char **argv, char **env)
 		// 	printf("----------------\n");
 		// 	g_glbl.cmd = g_glbl.cmd->next;
 		// }
-		// continue;
-		//ft_builtins();
-		//ft_free(list);
-		//printf("error:%d\n", g_glbl.erorno);
+		//continue;
+		ft_free(list);
+		printf("eroor: %d\n", g_glbl.erorno);
 	}
 }

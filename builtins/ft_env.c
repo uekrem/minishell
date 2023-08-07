@@ -6,7 +6,6 @@ void	ft_env(t_command *cmd)
 	int		i;
 	char	**ag;
 
-	(void)cmd;
 	i = 0;
 	if (arg_count(cmd->execute) == 0 || arg_count(cmd->execute) == 1)
 	{
@@ -24,7 +23,5 @@ void	ft_env(t_command *cmd)
 		i++;
 		free_char(ag);
 	}
-	if (!is_parent())
-		exit(errno);
-	g_glbl.erorno = 0;
+	//g_glbl.erorno = 0;
 }

@@ -139,13 +139,13 @@ char	*ft_how_far(char *str, int *j)
 		*j += 1;
 	}
 	search = malloc(sizeof(char) * (value + 1));
-	search[value - 1] = '\0';
 	while (value > 0)
 	{
 		search[counter] = str[*j - value];
 		counter++;
 		value--;
 	}
+	search[counter] = '\0';
 	return (search);
 }
 
@@ -240,7 +240,7 @@ void	ft_strwrite2(char *new_str, char *str, int *step, int c)
 
 char	*ft_restrlen(char *str, int *j)
 {
-	char	*search;
+	char	*search = NULL;
 	char	*new_char;
 	int		total;
 	int		step;
@@ -249,7 +249,7 @@ char	*ft_restrlen(char *str, int *j)
 	total = 0;
 	step = 0;
 	temp = *j;
-	search = ft_how_far(str, j);	
+	search = ft_how_far(str, j);
 	search = ft_env_search(search);
 	if (search == NULL)
 	{

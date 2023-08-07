@@ -9,7 +9,7 @@ void	run_builtins(t_command *cmd)
 	out = dup(1);
 	redirect_inputs(cmd);
 	redirect_outputs(cmd);
-	ft_builtins();
+	ft_builtins(cmd);
 	dup2(in, 0);
 	dup2(out, 1);
 	close(in);
@@ -102,7 +102,8 @@ void	run_cmd(void)
 	//handle_pipes(cmd);
 	while (cmd)
 	{
-		actuation(cmd);
+		if (cmd->execute)
+			actuation(cmd);
 		cmd = cmd->next;
 	}
 	wait_cmd();

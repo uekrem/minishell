@@ -62,6 +62,8 @@ void	ft_fill_command(t_link *link)
 		{
 			if (link->type == PIPE)
 				link = link->next;
+			if (link->type == PIPE)
+				break;
 			new_cmd = setup_cmd();
 			add_back_cmd(new_cmd);
 			g_glbl.cmd_count++;

@@ -44,8 +44,13 @@ void	ft_unset(t_command *cmd)
 	cmd->execute = cmd->execute->next;
 	while (cmd->execute)
 	{
+		if (check_arg(cmd->execute->value, "unset"))
+		{
+			cmd->execute = cmd->execute->next;
+			g_glbl.erorno = 1;
+			continue;
+		}
 		remove_env(cmd->execute->value);
 		cmd->execute = cmd->execute->next;
 	}
-	g_glbl.erorno = 0;
 }

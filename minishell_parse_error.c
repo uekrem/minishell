@@ -79,7 +79,7 @@ int	 ft_parse_eror(t_link *link)
 	if (check_pars_error(link))
 	{
 		free_token(link);
-		//g_glb.erorno = 258;
+		g_glbl.erorno = 258;
 		return (1);
 	}
 	return (0);

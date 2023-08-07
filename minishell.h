@@ -57,7 +57,6 @@ typedef struct s_command
 	t_radira			*radi;
 	//t_execute			*tmp;
 	//t_radira			*tmp2;
-
 	struct s_command	*prev;
 	struct s_command	*next;
 }	t_command;
@@ -111,7 +110,7 @@ void						ft_str_base(t_list *list, char *input, int start,
 							int finish, int *now);
 
 char						*ft_piece(char *env);
-void						ft_builtins();
+int							ft_builtins(t_command *cmd);
 void						ft_echo(t_command *cmd);
 void						ft_pwd(void);
 void						ft_cd(t_command *cmd);
@@ -137,6 +136,7 @@ void						ft_fill_command(t_link *link);
 t_link						*ft_copy_list(t_list *list);
 t_radira					*fill_redirect(t_link *link, t_radira **redirects);
 t_execute					*fill_execute(t_link *link, t_execute **execute);
+int							check_arg(char *str, char *status);
 
 
 void	run_cmd(void);
@@ -156,6 +156,7 @@ void	output(char *file, int mode);
 int		contain_heredoc();
 void	fill_paths(void);
 void	signal_init(void);
+int		is_builtin(t_command *cmd);
 
 // void						fill_command(t_list *list, t_command *cmd);
 // int							count_arguman(t_list *list);

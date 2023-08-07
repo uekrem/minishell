@@ -17,26 +17,17 @@ int	contain_heredoc()
 	return (0);
 }
 
+
 void	pipe_route(t_command *cmd)
 {
-	if (cmd->prev == NULL){
+	if (cmd->prev == NULL)
 		dup2(cmd->fd[1], 1);
-		if(cmd->fd[1] != 1)
-			close(cmd->fd[1]);
-	}
-	else if(cmd->next == NULL){
+	else if (cmd->next == NULL)
 		dup2(cmd->prev->fd[0], 0);
-		if(cmd->prev->fd[0] != 0)
-			close(cmd->fd[0]);
-	}
 	else
 	{
 		dup2(cmd->prev->fd[0], 0);
-		if(cmd->prev->fd[0] != 0)
-			close(cmd->prev->fd[0]);
 		dup2(cmd->fd[1], 1);
-		if(cmd->fd[1] != 1)
-			close(cmd->fd[1]);
 	}
 }
 
@@ -77,11 +68,10 @@ void	actuation(t_command *cmd)
 		signal(SIGINT, SIG_DFL);
 		g_glbl.parent_pid = 0;
 		cmd_route(cmd);
-		ft_builtins();
+		if(ft_builtins(cmd))
+			exit (1);
 		path = get_path(cmd->execute->value);
 		args = get_arg_fill(cmd->execute);
-		//printf("%s\n\n", path);
-		//getchar();
 		execve(path, args, g_glbl.env);
 		command_err(cmd->execute->value);
 		exit(errno);

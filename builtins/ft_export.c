@@ -76,12 +76,11 @@ void	ft_print_export()
 	}
 }
 
-int	check_arg(char *str)
+int	check_arg(char *str, char *status)
 {
 	if (ft_isalpha(str[0]) || str[0] == '_')
 		return (0);
-	g_glbl.erorno = 1;
-	printf("minishell: export: '%s': not a valid indentifier\n", str);
+	printf("minishell: %s: '%s': not a valid indentifier\n", status, str);
 	return (1);
 }
 
@@ -163,9 +162,6 @@ void	ft_add_which(t_execute *execute)
 
 void	ft_export(t_command *cmd)
 {
-	int	flag;
-
-	flag = 0;
 	if (arg_count(cmd->execute) == -1)
 		ft_print_export();
 	else
@@ -173,10 +169,10 @@ void	ft_export(t_command *cmd)
 		cmd->execute = cmd->execute->next;
 		while (cmd->execute)
 		{
-			if (check_arg(cmd->execute->value))
+			if (check_arg(cmd->execute->value, "export"))
 			{
 				cmd->execute = cmd->execute->next;
-				flag++;
+				g_glbl.erorno = 1;
 				continue;
 			}
 			else
@@ -184,8 +180,4 @@ void	ft_export(t_command *cmd)
 			cmd->execute = cmd->execute->next;
 		}
 	}
-	if (!is_parent())
-		exit(errno);
-	if (flag == 0)
-		g_glbl.erorno = 0;
 }
