@@ -102,8 +102,7 @@ void	run_cmd(void)
 	//handle_pipes(cmd);
 	while (cmd)
 	{
-		if (cmd->execute)
-			actuation(cmd);
+		actuation(cmd);
 		cmd = cmd->next;
 	}
 	wait_cmd();

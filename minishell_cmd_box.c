@@ -1,8 +1,24 @@
 #include "minishell.h"
 
+int	is_redirection(t_link *link)
+{
+	if (link->type == INPUT_R || link->type == OUTPUT_R
+		|| link->type == D_INPUT_R || link->type == D_OUTPUT_R)
+		return (1);
+	return (0);
+}
+
 void	add_arguman(t_command *cmd, t_link **link)
 {
-	if ((*link)->type == ARG)
+	t_execute	*new_execute;
+
+	if (is_redirection(*link) && ((*link)->prev == NULL || (*link)->prev->type == PIPE))
+	{
+		new_execute = lst_new_elem_execute(NULL);
+		lst_add_back_execute(&cmd->execute, new_execute);
+		cmd->radi = fill_redirect(*link, &cmd->radi);
+	}
+	else if ((*link)->type == ARG)
 	{
 		cmd->execute = fill_execute(*link, &cmd->execute);
 	}

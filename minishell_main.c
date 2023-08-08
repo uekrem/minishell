@@ -44,9 +44,9 @@ int	ft_sil(t_list *list)
 	int	flag;
 
 	i = 0;
+	flag = 0;
 	while (list[i].value)
 	{
-		flag = 0;
 		while (list[i].type == PIPE && list[i].type != END){
 			flag++;
 			i++;
@@ -98,12 +98,13 @@ int	main(int argc, char **argv, char **env)
 		ft_untype(list);
 		ft_env_check(g_glbl.input, list);
 		ft_appro_name(list);
-		if(ft_sil(list))
-			continue;
+		//if(ft_sil(list))	//düzelt ama çalışıyo (problem yok)
+		//	continue;
 		link = ft_copy_list(list);
 		if(ft_parse_eror(link))
 			continue;
 		ft_fill_command(link);
+		//printf("%s\n", g_glbl.cmd->execute->value);
 		run_cmd();
 		// while (g_glbl.cmd)
 		// {
@@ -122,6 +123,7 @@ int	main(int argc, char **argv, char **env)
 		// 	g_glbl.cmd = g_glbl.cmd->next;
 		// }
 		//continue;
+
 		ft_free(list);
 		printf("eroor: %d\n", g_glbl.erorno);
 	}

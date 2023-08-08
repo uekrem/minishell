@@ -160,5 +160,7 @@ int		is_builtin(t_command *cmd);
 
 // void						fill_command(t_list *list, t_command *cmd);
 // int							count_arguman(t_list *list);
+void	lst_add_back_execute(t_execute **lst, t_execute *new_node);
+t_execute	*lst_new_elem_execute(char *value);
 
 #endif
