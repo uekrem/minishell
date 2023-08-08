@@ -22,7 +22,7 @@ void ft_cd(t_command *cmd)
 			perror("minishell ");
 		}
 		else
-			//g_glbl.erorno = 0;
+			g_glbl.erorno = 0;
 		free(tmp);
 	}
 	else
@@ -31,6 +31,6 @@ void ft_cd(t_command *cmd)
 		if (home && *home)
 			if (chdir(home))
 				perror("minishell ");
-		//g_glbl.erorno = 0;
+		g_glbl.erorno = 0;
 	}
 }

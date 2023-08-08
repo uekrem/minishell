@@ -79,6 +79,7 @@ int	main(int argc, char **argv, char **env)
 	init_envair(env);
 	signal_init();
 	fill_paths();
+	g_glbl.erorno = 0;
 	while (1)
 	{
 		g_glbl.parent_pid = 1;
@@ -92,7 +93,6 @@ int	main(int argc, char **argv, char **env)
 		g_glbl.flag = 0;
 		g_glbl.cmd_count = 0;
 		g_glbl.heredoc = 0;
-		g_glbl.erorno = 0;
 		list->list_len = ft_str_shred(g_glbl.input);
 		ft_uname(list, g_glbl.input);
 		ft_untype(list);
@@ -123,8 +123,6 @@ int	main(int argc, char **argv, char **env)
 		// 	g_glbl.cmd = g_glbl.cmd->next;
 		// }
 		//continue;
-
 		ft_free(list);
-		printf("eroor: %d\n", g_glbl.erorno);
 	}
 }

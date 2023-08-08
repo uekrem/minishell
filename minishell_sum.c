@@ -238,6 +238,23 @@ void	ft_strwrite2(char *new_str, char *str, int *step, int c)
 	}
 }
 
+int	ft_intlen()
+{
+	int	tut;
+	int	i;
+
+	i = 0;
+	tut = g_glbl.erorno;
+	if (tut == 0)
+		return (i + 1);
+	while (1)
+	{
+		if (tut > 0)
+			return (i);
+		tut /= 10;
+		i++;
+	}
+}
 char	*ft_restrlen(char *str, int *j)
 {
 	char	*search = NULL;
@@ -249,13 +266,8 @@ char	*ft_restrlen(char *str, int *j)
 	total = 0;
 	step = 0;
 	temp = *j;
-	search = ft_how_far(str, j);
-	search = ft_env_search(search);
-	if (search == NULL)
-	{
-		free(search);
-		return (ft_env_null(str, j, temp));
-	}
+	*j += 1;
+	search = ft_itoa(g_glbl.erorno);
 	total += temp;
 	total += ft_strlen(search, 0, '\0');
 	total += ft_strlen(str, *j, '\0');

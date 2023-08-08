@@ -23,5 +23,5 @@ void	ft_env(t_command *cmd)
 		i++;
 		free_char(ag);
 	}
-	//g_glbl.erorno = 0;
+	g_glbl.erorno = 0;
 }
