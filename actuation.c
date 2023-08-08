@@ -69,7 +69,7 @@ void	actuation(t_command *cmd)
 		g_glbl.parent_pid = 0;
 		cmd_route(cmd);
 		if(ft_builtins(cmd))
-			exit (1);
+			exit (g_glbl.erorno);
 		path = get_path(cmd->execute->value);
 		args = get_arg_fill(cmd->execute);
 		execve(path, args, g_glbl.env);

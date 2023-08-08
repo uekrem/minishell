@@ -104,7 +104,6 @@ int	main(int argc, char **argv, char **env)
 		if(ft_parse_eror(link))
 			continue;
 		ft_fill_command(link);
-		//printf("%s\n", g_glbl.cmd->execute->value);
 		run_cmd();
 		// while (g_glbl.cmd)
 		// {
