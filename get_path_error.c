@@ -20,7 +20,6 @@ void	no_file_err(char *str)
 void	directory_err(char *str)
 {
 	errno = 126;
-
 	write(2, "minishell: ", 11);
 	write(2, str, ft_strlenn(str));
 	write(2, ": is a directory\n", 17);

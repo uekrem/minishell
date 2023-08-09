@@ -1,8 +1,10 @@
 NAME        := minishell
 CC        := gcc
-FLAGS    := -Wall -Wextra -Werror -g -fsanitize=address
 
-SRCS        :=      libft/ft_atoi.c \
+FLAGS    := -Wall -Wextra -Werror
+#FLAGS       := -fsanitize=address -g
+# FLAGS := -g
+SRCS        :=              libft/ft_atoi.c \
                           libft/ft_bzero.c \
                           libft/ft_calloc.c \
                           libft/ft_isalnum.c \
@@ -72,17 +74,17 @@ SRCS        :=      libft/ft_atoi.c \
                           create_file.c \
                           fill_path.c \
                           signal.c \
-
+                          
 OBJS        := $(SRCS:.c=.o)
 
 .c.o:
-	@${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+	@${CC} ${FLAGS} -c $< -o ${<:.c=.o} -I/Users/uguyildi/readline/include
 
 RM		    := rm -f
 
 ${NAME}:	${OBJS}
 			@echo "[COMPILING...]"
-			@${CC} ${FLAGS} -o ${NAME} ${OBJS} -lreadline
+			@${CC} ${FLAGS} -o ${NAME} ${OBJS} -I/Users/uguyildi/readline/include -L/Users/uguyildi/readline/lib -lreadline
 			@echo "[COMPILING FINISHED]"
 
 all:		${NAME}

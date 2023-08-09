@@ -44,9 +44,9 @@ int	ft_sil(t_list *list)
 	int	flag;
 
 	i = 0;
-	flag = 0;
 	while (list[i].value)
 	{
+		flag = 0;
 		while (list[i].type == PIPE && list[i].type != END){
 			flag++;
 			i++;
@@ -64,6 +64,16 @@ int	ft_sil(t_list *list)
 			return(0);
 		i++;
 	}
+	return (0);
+}
+
+int	ft_pipe_one(t_list *list)
+{
+	int	i;
+
+	i = 0;
+	if  (list[i].type == PIPE)
+		return (1);
 	return (0);
 }
 
@@ -87,7 +97,7 @@ int	main(int argc, char **argv, char **env)
 		add_history(g_glbl.input);
 		ctrl_d(&g_glbl);
 		if (ft_opr_pair(g_glbl.input))
-			return (0);
+			continue;
 		list = malloc(sizeof(t_list) * (ft_str_shred(g_glbl.input) + 1));
 		list->flag = 0;
 		g_glbl.flag = 0;
@@ -98,30 +108,13 @@ int	main(int argc, char **argv, char **env)
 		ft_untype(list);
 		ft_env_check(g_glbl.input, list);
 		ft_appro_name(list);
-		//if(ft_sil(list))	//düzelt ama çalışıyo (problem yok)
-		//	continue;
+		if(ft_sil(list) || ft_pipe_one(list))
+			continue;
 		link = ft_copy_list(list);
 		if(ft_parse_eror(link))
 			continue;
 		ft_fill_command(link);
 		run_cmd();
-		// while (g_glbl.cmd)
-		// {
-		// 	while (g_glbl.cmd->execute)
-		// 	{
-		// 		printf("%s\n", g_glbl.cmd->execute->value);
-		// 		g_glbl.cmd->execute = g_glbl.cmd->execute->next;
-		// 	}
-		// 	printf("***\n");
-		// 	while (g_glbl.cmd->radi)
-		// 	{
-		// 		printf("%s\n", g_glbl.cmd->radi->value);
-		// 		g_glbl.cmd->radi = g_glbl.cmd->radi->next;
-		// 	}
-		// 	printf("----------------\n");
-		// 	g_glbl.cmd = g_glbl.cmd->next;
-		// }
-		//continue;
 		ft_free(list);
 	}
 }

@@ -32,7 +32,7 @@ int	ft_opr_pair(char *input)
 	}
 	if (flag % 2 == 0 && flag2 % 2 == 0)
 		return (0);
-	printf("Missing double or single quotes");
+	printf("Missing double or single quotes\n");
 	return (1);
 }
 
@@ -255,7 +255,8 @@ int	ft_intlen()
 		i++;
 	}
 }
-char	*ft_restrlen(char *str, int *j)
+
+char	*ft_restrlen2(char *str, int *j)
 {
 	char	*search = NULL;
 	char	*new_char;
@@ -268,6 +269,37 @@ char	*ft_restrlen(char *str, int *j)
 	temp = *j;
 	*j += 1;
 	search = ft_itoa(g_glbl.erorno);
+	total += temp;
+	total += ft_strlen(search, 0, '\0');
+	total += ft_strlen(str, *j, '\0');
+	new_char = malloc(sizeof(char) * (total + 1));
+	ft_strwrite2(new_char, str, &step, temp - 1);
+	ft_strwrite(new_char, search, &step, '\0');
+	ft_strwrite(new_char, &str[*j], &step, '\0');
+	new_char[step] = '\0';
+	free(search);
+	free(str);
+	return (new_char);
+}
+
+char	*ft_restrlen(char *str, int *j)
+{
+	char	*search = NULL;
+	char	*new_char;
+	int		total;
+	int		step;
+	int		temp;
+
+	total = 0;
+	step = 0;
+	temp = *j;
+	search = ft_how_far(str, j);
+	search = ft_env_search(search);
+	if (search == NULL)
+	{
+		free(search);
+		return (ft_env_null(str, j, temp));
+	}
 	total += temp;
 	total += ft_strlen(search, 0, '\0');
 	total += ft_strlen(str, *j, '\0');

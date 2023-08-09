@@ -55,7 +55,7 @@ void		ft_str_rebuild(t_list *list, int i)
 				if (list[i].value[j] == '?')
 				{
 					temp = ft_strlen(list[i].value, 0, '\0');
-					list[i].value = ft_restrlen(list[i].value, &j);
+					list[i].value = ft_restrlen2(list[i].value, &j);
 					j = (j - (temp - ft_strlen(list[i].value, 0, '\0'))) - 1;
 				} 
 				continue;

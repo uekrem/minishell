@@ -180,4 +180,5 @@ void	ft_export(t_command *cmd)
 			cmd->execute = cmd->execute->next;
 		}
 	}
+	fill_paths();
 }

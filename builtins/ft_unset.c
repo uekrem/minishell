@@ -23,19 +23,44 @@ int	ft_strncmp2(const char *s1, const char *s2, int len)
 		if (s1[i] != s2[i])
 			return (0);
 	}
+	if (s1[i])
+		return (0);
 	return (1);
+}
+
+char	*ft_sss(char *str)
+{
+	char	*temp;
+	int		begin;
+	int		i;
+
+	i = 0;
+	begin = 0;
+	while (str[i] != '=' && str[i])
+		i++;
+	temp = malloc(sizeof(char) * (i + 1));
+	while (str[begin] != '=' && str[begin])
+	{
+		temp[begin] = str[begin]; 
+		begin++;
+	}
+	temp[begin] = '\0';
+	return (temp);
 }
 
 void remove_export(char *del)
 {
+	char *temp;
 	int i = 0;
 	int j;
+
 	while (g_glbl.export[i] != NULL)
 	{
-		if (ft_strncmp2(g_glbl.export[i], del, ft_strlen(del, 0, '=')))
+		temp = ft_sss(g_glbl.export[i]);
+		if (ft_strncmp2(temp, del, ft_strlen(del, 0, '\0')))
 		{
 			j = i;
-			free(g_glbl.export[j]);
+			free(g_glbl.export[i]);
 			while (g_glbl.export[j] != NULL)
 			{
 				g_glbl.export[j] = g_glbl.export[j + 1];
@@ -49,12 +74,14 @@ void remove_export(char *del)
 
 void	remove_env(char *del)
 {
+	char	*temp;
 	int i = 0;
 	int j;
 
 	while (g_glbl.env[i] != NULL)
 	{
-		if (ft_strncmp2(g_glbl.env[i], del, ft_strlen(del, 0, '=')))
+		temp = ft_sss(g_glbl.env[i]);
+		if (ft_strncmp2(temp, del, ft_strlen(del, 0, '\0')))
 		{
 			j = i;
 			free(g_glbl.env[j]);
@@ -66,7 +93,7 @@ void	remove_env(char *del)
 			i = -1;
 		}
 		i++;
-	}
+	} 
 }
 
 void	ft_unset(t_command *cmd)
@@ -83,4 +110,5 @@ void	ft_unset(t_command *cmd)
 		remove_export(cmd->execute->value);
 		cmd->execute = cmd->execute->next;
 	}
+	fill_paths();
 }

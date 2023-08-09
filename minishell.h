@@ -5,8 +5,6 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -16,6 +14,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 enum						e_token
 {
@@ -160,7 +160,8 @@ int		is_builtin(t_command *cmd);
 
 // void						fill_command(t_list *list, t_command *cmd);
 // int							count_arguman(t_list *list);
-void	lst_add_back_execute(t_execute **lst, t_execute *new_node);
+void		lst_add_back_execute(t_execute **lst, t_execute *new_node);
 t_execute	*lst_new_elem_execute(char *value);
+char		*ft_restrlen2(char *str, int *j);
 
 #endif

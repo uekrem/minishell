@@ -23,5 +23,6 @@ void	ft_env(t_command *cmd)
 		i++;
 		free_char(ag);
 	}
+	fill_paths();
 	g_glbl.erorno = 0;
 }

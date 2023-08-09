@@ -42,7 +42,7 @@ void	free_paths(char **paths)
 
 void	fill_paths(void)
 {
-	char	*path;
+	char	*path = NULL;
 
 	if (g_glbl.path)
 		free_paths(g_glbl.path);
