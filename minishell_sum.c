@@ -33,6 +33,7 @@ int	ft_opr_pair(char *input)
 	if (flag % 2 == 0 && flag2 % 2 == 0)
 		return (0);
 	printf("Missing double or single quotes\n");
+	g_glbl.erorno = 1;
 	return (1);
 }
 

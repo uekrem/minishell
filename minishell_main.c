@@ -73,7 +73,11 @@ int	ft_pipe_one(t_list *list)
 
 	i = 0;
 	if  (list[i].type == PIPE)
+	{
+		printf("minishell: syntax error near unexpected token `|'\n");
+		g_glbl.erorno = 258;
 		return (1);
+	}
 	return (0);
 }
 
@@ -113,7 +117,8 @@ int	main(int argc, char **argv, char **env)
 		link = ft_copy_list(list);
 		if(ft_parse_eror(link))
 			continue;
-		ft_fill_command(link);
+		if(ft_fill_command(link))
+			continue;
 		run_cmd();
 		ft_free(list);
 	}

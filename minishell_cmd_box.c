@@ -65,7 +65,7 @@ t_command	*setup_cmd(void)
 	return (new_cmd);
 }
 
-void	ft_fill_command(t_link *link)
+int	ft_fill_command(t_link *link)
 {
 	t_command	*new_cmd;
     (void) new_cmd;
@@ -79,7 +79,12 @@ void	ft_fill_command(t_link *link)
 			if (link->type == PIPE)
 				link = link->next;
 			if (link->type == PIPE)
-				break;
+			{
+				//free ekle
+				printf("minishell: syntax error near unexpected token `|'\n");
+				g_glbl.erorno = 258;
+				return (1);
+			}
 			new_cmd = setup_cmd();
 			add_back_cmd(new_cmd);
 			g_glbl.cmd_count++;
@@ -90,4 +95,5 @@ void	ft_fill_command(t_link *link)
 		if (link)
             link = link->next;
 	}
+	return (0);
 }

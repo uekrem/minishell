@@ -132,7 +132,7 @@ t_link						*ft_lstnew(t_list *list);
 void						ft_lstadd_back(t_link **lst, t_link *new);
 t_link						*ft_lstlast(t_link *lst);
 int	 						ft_parse_eror(t_link *link);
-void						ft_fill_command(t_link *link);
+int							ft_fill_command(t_link *link);
 t_link						*ft_copy_list(t_list *list);
 t_radira					*fill_redirect(t_link *link, t_radira **redirects);
 t_execute					*fill_execute(t_link *link, t_execute **execute);
@@ -163,5 +163,6 @@ int		is_builtin(t_command *cmd);
 void		lst_add_back_execute(t_execute **lst, t_execute *new_node);
 t_execute	*lst_new_elem_execute(char *value);
 char		*ft_restrlen2(char *str, int *j);
+int			ft_sil(t_list *list);
 
 #endif
