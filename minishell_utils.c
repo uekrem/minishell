@@ -113,9 +113,11 @@ void	ft_uname(t_list *list, char *input)
 			i++;
 		temp = i;
 		if (input[i])
+		{
 			ft_couple_core(input, &i, input[i]);
-		ft_str_base(list, input, temp, i, now);
-		now++;
+			ft_str_base(list, input, temp, i, now);
+			now++;
+		}
 	}
 	list[now].value = NULL;
 }
