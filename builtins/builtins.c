@@ -36,6 +36,8 @@ int	ft_builtins(t_command *cmd)
 	t_command *newcmd;
 
 	newcmd = cmd;
+	if (newcmd->execute == NULL)
+		return (0);
 	if (which_commant(newcmd->execute->value, "echo"))
 		ft_echo(newcmd);
 	else if (which_commant(newcmd->execute->value, "cd"))

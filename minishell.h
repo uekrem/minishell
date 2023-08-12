@@ -106,8 +106,7 @@ void						ft_env_check(char *input, t_list *list);
 char						*ft_restrlen(char *str, int *j);
 char						*ft_appro_proc(char *str, int value);
 void						ft_appro_name(t_list *list);
-void						ft_str_base(t_list *list, char *input, int start,
-							int finish, int *now);
+void						ft_str_base(t_list *list, char *input, int start, int finish, int now);
 
 char						*ft_piece(char *env);
 int							ft_builtins(t_command *cmd);

@@ -73,24 +73,30 @@ void		ft_env_check(char *input, t_list *list)
 
 	i = -1;
 	while (++i < ft_str_shred(input))
+	{
+		if (list[i].type == D_OUTPUT_R)
+		{
+			i++;
+			continue;
+		}
 		ft_str_rebuild(list, i);
+	}
 }
 
-void	ft_str_base(t_list *list, char *input, int start, int finish, int *now)
+void	ft_str_base(t_list *list, char *input, int start, int finish, int now)
 {
 		int	i;
 
 		i = 0;
-		list[*now].value = malloc(sizeof(char) * ((finish - start) + 1));
+		list[now].value = malloc(sizeof(char) * ((finish - start) + 1));
 		while (input[start] && start != finish)
 		{
-			list[*now].value[i] = input[start];
+			list[now].value[i] = input[start];
 			start += 1;
 			i++;
 		}
-		list[*now].value[i] = '\0';
-		list[*now].type = 99;
-		*now += 1;
+		list[now].value[i] = '\0';
+		list[now].type = 99;
 }
 
 void	ft_uname(t_list *list, char *input)
@@ -108,23 +114,11 @@ void	ft_uname(t_list *list, char *input)
 		temp = i;
 		if (input[i])
 			ft_couple_core(input, &i, input[i]);
-		ft_str_base(list, input, temp, i, &now);
-		if (list[now - 1].value[0] == '|')
-			list[now - 1].type = PIPE;
+		ft_str_base(list, input, temp, i, now);
+		now++;
 	}
 	list[now].value = NULL;
 }
-
-// int	ft_what_should(t_list *list, int i)
-// {
-// 	while (list[i].type != PIPE && i != 0)
-// 		i--;
-// 	if (!ft_opr_which(list[i].value[0]) && i == 0)
-// 		i--;
-// 	if (list[++i].type == COMMAND)
-// 		return (0);
-// 	return (1);
-// }
 
 int		ft_check_flag(char *str)
 {

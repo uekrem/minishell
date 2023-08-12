@@ -11,14 +11,15 @@ static void	suppress_output(void)
 		perror("Minishell: tcsetattr");
 }
 
-static void	handle_sigint(int sig)
+static void handle_sigint(int sig)
 {
-	(void)sig;
-	write(1, "\n", 1);
-	rl_on_new_line();
-	//rl_replace_line("", 0);
-	rl_redisplay();
-	g_glbl.erorno = 1;
+    (void)sig;
+    ioctl(STDIN_FILENO, TIOCSTI, "\n");
+    write(1, "\033[A", 3);
+    //rl_replace_line("", 0);
+    rl_on_new_line();
+    rl_redisplay();
+    g_glbl.erorno = 1;
 }
 
 static void	handle_sigquit(int sig)

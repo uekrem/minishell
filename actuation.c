@@ -44,8 +44,7 @@ void	cmd_route(t_command *cmd)
 	{
 		if (contain_heredoc())
 			heredoc_route(cmd);
-		else
-			pipe_route(cmd);
+		pipe_route(cmd);
 	}
 	redirect_inputs(cmd);
 	redirect_outputs(cmd);
@@ -70,10 +69,14 @@ void	actuation(t_command *cmd)
 		cmd_route(cmd);
 		if(ft_builtins(cmd))
 			exit (g_glbl.erorno);
-		path = get_path(cmd->execute->value);
-		args = get_arg_fill(cmd->execute);
+		if (cmd->execute != NULL)
+		{
+			path = get_path(cmd->execute->value);
+			args = get_arg_fill(cmd->execute);
+		}
 		execve(path, args, g_glbl.env);
-		command_err(cmd->execute->value);
+		if (cmd->execute != NULL)
+			command_err(cmd->execute->value);
 		exit(errno);
 	}
 	else

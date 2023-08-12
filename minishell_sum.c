@@ -5,12 +5,14 @@ int	ft_opr_pair(char *input)
 	int			i;
 	int			arg;
 	int			arg2;
-	static int	flag;
-	static int	flag2;
+	int	flag;
+	int	flag2;
 
 	i = -1;
 	arg = 1;
 	arg2 = 1;
+	flag = 0;
+	flag2 = 0;
 	while (input[++i])
 	{
 		if (input[i] == '"' && arg2 == 1)
