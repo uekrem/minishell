@@ -38,47 +38,52 @@ void	free_execute(t_glbl *glbl)
 }
 
 
-int	ft_sil(t_list *list)
+int	ft_pipe_more(t_list *list)
 {
 	int	i;
 	int	flag;
 
-	i = 0;
-	while (list[i].value)
+	flag = 0;
+	i = -1;
+	if  (list[0].type == PIPE)
 	{
-		flag = 0;
-		while (list[i].type == PIPE && list[i].type != END){
-			flag++;
-			i++;
-		}
-		if (flag > 2)
+		printf("minishell: syntax error near unexpected token `|'\n");
+		g_glbl.erorno = 258;
+		ft_free(list);
+		return (1);
+	}
+	while (list[++i].value)
+	{
+		if (list[i].type == PIPE && flag == 0)
+			flag = 1;
+		else if (list[i].type == PIPE && flag == 1)
 		{
-			printf("syntax error near unexpected token `");
-			printf("|");
-			if (flag > 3)
-				printf("|");
-			printf("'\n");
+			printf("minishell: syntax error near unexpected token `|'\n");
+			g_glbl.erorno = 258;
+			ft_free(list);
 			return (1);
 		}
-		if (list[i].type == END)
-			return(0);
-		i++;
+		else if (list[i].type != PIPE && flag == 1)
+			flag = 0;
 	}
 	return (0);
 }
 
-int	ft_pipe_one(t_list *list)
+void	ft_free_link(t_link *link)
 {
-	int	i;
+	t_link	*root;
 
-	i = 0;
-	if  (list[i].type == PIPE)
+	if (!link)
+		return ;
+	while (link != NULL)
 	{
-		printf("minishell: syntax error near unexpected token `|'\n");
-		g_glbl.erorno = 258;
-		return (1);
+		root = link->next;
+		free(link->value);
+		free(link);
+		link = root;
 	}
-	return (0);
+	free(g_glbl.input);
+	free(link);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -89,7 +94,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	(void) link;
-	link = NULL;
 	init_envair(env);
 	signal_init();
 	fill_paths();
@@ -112,7 +116,7 @@ int	main(int argc, char **argv, char **env)
 		ft_untype(list);
 		ft_env_check(g_glbl.input, list);
 		ft_appro_name(list);
-		if(ft_sil(list) || ft_pipe_one(list))
+		if(ft_pipe_more(list))
 			continue;
 		link = ft_copy_list(list);
 		if(ft_parse_eror(link))
@@ -120,6 +124,5 @@ int	main(int argc, char **argv, char **env)
 		if(ft_fill_command(link))
 			continue;
 		run_cmd();
-		ft_free(list);
 	}
 }

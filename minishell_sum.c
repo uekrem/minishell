@@ -5,8 +5,8 @@ int	ft_opr_pair(char *input)
 	int			i;
 	int			arg;
 	int			arg2;
-	int	flag;
-	int	flag2;
+	int			flag;
+	int			flag2;
 
 	i = -1;
 	arg = 1;
@@ -35,6 +35,7 @@ int	ft_opr_pair(char *input)
 	if (flag % 2 == 0 && flag2 % 2 == 0)
 		return (0);
 	printf("Missing double or single quotes\n");
+	free(g_glbl.input);
 	g_glbl.erorno = 1;
 	return (1);
 }

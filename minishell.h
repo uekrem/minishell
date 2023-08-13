@@ -55,8 +55,6 @@ typedef struct s_command
 	int					heredoc_fd[2];
 	t_execute			*execute;
 	t_radira			*radi;
-	//t_execute			*tmp;
-	//t_radira			*tmp2;
 	struct s_command	*prev;
 	struct s_command	*next;
 }	t_command;

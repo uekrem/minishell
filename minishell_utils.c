@@ -241,4 +241,5 @@ void	ft_free(t_list *list)
 	while (++i < list->list_len)
 		free(list[i].value);
 	free(list);
+	free(g_glbl.input);
 }
