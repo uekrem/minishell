@@ -1,17 +1,16 @@
 #include "../minishell.h"
 
-
-void	ft_env(t_command *cmd)
+void	ft_env(t_execute *execute)
 {
 	int		i;
 	char	**ag;
 
 	i = 0;
-	if (arg_count(cmd->execute) == 0 || arg_count(cmd->execute) == 1)
+	if (arg_count(execute) == 0 || arg_count(execute) == 1)
 	{
-		printf("env: %s: No such file or directory\n", cmd->execute->next->value);
+		printf("env: %s: No such file or directory\n", execute->next->value);
 		g_glbl.erorno = 127;
-		return;
+		return ;
 	}
 	while (g_glbl.env[i])
 	{

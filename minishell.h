@@ -70,6 +70,9 @@ typedef struct s_glbl
 	int						cmd_count;
 	int						parent_pid;
 	int						erorno;
+	int						export_plus_flag;
+	int						export_flag; 
+	int						env_flag; 
 	t_command				*cmd;
 }							t_glbl;
 
@@ -115,7 +118,7 @@ void						ft_export(t_command *cmd);
 int							which_commant(char *str1, char *str2);
 int							arg_count(t_execute *execute);
 int							export_size(void);
-void						ft_env(t_command *cmd);
+void						ft_env(t_execute *cmd);
 void						init_env(t_list *list);
 void						ft_unset(t_command *cmd);
 void						ft_exit(t_command *cmd);
@@ -155,11 +158,32 @@ void	fill_paths(void);
 void	signal_init(void);
 int		is_builtin(t_command *cmd);
 
-// void						fill_command(t_list *list, t_command *cmd);
-// int							count_arguman(t_list *list);
+
 void		lst_add_back_execute(t_execute **lst, t_execute *new_node);
 t_execute	*lst_new_elem_execute(char *value);
-char		*ft_restrlen2(char *str, int *j);
-int			ft_sil(t_list *list);
+
+
+char	*ft_how_far(char *str, int *j);
+char    *ft_env_search(char *str);
+int		ft_stay_stop(char c);
+char	ft_quartes_selec(char *str, int	i);
+char	*ft_env_null(char *str, int *j, int temp);
+void	ft_strwrite2(char *new_str, char *str, int *step, int c);
+void	ft_strwrite(char *new_str, char *str, int *step, char c);
+char	*ft_str_rebuild_base(char *list, int *j);
+char	*ft_str_rebuild_query(char *list, int *j);
+int     ft_how_far_chec(char c);
+char	*ft_restrlen2(char *str, int *j);
+char	*ft_env_null_orien(char *search, char *str, int *j, int temp);
+
+
+void						ft_add_export(char *arg);
+void						ft_add_env(char *arg);
+void						ft_print_export(void);
+void						ft_adding_export(char **new_export, char *arg);
+void						ft_adding_env(char **new_env, char *arg);
+int							which_commant(char *str1, char *str2);
+void						cd_err(char *value, char *str);
+char						*check_tilde(char *str);
 
 #endif

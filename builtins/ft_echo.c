@@ -42,7 +42,8 @@ int	skip_flag(t_execute *str)
 	i = 1;
 	while (str)
 	{
-		if (!ft_strncmp(str->value, "-n", ft_strlenn("-n")) && check_tire_en(str->value))
+		if (!ft_strncmp(str->value, "-n", ft_strlenn("-n"))
+			&& check_tire_en(str->value))
 		{
 			i++;
 			str = str->next;
@@ -76,6 +77,5 @@ void	ft_echo(t_command *cmp)
 	}
 	if (flag)
 		write(STDOUT_FILENO, "\n", 1);
-	
 	g_glbl.erorno = 0;
 }

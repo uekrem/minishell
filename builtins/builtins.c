@@ -49,7 +49,7 @@ int	ft_builtins(t_command *cmd)
 	else if (which_commant(newcmd->execute->value, "unset"))
 		ft_unset(newcmd);
 	else if (which_commant(newcmd->execute->value, "env"))
-		ft_env(newcmd);
+		ft_env(newcmd->execute);
 	else if (which_commant(newcmd->execute->value, "exit"))
 		ft_exit(newcmd);
 	else

@@ -1,7 +1,7 @@
 NAME        := minishell
 CC        := gcc
 
-FLAGS    := -Wall -Wextra -Werror -fsanitize=address -g
+FLAGS    := -Wall -Wextra -Werror #-fsanitize=address -g
 SRCS        :=              libft/ft_atoi.c \
                           libft/ft_bzero.c \
                           libft/ft_calloc.c \
@@ -45,8 +45,8 @@ SRCS        :=              libft/ft_atoi.c \
                           libft/ft_tolower.c \
                           libft/ft_toupper.c \
                           minishell_main.c \
-                          minishell_sum.c \
-                          minishell_utils.c \
+                          ./parse/minishell_sum.c \
+                          ./parse/minishell_utils.c \
                           minishell_signall.c \
                           builtins/builtins.c \
                           builtins/ft_cd.c \
@@ -56,11 +56,14 @@ SRCS        :=              libft/ft_atoi.c \
                           builtins/ft_env.c \
                           builtins/ft_unset.c \
                           builtins/ft_exit.c \
-                          minishell_link.c \
-                          minishell_parse_error.c \
-                          minishell_cmd_box.c \
-                          minishell_exec_add.c \
-                          minishell_radi_add.c \
+                          builtins/ft_cd_utils.c \
+                          builtins/ft_export_adding.c \
+                          builtins/ft_export_utils.c \
+                          ./exec_box/minishell_link.c \
+                          ./exec_box/minishell_parse_error.c \
+                          ./exec_box/minishell_cmd_box.c \
+                          ./exec_box/minishell_exec_add.c \
+                          ./exec_box/minishell_radi_add.c \
                           run_cmd.c \
                           heredoc.c \
                           actuation.c \
@@ -72,6 +75,10 @@ SRCS        :=              libft/ft_atoi.c \
                           create_file.c \
                           fill_path.c \
                           signal.c \
+                          ./env/minishell_env_parse.c \
+                          ./env/minishell_env_utils.c \
+                          ./env/minishell_env_creat.c \
+                          ./env/minishell_env_utils2.c \
                           
 OBJS        := $(SRCS:.c=.o)
 

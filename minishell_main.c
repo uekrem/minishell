@@ -69,21 +69,66 @@ int	ft_pipe_more(t_list *list)
 	return (0);
 }
 
-void	ft_free_link(t_link *link)
+void	ft_free_link(t_link **link)
 {
 	t_link	*root;
 
-	if (!link)
+	if (!*link)
 		return ;
-	while (link != NULL)
+	while (*link != NULL)
 	{
-		root = link->next;
-		free(link->value);
-		free(link);
-		link = root;
+		root = (*link)->next;
+		free((*link)->value);
+		free(*link);
+		*link = root;
 	}
-	free(g_glbl.input);
-	free(link);
+	free(*link);
+}
+
+void	ft_free_radi(t_radira *radi)
+{
+	t_radira	*temp;
+
+	if (!radi)
+		return;
+	while (radi)
+	{
+		temp = radi->next;
+		free(radi);
+		radi = temp;
+	}
+	free(radi);
+}
+
+void	ft_free_exec(t_execute *exec)
+{
+	t_execute	*temp;
+
+	if (!exec)
+		return;
+	while (exec)
+	{
+		temp = exec->next;
+		free(exec);
+		exec = temp;
+	}
+	free(exec);
+}
+
+void	ft_free_cmd()
+{
+	t_command *temp_e;
+	int	i;
+
+	i = -1;
+	while (++i < g_glbl.cmd_count)
+	{
+		temp_e = g_glbl.cmd->next;
+		ft_free_radi(g_glbl.cmd->radi);
+		ft_free_exec(g_glbl.cmd->execute);
+		free(g_glbl.cmd);
+		g_glbl.cmd = temp_e;
+	}
 }
 
 int	main(int argc, char **argv, char **env)
@@ -94,6 +139,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	(void) link;
+	link = NULL;
 	init_envair(env);
 	signal_init();
 	fill_paths();
@@ -105,7 +151,10 @@ int	main(int argc, char **argv, char **env)
 		add_history(g_glbl.input);
 		ctrl_d(&g_glbl);
 		if (ft_opr_pair(g_glbl.input))
+		{
+			system("leaks minishell");
 			continue;
+		}
 		list = malloc(sizeof(t_list) * (ft_str_shred(g_glbl.input) + 1));
 		list->flag = 0;
 		g_glbl.flag = 0;
@@ -114,15 +163,37 @@ int	main(int argc, char **argv, char **env)
 		list->list_len = ft_str_shred(g_glbl.input);
 		ft_uname(list, g_glbl.input);
 		ft_untype(list);
-		ft_env_check(g_glbl.input, list);
+		ft_env_check(g_glbl.input, list);		
 		ft_appro_name(list);
 		if(ft_pipe_more(list))
+		{
+			system("leaks minishell");
 			continue;
+		}
 		link = ft_copy_list(list);
 		if(ft_parse_eror(link))
+		{
+			ft_free_link(&link);
+			free(list);
+			free(g_glbl.input);
+			system("leaks minishell");
 			continue;
+		}
 		if(ft_fill_command(link))
+		{
+			ft_free_cmd();
+			ft_free_link(&link);
+			free(list);
+			free(g_glbl.input);
+			system("leaks minishell");
 			continue;
+		}
+		//ft_free_cmd();
+		//ft_free_link(&link);
+		//free(list);
+		//free(g_glbl.input);
+		//system("leaks minishell");
+		//continue;
 		run_cmd();
 	}
 }

@@ -70,20 +70,7 @@ int	is_builtin(t_command *cmd)
 		return (1);
 	return (0);
 }
-//void handle_pipes(t_command *cmd)
-//{
-//	int fd[2];
-//	while(cmd != NULL)
-//	{
-//		if(cmd->next != NULL)
-//		{
-//			pipe(fd);
-//			cmd->fd[1] = fd[1];
-//			cmd->next->fd[0] = fd[0];
-//		}
-//		cmd = cmd->next;
-//	}
-//}
+
 void	run_cmd(void)
 {
 	t_command *cmd;
@@ -99,7 +86,6 @@ void	run_cmd(void)
 		run_builtins(cmd);
 		cmd = cmd->next;
 	}
-	//handle_pipes(cmd);
 	while (cmd)
 	{
 		actuation(cmd);
