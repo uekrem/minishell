@@ -57,6 +57,7 @@ void	remove_export(char *del)
 			i = -1;
 		}
 		i++;
+		free(temp);
 	}
 }
 
@@ -82,6 +83,7 @@ void	remove_env(char *del)
 			i = -1;
 		}
 		i++;
+		free(temp);
 	}
 }
 
