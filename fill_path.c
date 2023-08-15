@@ -1,5 +1,27 @@
 #include "minishell.h"
 
+int	ft_strncheck(const char *s1, const char *s2, size_t n)
+{
+	unsigned char	*x;
+	unsigned char	*y;
+	size_t			i;
+
+	x = (unsigned char *)s1;
+	y = (unsigned char *)s2;
+	i = 0;
+	while ((x[i] != '\0' || y[i] != '\0') && i < n)
+	{
+		if (x[i] > y[i])
+			return (x[i] - y[i]);
+		else if (x[i] < y[i])
+			return (x[i] - y[i]);
+		i++;
+	}
+	if (!x[i] || !y[i])
+		return (1);
+	return (0);
+}
+
 char	*split_env(char *str)
 {
 	while (*str != '=')

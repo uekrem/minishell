@@ -185,5 +185,6 @@ void						ft_adding_env(char **new_env, char *arg);
 int							which_commant(char *str1, char *str2);
 void						cd_err(char *value, char *str);
 char						*check_tilde(char *str);
+int							ft_strncheck(const char *s1, const char *s2, size_t n);
 
 #endif

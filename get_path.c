@@ -22,9 +22,9 @@ char	*mini_ret_free(char *mim, char *path)
 
 int	export_and_unset(char *str)
 {
-	if (ft_strncmp(str, "export", ft_strlenn(str)) == 0)
+	if (ft_strncheck(str, "export", ft_strlenn(str)) == 0)
 		return (1);
-	if (ft_strncmp(str, "unset", ft_strlenn(str)) == 0)
+	if (ft_strncheck(str, "unset", ft_strlenn(str)) == 0)
 		return (1);
 	return (0);
 }
