@@ -47,7 +47,7 @@ int	check_arg(char *str, char *status)
 	while (str[i])
 	{
 		if (!(str[i] >= 65 && str[i] <= 90) && !(str[i] >= 97 && str[i] <= 122)
-			&& str[i] != '_' && str[i] != 92 && str[i] != '=')
+			&& str[i] != '_' && str[i] != 92 && str[i] != '=' && str[i])
 			flag = 1;
 		if (str[i] == '=' && str[i - 1] == '+')
 		{
@@ -80,23 +80,26 @@ void	ft_add_which(t_execute *execute)
 
 void	ft_export(t_command *cmd)
 {
+	t_execute	*temp;
+
+	temp = cmd->execute;
 	g_glbl.export_plus_flag = 0;
-	if (arg_count(cmd->execute) == -1)
+	if (arg_count(temp) == -1)
 		ft_print_export();
 	else
 	{
-		cmd->execute = cmd->execute->next;
-		while (cmd->execute)
+		temp = temp->next;
+		while (temp)
 		{
-			if (check_arg(cmd->execute->value, "export"))
+			if (check_arg(temp->value, "export"))
 			{
-				cmd->execute = cmd->execute->next;
+				temp = temp->next;
 				g_glbl.erorno = 1;
 				continue ;
 			}
 			else
-				ft_add_which(cmd->execute);
-			cmd->execute = cmd->execute->next;
+				ft_add_which(temp);
+			temp = temp->next;
 		}
 	}
 	fill_paths();

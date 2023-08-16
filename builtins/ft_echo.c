@@ -56,24 +56,26 @@ int	skip_flag(t_execute *str)
 
 void	ft_echo(t_command *cmp)
 {
-	int	i;
-	int	flag;
+	int			i;
+	int			flag;
+	t_execute	*temp;
 
 	i = 1;
 	flag = 1;
-	i = skip_flag(cmp->execute->next);
+	temp = cmp->execute;
+	i = skip_flag(temp->next);
 	if (i > 1)
 		flag = 0;
 	while (i--)
-		cmp->execute = cmp->execute->next;
-	while (cmp->execute)
+		temp = temp->next;
+	while (temp)
 	{
-		if (!cmp->execute->value)
+		if (!temp->value)
 			break ;
-		put_char(cmp->execute->value);
-		if (cmp->execute->next)
+		put_char(temp->value);
+		if (temp->next)
 			write(STDOUT_FILENO, " ", 1);
-		cmp->execute = cmp->execute->next;
+		temp = temp->next;
 	}
 	if (flag)
 		write(STDOUT_FILENO, "\n", 1);

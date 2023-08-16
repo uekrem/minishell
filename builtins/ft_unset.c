@@ -89,17 +89,20 @@ void	remove_env(char *del)
 
 void	ft_unset(t_command *cmd)
 {
-	cmd->execute = cmd->execute->next;
-	while (cmd->execute)
+	t_execute	*temp;
+
+	temp = cmd->execute;
+	temp = temp->next;
+	while (temp)
 	{
-		if (check_arg(cmd->execute->value, "unset"))
+		if (check_arg(temp->value, "unset"))
 		{
 			g_glbl.erorno = 1;
 			break ;
 		}
-		remove_env(cmd->execute->value);
-		remove_export(cmd->execute->value);
-		cmd->execute = cmd->execute->next;
+		remove_env(temp->value);
+		remove_export(temp->value);
+		temp = temp->next;
 	}
 	fill_paths();
 }

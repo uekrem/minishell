@@ -1,7 +1,7 @@
 NAME        := minishell
 CC        := gcc
 
-FLAGS    := -Wall -Wextra -Werror #-fsanitize=address -g
+FLAGS    := -Wall -Wextra -Werror -fsanitize=address -g
 SRCS        :=              libft/ft_atoi.c \
                           libft/ft_bzero.c \
                           libft/ft_calloc.c \
@@ -59,6 +59,7 @@ SRCS        :=              libft/ft_atoi.c \
                           builtins/ft_cd_utils.c \
                           builtins/ft_export_adding.c \
                           builtins/ft_export_utils.c \
+                          builtins/ft_export_join.c \
                           ./exec_box/minishell_link.c \
                           ./exec_box/minishell_parse_error.c \
                           ./exec_box/minishell_cmd_box.c \
