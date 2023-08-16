@@ -7,8 +7,10 @@ void	run_builtins(t_command *cmd)
 
 	in = dup(0);
 	out = dup(1);
-	redirect_inputs(cmd);
-	redirect_outputs(cmd);
+	// if (redirect_inputs(cmd) == 0)
+	// 	return ;
+	if (redirect_outputs(cmd) == 0)
+		return ;
 	ft_builtins(cmd);
 	dup2(in, 0);
 	dup2(out, 1);
@@ -27,7 +29,10 @@ void	wait_cmd(void)
 		if (cmd->pid != -1)
 		{
 			waitpid(cmd->pid, &errno, 0);
-			g_glbl.erorno = WEXITSTATUS(errno);
+			if (WIFEXITED(errno))
+				g_glbl.erorno = WEXITSTATUS(errno);
+			else if (WIFSIGNALED(errno))
+				g_glbl.erorno = 128 + WTERMSIG(errno);
 		}
 		cmd = cmd->next;
 	}

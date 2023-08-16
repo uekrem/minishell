@@ -31,11 +31,6 @@ int	export_and_unset(char *str)
 
 void	command_err(char *str)
 {
-	if (str[0] == '\0')
-	{
-		errno = 0;
-		return;
-	}
 	errno = 127;
 	write(2, "minishell: ", 11);
 	write(2, str, ft_strlenn(str));

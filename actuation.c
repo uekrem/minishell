@@ -46,7 +46,7 @@ void	cmd_route(t_command *cmd)
 			heredoc_route(cmd);
 		pipe_route(cmd);
 	}
-	redirect_inputs(cmd);
+	//redirect_inputs(cmd);
 	redirect_outputs(cmd);
 	close_all_fd();
 }

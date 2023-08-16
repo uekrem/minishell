@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	input(char *file)
+int	input(char *file)
 {
 	int	fd;
 
@@ -9,15 +9,19 @@ void	input(char *file)
 	{
 		perror("minishell");
 		if (is_parent())
-			return ;
+		{
+			g_glbl.erorno = 1;
+			return (0);
+		}
 		else
 			exit(errno);
 	}
 	dup2(fd, 0);
 	close(fd);
+	return (1);
 }
 
-void	output(char *file, int mode)
+int	output(char *file, int mode)
 {
 	int	fd;
 
@@ -30,10 +34,14 @@ void	output(char *file, int mode)
 	{
 		perror("minishell");
 		if (is_parent())
-			return ;
+		{
+			g_glbl.erorno = 1;
+			return (0);
+		}
 		else
 			exit(errno);
 	}
 	dup2(fd, 1);
 	close(fd);
+	return (1);
 }

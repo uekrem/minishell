@@ -1,5 +1,36 @@
 #include "minishell.h"
 
+int	heredoc_words(char *str1, char *str2)
+{
+	int	j;
+	int	k;
+
+	j = 0;
+	k = 0;
+	if (!str1[0] && !str2[0])
+		return (1);
+	while (str1[j])
+	{
+		k = 0;
+		if (str1[j] == str2[k])
+		{
+			while (str1[j] == str2[k] && str1[j] != '\0' &&
+				str2[k] != '\0')
+			{
+				if (str1[j] != '\0')
+					j++;
+				if (str2[k] != '\0')
+					k++;
+			}
+			if (str1[j] == '\0' && str2[k] == '\0')
+				return (1);
+		}
+		if (str1[j] != '\0')
+			j++;
+	}
+	return (0);
+}
+
 void	interreput(int signal)
 {
 	(void)signal;
@@ -15,7 +46,7 @@ void	get_input(char *endline, int *fd)
 	while (1)
 	{
 		input = readline("heredoc>> ");
-		if (!input || (which_commant(input, endline) && ft_strlenn(input) == ft_strlenn(endline)))
+		if (heredoc_words(input, endline) && ft_strlenn(input) == ft_strlenn(endline))
 		{
 			free(input);
 			exit(1);
