@@ -28,7 +28,8 @@ void	add_plus(char **env, char **arg, char **new_env, int *i)
 	{
 		if (arg[1] == NULL)
 		{
-			new_env[*i] = ft_export_join(new_env[*i], "=");
+			if (env[1] == NULL)
+				new_env[*i] = ft_export_join(new_env[*i], "=");
 			g_glbl.export_flag = 1;
 			g_glbl.env_flag = 1;
 			return ;

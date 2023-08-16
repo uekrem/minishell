@@ -149,14 +149,3 @@ void	ft_appro_name(t_list *list)
 		list[i].value = ft_appro_proc(list[i].value, value);
 	}
 }
-
-void	ft_free(t_list *list)
-{
-	int	i;
-
-	i = -1;
-	while (++i < list->list_len)
-		free(list[i].value);
-	free(list);
-	free(g_glbl.input);
-}

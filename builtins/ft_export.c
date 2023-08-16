@@ -35,6 +35,7 @@ void	ft_print_export(void)
 		i++;
 		free_char(ag);
 	}
+	g_glbl.erorno = 0;
 }
 
 int	check_arg(char *str, char *status)
@@ -47,7 +48,8 @@ int	check_arg(char *str, char *status)
 	while (str[i])
 	{
 		if (!(str[i] >= 65 && str[i] <= 90) && !(str[i] >= 97 && str[i] <= 122)
-			&& str[i] != '_' && str[i] != 92 && str[i] != '=' && str[i])
+			&& str[i] != '_' && str[i] != 92 && str[i] != '=' && str[i] 
+			&& (i == 1 && !(str[i] >= 48 && str[i] <= 57)))
 			flag = 1;
 		if (str[i] == '=' && str[i - 1] == '+')
 		{
@@ -76,6 +78,7 @@ void	ft_add_which(t_execute *execute)
 		ft_add_export(execute->value);
 		ft_add_env(execute->value);
 	}
+	g_glbl.erorno = 0;
 }
 
 void	ft_export(t_command *cmd)

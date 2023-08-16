@@ -1,7 +1,7 @@
 NAME        := minishell
 CC        := gcc
 
-FLAGS    := -Wall -Wextra -Werror -fsanitize=address -g
+FLAGS    := -Wall -Wextra -Werror #-fsanitize=address -g
 SRCS        :=              libft/ft_atoi.c \
                           libft/ft_bzero.c \
                           libft/ft_calloc.c \

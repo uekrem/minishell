@@ -105,4 +105,5 @@ void	ft_unset(t_command *cmd)
 		temp = temp->next;
 	}
 	fill_paths();
+	g_glbl.erorno = 0;
 }

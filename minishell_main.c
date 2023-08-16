@@ -49,7 +49,6 @@ int	ft_pipe_more(t_list *list)
 	{
 		printf("minishell: syntax error near unexpected token `|'\n");
 		g_glbl.erorno = 258;
-		ft_free(list);
 		return (1);
 	}
 	while (list[++i].value)
@@ -60,7 +59,6 @@ int	ft_pipe_more(t_list *list)
 		{
 			printf("minishell: syntax error near unexpected token `|'\n");
 			g_glbl.erorno = 258;
-			ft_free(list);
 			return (1);
 		}
 		else if (list[i].type != PIPE && flag == 1)
@@ -131,6 +129,83 @@ void	ft_free_cmd()
 	}
 }
 
+void	ft_free(t_list *list)
+{
+	int	i;
+
+	i = -1;
+	while (++i < list->list_len)
+		free(list[i].value);
+	free(list);
+	free(g_glbl.input);
+}
+
+void	ft_decomp_free(int id, t_list *list, t_link *link)
+{ 
+	if (id == 2)
+		ft_free(list);
+	else if (id == 3)
+	{
+		ft_free_link(&link);
+		free(list);
+		free(g_glbl.input);
+	}
+	else if (id == 4)
+	{
+		ft_free_cmd();
+		ft_free_link(&link);
+		free(list);
+		free(g_glbl.input);
+	}
+}
+
+void	ft_replace_zero(t_list *list)
+{
+	list->flag = 0;
+	g_glbl.flag = 0;
+	g_glbl.cmd_count = 0;
+	g_glbl.heredoc = 0;
+	g_glbl.parent_pid = 1;
+	list->list_len = ft_str_shred(g_glbl.input);
+}
+
+void	ft_parse_start(t_list *list)
+{
+	ft_uname(list, g_glbl.input);
+	ft_untype(list);
+	ft_env_check(g_glbl.input, list);		
+	ft_appro_name(list);
+}
+
+void	ft_begin_assign(char **env)
+{
+	init_envair(env);
+	signal_init();
+	fill_paths();
+	g_glbl.erorno = 0;
+}
+
+int	ft_run_before(t_list **list, t_link **link)
+{
+		if(ft_pipe_more(*list))
+		{
+			ft_decomp_free(2, *list, *link);
+			return (1);
+		}
+		*link = ft_copy_list(*list);
+		if(ft_parse_eror(*link))
+		{
+			ft_decomp_free(3, *list, *link);
+			return (1);
+		}
+		if(ft_fill_command(*link))
+		{
+			ft_decomp_free(4, *list, *link);
+			return (1);
+		}
+		return (0);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_list		*list;
@@ -138,53 +213,23 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	(void) link;
+	list = NULL;
 	link = NULL;
-	init_envair(env);
-	signal_init();
-	fill_paths();
-	g_glbl.erorno = 0;
+	ft_begin_assign(env);
 	while (1)
 	{
 		//system("leaks minishell");
-		g_glbl.parent_pid = 1;
 		g_glbl.input = readline("minishell: ");
 		add_history(g_glbl.input);
 		ctrl_d(&g_glbl);
 		if (ft_opr_pair(g_glbl.input))
 			continue;
 		list = malloc(sizeof(t_list) * (ft_str_shred(g_glbl.input) + 1));
-		list->flag = 0;
-		g_glbl.flag = 0;
-		g_glbl.cmd_count = 0;
-		g_glbl.heredoc = 0;
-		list->list_len = ft_str_shred(g_glbl.input);
-		ft_uname(list, g_glbl.input);
-		ft_untype(list);
-		ft_env_check(g_glbl.input, list);		
-		ft_appro_name(list);
-		if(ft_pipe_more(list))
+		ft_replace_zero(list);
+		ft_parse_start(list);
+		if(ft_run_before(&list, &link))
 			continue;
-		link = ft_copy_list(list);
-		if(ft_parse_eror(link))
-		{
-			ft_free_link(&link);
-			free(list);
-			free(g_glbl.input);
-			continue;
-		}
-		if(ft_fill_command(link))
-		{
-			ft_free_cmd();
-			ft_free_link(&link);
-			free(list);
-			free(g_glbl.input);
-			continue;
-		}
 		run_cmd();
-		ft_free_cmd();
-		ft_free_link(&link);
-		free(list);
-		free(g_glbl.input);
+		ft_decomp_free(4, list, link);
 	}
 }
