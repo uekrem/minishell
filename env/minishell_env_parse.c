@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_env_parse.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/17 13:27:42 by uguyildi          #+#    #+#             */
+/*   Updated: 2023/08/17 13:27:43 by uguyildi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*ft_restrlen2(char *str, int *j)
@@ -80,7 +92,7 @@ void		ft_str_rebuild(t_list *list, int i)
 	}
 }
 
-void		ft_env_check(char *input, t_list *list)	
+void		ft_env_check(char *input, t_list *list)
 {
 	int	i;
 

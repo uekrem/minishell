@@ -44,10 +44,11 @@ SRCS        :=              libft/ft_atoi.c \
                           libft/ft_substr.c \
                           libft/ft_tolower.c \
                           libft/ft_toupper.c \
-                          minishell_main.c \
-                          ./parse/minishell_sum.c \
-                          ./parse/minishell_utils.c \
-                          minishell_signall.c \
+                          parse/minishell_parse_utils.c \
+                          parse/minishell_parse_flag.c \
+                          parse/minishell_parse_sum.c \
+                          parse/minishell_parse.c \
+                          parse/minishell_main_utils.c \
                           builtins/builtins.c \
                           builtins/ft_cd.c \
                           builtins/ft_echo.c \
@@ -60,27 +61,31 @@ SRCS        :=              libft/ft_atoi.c \
                           builtins/ft_export_adding.c \
                           builtins/ft_export_utils.c \
                           builtins/ft_export_join.c \
-                          ./exec_box/minishell_link.c \
-                          ./exec_box/minishell_parse_error.c \
-                          ./exec_box/minishell_cmd_box.c \
-                          ./exec_box/minishell_exec_add.c \
-                          ./exec_box/minishell_radi_add.c \
-                          run_cmd.c \
-                          heredoc.c \
-                          actuation.c \
-                          redirects.c \
-                          close_fd.c \
-                          get_path.c \
-                          get_path_error.c \
-                          actuation2.c \
-                          create_file.c \
-                          fill_path.c \
-                          signal.c \
-                          ./env/minishell_env_parse.c \
-                          ./env/minishell_env_utils.c \
-                          ./env/minishell_env_creat.c \
-                          ./env/minishell_env_utils2.c \
-                          
+                          exec_box/minishell_link.c \
+                          exec_box/minishell_parse_error.c \
+                          exec_box/minishell_cmd_box.c \
+                          exec_box/minishell_exec_add.c \
+                          exec_box/minishell_radi_add.c \
+                          exec/run_cmd.c \
+                          exec/heredoc.c \
+                          exec/actuation.c \
+                          exec/redirects.c \
+                          exec/actuation2.c \
+                          exec/fill_path.c \
+                          exec_fd/close_fd.c \
+                          exec_fd/get_path.c \
+                          exec_fd/get_path_error.c \
+                          exec_fd/create_file.c \
+                          env/minishell_env_parse.c \
+                          env/minishell_env_utils.c \
+                          env/minishell_env_creat.c \
+                          env/minishell_env_utils2.c \
+                          free/ft_free.c \
+                          free/ft_free_utils.c \
+                          signal/minishell_signall.c \
+                          signal/signal.c \
+                          minishell_main.c \
+
 OBJS        := $(SRCS:.c=.o)
 
 .c.o:

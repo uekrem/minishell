@@ -1,39 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_free_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 13:27:08 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:27:09 by uguyildi         ###   ########.fr       */
+/*   Created: 2023/08/17 13:37:36 by uguyildi          #+#    #+#             */
+/*   Updated: 2023/08/17 14:04:26 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_env(t_execute *execute)
+void	ft_free_radi(t_radira *radi)
 {
-	int		i;
-	char	**ag;
+	t_radira	*temp;
 
-	i = 0;
-	if (arg_count(execute) == 0 || arg_count(execute) == 1)
+	if (!radi)
+		return;
+	while (radi)
 	{
-		printf("env: %s: No such file or directory\n", execute->next->value);
-		g_glbl.erorno = 127;
-		return ;
+		temp = radi->next;
+		free(radi);
+		radi = temp;
 	}
-	while (g_glbl.env[i])
+	free(radi);
+}
+
+void	ft_free_exec(t_execute *exec)
+{
+	t_execute	*temp;
+
+	if (!exec)
+		return;
+	while (exec)
 	{
-		ag = ft_split(g_glbl.env[i], '=');
-		if (ag[1] == NULL)
-			printf("%s=\"\"\n", ag[0]);
-		else
-			printf("%s=\"%s\"\n", ag[0], ag[1]);
-		i++;
-		free_char(ag);
+		temp = exec->next;
+		free(exec);
+		exec = temp;
 	}
-	fill_paths();
-	g_glbl.erorno = 0;
+	free(exec);
 }

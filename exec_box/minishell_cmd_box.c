@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_cmd_box.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/17 13:28:08 by uguyildi          #+#    #+#             */
+/*   Updated: 2023/08/17 13:28:09 by uguyildi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	add_arguman(t_command *cmd, t_link **link)
@@ -15,7 +27,7 @@ void	add_arguman(t_command *cmd, t_link **link)
 		cmd->radi = fill_redirect(*link, &cmd->radi);
 	}
 	else if ((*link)->type == INPUT_R || (*link)->type == OUTPUT_R)
-	{	
+	{
 		cmd->radi = fill_redirect(*link, &cmd->radi);
 	}
 }

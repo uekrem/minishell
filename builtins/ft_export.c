@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/17 13:27:25 by uguyildi          #+#    #+#             */
+/*   Updated: 2023/08/17 13:27:26 by uguyildi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	arg_count(t_execute *execute)
@@ -48,7 +60,7 @@ int	check_arg(char *str, char *status)
 	while (str[i])
 	{
 		if (!(str[i] >= 65 && str[i] <= 90) && !(str[i] >= 97 && str[i] <= 122)
-			&& str[i] != '_' && str[i] != 92 && str[i] != '=' && str[i] 
+			&& str[i] != '_' && str[i] != 92 && str[i] != '=' && str[i]
 			&& (i == 1 && !(str[i] >= 48 && str[i] <= 57)))
 			flag = 1;
 		if (str[i] == '=' && str[i - 1] == '+')

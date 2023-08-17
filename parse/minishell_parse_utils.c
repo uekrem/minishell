@@ -1,39 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   minishell_parse_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 13:27:08 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:27:09 by uguyildi         ###   ########.fr       */
+/*   Created: 2023/08/17 13:45:34 by uguyildi          #+#    #+#             */
+/*   Updated: 2023/08/17 13:45:35 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_env(t_execute *execute)
+int	ft_check_flag(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[0] != '-')
+			break ;
+		else if (i != 0 && str[i] == '-')
+			break ;
+	}
+	if (!str[i])
+		return (1);
+	return (0);
+}
+
+char	ft_issue(char *str, char sea)
 {
 	int		i;
-	char	**ag;
+	char	c;
 
-	i = 0;
-	if (arg_count(execute) == 0 || arg_count(execute) == 1)
+	i = -1;
+	c = ' ';
+	while (str[++i])
 	{
-		printf("env: %s: No such file or directory\n", execute->next->value);
-		g_glbl.erorno = 127;
-		return ;
+		if ((str[i] == '"' || str[i] == 39) && c == ' ')
+			c = str[i];
+		else if (str[i] == c)
+			c = ' ';
+		else if (str[i] == sea)
+			return (c);
 	}
-	while (g_glbl.env[i])
-	{
-		ag = ft_split(g_glbl.env[i], '=');
-		if (ag[1] == NULL)
-			printf("%s=\"\"\n", ag[0]);
-		else
-			printf("%s=\"%s\"\n", ag[0], ag[1]);
-		i++;
-		free_char(ag);
-	}
-	fill_paths();
-	g_glbl.erorno = 0;
+	return (0);
 }

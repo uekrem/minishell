@@ -1,52 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export_utils.c                                  :+:      :+:    :+:   */
+/*   actuation2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 13:27:19 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:27:20 by uguyildi         ###   ########.fr       */
+/*   Created: 2023/08/17 13:28:39 by uguyildi          #+#    #+#             */
+/*   Updated: 2023/08/17 14:04:04 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	export_size(void)
+int	arg_count_ex(t_execute *execute)
 {
 	int	i;
 
 	i = 0;
-	while (g_glbl.export[i])
+	while (execute)
+	{
 		i++;
+		execute = execute->next;
+	}
 	return (i);
 }
 
-void	free_char(char **arg)
+char	**get_arg_fill(t_execute *execute)
 {
-	int	i;
+	char	**args;
+	int		i;
+	int		arg_count;
 
-	i = 0;
-	while (arg[i] != NULL)
+	i = 1;
+	arg_count = arg_count_ex(execute);
+	args = (char **)malloc(sizeof(char *) * (arg_count + 1));
+	args[0] = ft_strdup(execute->value);
+	execute = execute->next;
+	while (i < arg_count && execute)
 	{
-		free(arg[i]);
+		args[i] = ft_strdup(execute->value);
+		execute = execute->next;
 		i++;
 	}
-	free(arg);
-}
-
-void	ft_add_env(char *arg)
-{
-	char	**new_env;
-
-	new_env = malloc(sizeof(char *) * (export_size() + 2));
-	ft_adding_env(new_env, arg);
-}
-
-void	ft_add_export(char *arg)
-{
-	char	**new_export;
-
-	new_export = malloc(sizeof(char *) * (export_size() + 2));
-	ft_adding_export(new_export, arg);
+	args[i] = NULL;
+	return (args);
 }

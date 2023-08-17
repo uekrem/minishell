@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_parse_sum.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/17 13:28:30 by uguyildi          #+#    #+#             */
+/*   Updated: 2023/08/17 13:49:55 by uguyildi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	ft_pair_sum(int *arg, int *flag)
@@ -20,11 +32,11 @@ void	ft_pair_sum2(int *arg2, int *flag2)
 
 int	ft_opr_pair(char *input)
 {
-	int			i;
-	int			arg;
-	int			arg2;
-	int			flag;
-	int			flag2;
+	int	i;
+	int	arg;
+	int	arg2;
+	int	flag;
+	int	flag2;
 
 	i = -1;
 	arg = 1;
@@ -46,43 +58,18 @@ int	ft_opr_pair(char *input)
 	return (1);
 }
 
-void	ft_opr_step(char *input, int *i)
-{
-	*i += 1;
-	if (ft_opr_which(input[*i]) > 1 && input[*i] != input[(*i) - 1])
-		return;
-	else if (ft_opr_which(input[*i]) > 1)
-		*i += 1;
-}
-
-int	ft_while_break(char *input, int *i, char *c)
-{
-	*i += 1;						
-	if (input[*i] == *c && *c != ' ')
-		*c = ' ';
-	else if ((input[*i] == '"' || input[*i] == 39) && *c == ' ')
-	{
-		*c = input[(*i)++];
-		if (input[*i] == *c)
-			*c = ' ';
-	}
-	else if (ft_opr_which(input[*i]) && *c == ' ')
-		return (1);
-	return (0);
-}
-
 void	ft_couple_core(char *input, int *i, char c)
 {
 	c = ' ';
 	if (input[*i] == '|')
 	{
 		*i += 1;
-		return;
+		return ;
 	}
 	else if (ft_opr_which(input[*i]))
 	{
 		ft_opr_step(input, i);
-		return;
+		return ;
 	}
 	if (input[*i] == 39 || input[*i] == '"')
 	{
@@ -94,7 +81,7 @@ void	ft_couple_core(char *input, int *i, char c)
 	while (input[*i] && input[*i] != c)
 	{
 		if (ft_while_break(input, i, &c))
-			break;
+			break ;
 	}
 }
 
@@ -115,28 +102,4 @@ int	ft_str_shred(char *input)
 			ft_couple_core(input, &i, input[i]);
 	}
 	return (flag);
-}
-
-int	ft_opr_which(char input)
-{
-	if (input == '|')
-		return (1);
-	if (input == '<')
-		return (2);
-	if (input == '>')
-		return (3);
-	return (0);
-}
-
-int	ft_strlen(char *input, int index, char c)
-{
-	int i;
-
-	i = 0;
-	while (input[index] && input[index] != c)
-	{
-		i++;
-		index++;
-	}
-	return (i);
 }

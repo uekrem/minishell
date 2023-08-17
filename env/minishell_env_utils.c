@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_env_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/17 13:27:45 by uguyildi          #+#    #+#             */
+/*   Updated: 2023/08/17 13:27:46 by uguyildi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	ft_strwrite(char *new_str, char *str, int *step, char c)
@@ -28,11 +40,11 @@ void	ft_strwrite2(char *new_str, char *str, int *step, int c)
 
 int			ft_stay_stop(char c)
 {
-	if (((c >= 32 && c <= 47) 
+	if (((c >= 32 && c <= 47)
 		|| (c >= 58 && c <= 64)
 		|| (c >= 91 && c <= 96)
-		|| (c >= 123 && c <= 126) 
-		|| c == ' ') 
+		|| (c >= 123 && c <= 126)
+		|| c == ' ')
 		&& c )
 		return(1);
 	return (0);

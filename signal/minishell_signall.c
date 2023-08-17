@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   minishell_signall.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 13:27:28 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:27:29 by uguyildi         ###   ########.fr       */
+/*   Created: 2023/08/17 13:28:58 by uguyildi          #+#    #+#             */
+/*   Updated: 2023/08/17 14:04:37 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pwd(void)
+void	ctrl_d(t_glbl *glbl)
 {
-	char	buf[1024];
-
-	getcwd(buf, 1024);
-	printf("%s\n", buf);
+	if (!glbl->input)
+	{
+		printf("\nexit\n");
+		free_execute(glbl);
+		exit(0);
+	}
 }
