@@ -6,11 +6,25 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:26:54 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 14:41:34 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:30:39 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	equal_process(char *str1, char *str2, int *j, int *k)
+{
+	while (str1[*j] == str2[*k] && str1[*j] != '\0' && str2[*k] != '\0')
+	{
+		if (str1[*j] != '\0')
+			*j += 1;
+		if (str2[*k] != '\0')
+			*k += 1;
+	}
+	if (str1[*j] == '\0' && str2[*k] == '\0')
+		return (1);
+	return (0);
+}
 
 int	which_commant(char *str1, char *str2)
 {
@@ -26,15 +40,7 @@ int	which_commant(char *str1, char *str2)
 		k = 0;
 		if (str1[j] == str2[k])
 		{
-			while (str1[j] == str2[k] && str1[j] != '\0'
-				&& str2[k] != '\0')
-			{
-				if (str1[j] != '\0')
-					j++;
-				if (str2[k] != '\0')
-					k++;
-			}
-			if (str1[j] == '\0' && str2[k] == '\0')
+			if (equal_process(str1, str2, &j, &k))
 				return (1);
 		}
 		if (str1[j] != '\0')

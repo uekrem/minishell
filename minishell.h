@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:29:16 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 14:46:54 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 15:31:08 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -28,6 +26,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 enum					e_token
 {
@@ -206,5 +206,6 @@ void					cd_err(char *value, char *str);
 char					*check_tilde(char *str);
 int						ft_strncheck(const char *s1, const char *s2, size_t n);
 char					*ft_export_join(char *s1, char *s2);
+int						equal_process(char *str1, char *str2, int *j, int *k);
 
 #endif
