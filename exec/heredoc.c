@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:28:50 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 14:04:12 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:39:56 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	heredoc_words(char *str1, char *str2)
 		k = 0;
 		if (str1[j] == str2[k])
 		{
-			while (str1[j] == str2[k] && str1[j] != '\0' &&
-				str2[k] != '\0')
+			while (str1[j] == str2[k] && str1[j] != '\0'
+				&& str2[k] != '\0')
 			{
 				if (str1[j] != '\0')
 					j++;
@@ -52,13 +52,14 @@ void	interreput(int signal)
 
 void	get_input(char *endline, int *fd)
 {
-	char *input;
+	char	*input;
 
 	signal(SIGINT, interreput);
 	while (1)
 	{
 		input = readline("heredoc>> ");
-		if (heredoc_words(input, endline) && ft_strlenn(input) == ft_strlenn(endline))
+		if (heredoc_words(input, endline)
+			&& ft_strlenn(input) == ft_strlenn(endline))
 		{
 			free(input);
 			exit(1);

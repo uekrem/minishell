@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:28:08 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:28:09 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:38:06 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ t_command	*setup_cmd(void)
 int	ft_fill_command(t_link *link)
 {
 	t_command	*new_cmd;
-    (void) new_cmd;
 
-    g_glbl.cmd = NULL;
+	(void)new_cmd;
+	g_glbl.cmd = NULL;
 	new_cmd = NULL;
 	while (link)
 	{
@@ -81,7 +81,7 @@ int	ft_fill_command(t_link *link)
 			break ;
 		add_arguman(new_cmd, &link);
 		if (link)
-            link = link->next;
+			link = link->next;
 	}
 	return (0);
 }

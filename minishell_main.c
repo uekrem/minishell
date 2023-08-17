@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:34:10 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 14:19:04 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:50:26 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	main(int argc, char **argv, char **env)
 	ft_begin_assign(env);
 	while (1)
 	{
-		//system("leaks minishell");
 		g_glbl.input = readline("minishell: ");
 		add_history(g_glbl.input);
 		ctrl_d(&g_glbl);

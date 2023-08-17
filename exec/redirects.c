@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:29:21 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 14:04:15 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:38:56 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 // 	redir = cmd->radi;
 // 	while (redir)
 // 	{
-
 
 // 		if (num == 0)
 // 			return (num);

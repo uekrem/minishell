@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:29:31 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 14:04:19 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:40:33 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	run_builtins(t_command *cmd)
 
 	in = dup(0);
 	out = dup(1);
-	// if (redirect_inputs(cmd) == 0)
-	// 	return ;
 	if (redirect_outputs(cmd) == 0)
 		return ;
 	ft_builtins(cmd);
@@ -90,7 +88,7 @@ int	is_builtin(t_command *cmd)
 
 void	run_cmd(void)
 {
-	t_command *cmd;
+	t_command	*cmd;
 
 	cmd = g_glbl.cmd;
 	if (!cmd)

@@ -6,13 +6,13 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:27:17 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:27:18 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:41:54 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*ft_fonk(char *a, size_t i, char const *s2)	//yeni
+static char	*ft_fonk(char *a, size_t i, char const *s2)
 {
 	size_t	j;
 	size_t	len;

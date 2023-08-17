@@ -6,13 +6,13 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:28:36 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 14:04:01 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:39:22 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	contain_heredoc()
+int	contain_heredoc(void)
 {
 	t_radira	*radir;
 
@@ -28,7 +28,6 @@ int	contain_heredoc()
 	}
 	return (0);
 }
-
 
 void	pipe_route(t_command *cmd)
 {
@@ -58,12 +57,9 @@ void	cmd_route(t_command *cmd)
 			heredoc_route(cmd);
 		pipe_route(cmd);
 	}
-	//redirect_inputs(cmd);
 	redirect_outputs(cmd);
 	close_all_fd();
 }
-
-
 
 void	actuation(t_command *cmd)
 {
@@ -72,15 +68,14 @@ void	actuation(t_command *cmd)
 	char	**args;
 
 	pid = fork();
-
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
 		g_glbl.parent_pid = 0;
 		cmd_route(cmd);
-		if(ft_builtins(cmd))
-			exit (g_glbl.erorno);
+		if (ft_builtins(cmd))
+			exit(g_glbl.erorno);
 		if (cmd->execute != NULL)
 		{
 			path = get_path(cmd->execute->value);

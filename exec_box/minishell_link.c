@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:28:16 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:28:17 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:38:22 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ t_link	*ft_copy_list(t_list *list)
 	{
 		link_block = ft_lstnew(&list[i]);
 		if (i == 0)
-			link_block->prev=NULL;
+			link_block->prev = NULL;
 		else
-			link_block->prev= ft_lstlast(link_ls);
+			link_block->prev = ft_lstlast(link_ls);
 		ft_lstadd_back(&link_ls, link_block);
 		i++;
 	}

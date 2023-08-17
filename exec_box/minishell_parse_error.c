@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:28:18 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:28:19 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:38:26 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_pars_error_child2(t_link *link)
 	return (0);
 }
 
-int	check_pars_error(t_link	*link)
+int	check_pars_error(t_link *link)
 {
 	int	tmp;
 
@@ -66,7 +66,7 @@ int	check_pars_error(t_link	*link)
 	return (0);
 }
 
-int	 ft_parse_eror(t_link *link)
+int	ft_parse_eror(t_link *link)
 {
 	if (check_pars_error(link))
 	{

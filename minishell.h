@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:29:16 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 14:19:24 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:46:54 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -26,8 +28,6 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 
 enum					e_token
 {
@@ -119,9 +119,8 @@ void					ft_env_check(char *input, t_list *list);
 char					*ft_restrlen(char *str, int *j);
 char					*ft_appro_proc(char *str, int value);
 void					ft_appro_name(t_list *list);
-void					ft_str_base(t_list *list, char *input, int start,
-							int finish, int now);
-
+void					ft_str_base(t_list *list, int start, int finish,
+							int now);
 char					*ft_piece(char *env);
 int						ft_builtins(t_command *cmd);
 void					ft_echo(t_command *cmd);
@@ -140,7 +139,6 @@ void					free_execute(t_glbl *glbl);
 void					free_char(char **arg);
 char					ft_issue(char *str, char sea);
 int						ft_check_flag(char *str);
-
 void					ft_strwrite2(char *new_str, char *str, int *step,
 							int c);
 void					ft_free(t_list *list);
@@ -155,11 +153,9 @@ t_execute				*fill_execute(t_link *link, t_execute **execute);
 int						check_arg(char *str, char *status);
 void					ft_opr_step(char *input, int *i);
 int						ft_while_break(char *input, int *i, char *c);
-
 void					run_cmd(void);
 void					heredoc(int *fd, char *endline);
 void					actuation(t_command *cmd);
-//void	redirect_inputs(t_command *cmd);
 int						redirect_outputs(t_command *cmd);
 void					close_all_fd(void);
 char					*get_path(char *cmd);
@@ -174,11 +170,9 @@ int						contain_heredoc(void);
 void					fill_paths(void);
 void					signal_init(void);
 int						is_builtin(t_command *cmd);
-
-void	lst_add_back_execute(t_execute **lst,
+void					lst_add_back_execute(t_execute **lst,
 							t_execute *new_node);
 t_execute				*lst_new_elem_execute(char *value);
-
 char					*ft_how_far(char *str, int *j);
 char					*ft_env_search(char *str);
 int						ft_stay_stop(char c);
@@ -202,7 +196,6 @@ void					ft_decomp_free(int id, t_list *list, t_link *link);
 void					ft_free_exec(t_execute *exec);
 void					ft_free_radi(t_radira *radi);
 void					free_execute(t_glbl *glbl);
-
 void					ft_add_export(char *arg);
 void					ft_add_env(char *arg);
 void					ft_print_export(void);

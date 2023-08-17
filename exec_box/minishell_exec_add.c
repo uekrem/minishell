@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:28:13 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:28:14 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:38:17 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	prev_type(enum e_token type)
 {
-	if (type == INPUT_R || type == OUTPUT_R || type == D_INPUT_R || type == D_OUTPUT_R)
+	if (type == INPUT_R || type == OUTPUT_R || type == D_INPUT_R
+		|| type == D_OUTPUT_R)
 		return (1);
 	return (0);
 }

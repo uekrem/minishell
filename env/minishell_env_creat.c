@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:27:39 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:27:40 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:40:48 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_how_far(char *str, int *j)
 	while (str[*j])
 	{
 		if (ft_how_far_chec(str[*j]))
-			break;
+			break ;
 		value++;
 		*j += 1;
 	}
@@ -38,27 +38,28 @@ char	*ft_how_far(char *str, int *j)
 	return (search);
 }
 
-char    *ft_env_search(char *str)
+char	*ft_env_search(char *str)
 {
-    int i;
-    int j;
-    i = -1;
-    while (g_glbl.env[++i])
-    {
-        j = -1;
-        while (g_glbl.env[i][++j])
-        {
-            if (str[j] == g_glbl.env[i][j])
-                continue;
-            break;
-        }
-        if (g_glbl.env[i][j] == '=' && str[j] == '\0')
-            break;
-    }
+	int	i;
+	int	j;
+
+	i = -1;
+	while (g_glbl.env[++i])
+	{
+		j = -1;
+		while (g_glbl.env[i][++j])
+		{
+			if (str[j] == g_glbl.env[i][j])
+				continue ;
+			break ;
+		}
+		if (g_glbl.env[i][j] == '=' && str[j] == '\0')
+			break ;
+	}
 	free(str);
-    if (g_glbl.env[i])
-        return(ft_piece(g_glbl.env[i]));
-    return (NULL);
+	if (g_glbl.env[i])
+		return (ft_piece(g_glbl.env[i]));
+	return (NULL);
 }
 
 char	*ft_env_null(char *str, int *j, int temp)
@@ -79,7 +80,7 @@ char	*ft_env_null(char *str, int *j, int temp)
 	return (new_char);
 }
 
-char		*ft_str_rebuild_query(char *list, int *j)
+char	*ft_str_rebuild_query(char *list, int *j)
 {
 	int	temp;
 
@@ -89,7 +90,7 @@ char		*ft_str_rebuild_query(char *list, int *j)
 	return (list);
 }
 
-char		*ft_str_rebuild_base(char *list, int *j)
+char	*ft_str_rebuild_base(char *list, int *j)
 {
 	int	temp;
 

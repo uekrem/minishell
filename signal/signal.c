@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:29:41 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 14:04:40 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:32:02 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ static void	suppress_output(void)
 		perror("Minishell: tcsetattr");
 }
 
-static void handle_sigint(int sig)
+static void	handle_sigint(int sig)
 {
-    (void)sig;
-    ioctl(STDIN_FILENO, TIOCSTI, "\n");
-    write(1, "\033[A", 3);
-    //rl_replace_line("", 0);
-    rl_on_new_line();
-    rl_redisplay();
-    g_glbl.erorno = 1;
+	(void)sig;
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	write(1, "\033[A", 3);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	g_glbl.erorno = 1;
 }
 
 static void	handle_sigquit(int sig)

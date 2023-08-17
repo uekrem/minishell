@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:28:42 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 14:04:08 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:38:53 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ void	free_paths(char **paths)
 
 void	fill_paths(void)
 {
-	char	*path = NULL;
+	char	*path;
 
+	path = NULL;
 	if (g_glbl.path)
 		free_paths(g_glbl.path);
 	path = get_env_key("PATH");
