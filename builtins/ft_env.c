@@ -12,17 +12,49 @@
 
 #include "../minishell.h"
 
+int	check_equal(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (i == 0 && str[i] == '=')
+			return (-1);
+		if (str[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	ft_env(t_execute *execute)
 {
 	int		i;
 	char	**ag;
+	int		flag;
 
+	flag = 0;
 	i = 0;
 	if (arg_count(execute) == 0 || arg_count(execute) == 1)
 	{
-		printf("env: %s: No such file or directory\n", execute->next->value);
-		g_glbl.erorno = 127;
-		return ;
+		if (arg_count(execute) == 1 && check_equal(execute->next->value) != 0)
+		{
+			if (check_equal(execute->next->value) == 1)
+				flag = 1;
+			else if (check_equal(execute->next->value) == -1)
+			{
+				g_glbl.erorno = 1;
+				printf("env: setenv %s: Invalid argument\n", execute->next->value);
+				return ;
+			}
+		}
+		else
+		{
+			printf("env: %s: No such file or directory\n", execute->next->value);
+			g_glbl.erorno = 127;
+			return ;
+		}
 	}
 	while (g_glbl.env[i])
 	{
@@ -34,6 +66,8 @@ void	ft_env(t_execute *execute)
 		i++;
 		free_char(ag);
 	}
+	if (flag == 1)
+		printf("%s\n", execute->next->value);
 	fill_paths();
 	g_glbl.erorno = 0;
 }

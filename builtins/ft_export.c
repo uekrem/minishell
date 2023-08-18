@@ -22,7 +22,7 @@ int	arg_count(t_execute *execute)
 		i++;
 		execute = execute->next;
 	}
-	if (i > 2)
+	if (i >= 2)
 		return (1);
 	else if (i == 1)
 		return (-1);
