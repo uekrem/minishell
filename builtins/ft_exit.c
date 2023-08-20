@@ -28,7 +28,8 @@ void	ft_exit(t_command *cmd)
 {
 	if (arg_count(cmd->execute) == -1)
 	{
-		printf("exit\n");
+		if(g_glbl.cmd_count == 1)
+			printf("exit\n");
 		exit(errno);
 	}
 	else

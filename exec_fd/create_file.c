@@ -26,7 +26,7 @@ int	input(char *file)
 			return (0);
 		}
 		else
-			exit(errno);
+			exit(1);
 	}
 	dup2(fd, 0);
 	close(fd);

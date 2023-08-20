@@ -28,34 +28,41 @@ int	check_equal(char *str)
 	return (0);
 }
 
-void	ft_env(t_execute *execute)
+int	check_env(t_execute *execute, int *flag)
 {
-	int		i;
-	char	**ag;
-	int		flag;
-
-	flag = 0;
-	i = 0;
 	if (arg_count(execute) == 0 || arg_count(execute) == 1)
 	{
 		if (arg_count(execute) == 1 && check_equal(execute->next->value) != 0)
 		{
 			if (check_equal(execute->next->value) == 1)
-				flag = 1;
+				*flag = 1;
 			else if (check_equal(execute->next->value) == -1)
 			{
 				g_glbl.erorno = 1;
 				printf("env: setenv %s: Invalid argument\n", execute->next->value);
-				return ;
+				return (1);
 			}
 		}
 		else
 		{
 			printf("env: %s: No such file or directory\n", execute->next->value);
 			g_glbl.erorno = 127;
-			return ;
+			return (1);
 		}
 	}
+	return (0);
+}
+
+void	ft_env(t_execute *execute)
+{
+	int		i;
+	char	**ag;
+	int		flag;
+
+	i = 0;
+	flag = 0;
+	if (check_env(execute, &flag))
+		return ;
 	while (g_glbl.env[i])
 	{
 		ag = ft_split(g_glbl.env[i], '=');

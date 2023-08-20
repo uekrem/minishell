@@ -82,7 +82,7 @@ void	actuation(t_command *cmd)
 			args = get_arg_fill(cmd->execute);
 		}
 		execve(path, args, g_glbl.env);
-		if (cmd->execute != NULL)
+		if (cmd->execute != NULL && ft_strlenn(cmd->execute->value) != 0)
 			command_err(cmd->execute->value);
 		exit(errno);
 	}
