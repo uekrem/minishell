@@ -66,24 +66,26 @@ int	main(int argc, char **argv, char **env)
 	t_list	*list;
 	t_link	*link;
 
-	(void)argc;
 	(void)argv;
 	list = NULL;
 	link = NULL;
-	ft_begin_assign(env);
-	while (1)
+	if (argc == 1)
 	{
-		g_glbl.input = readline("minishell: ");
-		add_history(g_glbl.input);
-		ctrl_d(&g_glbl);
-		if (ft_opr_pair(g_glbl.input))
-			continue ;
-		list = malloc(sizeof(t_list) * (ft_str_shred(g_glbl.input) + 1));
-		ft_replace_zero(list);
-		ft_parse_start(list);
-		if (ft_run_before(&list, &link))
-			continue ;
-		run_cmd();
-		ft_decomp_free(4, list, link);
+		ft_begin_assign(env);
+		while (1)
+		{
+			g_glbl.input = readline("minishell: ");
+			add_history(g_glbl.input);
+			ctrl_d(&g_glbl);
+			if (ft_opr_pair(g_glbl.input))
+				continue ;
+			list = malloc(sizeof(t_list) * (ft_str_shred(g_glbl.input) + 1));
+			ft_replace_zero(list);
+			ft_parse_start(list);
+			if (ft_run_before(&list, &link))
+				continue ;
+			run_cmd();
+			ft_decomp_free(4, list, link);
+		}
 	}
 }
