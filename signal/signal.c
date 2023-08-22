@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:29:41 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 14:32:02 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:31:03 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ static void	suppress_output(void)
 static void	handle_sigint(int sig)
 {
 	(void)sig;
-	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	write(1, "\033[A", 3);
+	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
@@ -38,13 +37,6 @@ static void	handle_sigquit(int sig)
 {
 	(void)sig;
 	rl_redisplay();
-}
-
-void	handle_sigint_heredoc(int sig)
-{
-	(void)sig;
-	write(1, "\n", 1);
-	exit(1);
 }
 
 void	signal_init(void)

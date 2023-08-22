@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:27:11 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:27:12 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:32:58 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_exit(t_command *cmd)
 {
 	if (arg_count(cmd->execute) == -1)
 	{
-		if(g_glbl.cmd_count == 1)
+		if (g_glbl.cmd_count == 1)
 			printf("exit\n");
 		exit(errno);
 	}

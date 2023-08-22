@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:27:08 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:27:09 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:32:29 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_equal(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -39,13 +39,15 @@ int	check_env(t_execute *execute, int *flag)
 			else if (check_equal(execute->next->value) == -1)
 			{
 				g_glbl.erorno = 1;
-				printf("env: setenv %s: Invalid argument\n", execute->next->value);
+				printf("env: setenv %s: Invalid argument\n",
+					execute->next->value);
 				return (1);
 			}
 		}
 		else
 		{
-			printf("env: %s: No such file or directory\n", execute->next->value);
+			printf("env: %s: No such file or directory\n",
+				execute->next->value);
 			g_glbl.erorno = 127;
 			return (1);
 		}
