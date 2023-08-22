@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:28:30 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:49:55 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:57:51 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_opr_pair(char *input)
 	if (flag % 2 == 0 && flag2 % 2 == 0)
 		return (0);
 	printf("Missing double or single quotes\n");
-	g_glbl.erorno = 1;
+	g_glbl.erorno = 258;
 	free(g_glbl.input);
 	return (1);
 }
