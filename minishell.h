@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:29:16 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 15:31:08 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:27:23 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,5 +207,8 @@ char					*check_tilde(char *str);
 int						ft_strncheck(const char *s1, const char *s2, size_t n);
 char					*ft_export_join(char *s1, char *s2);
 int						equal_process(char *str1, char *str2, int *j, int *k);
+t_execute				*ft_double_n(int *i, int *flag, t_execute *temp);
+void					ft_check_zero(int flag);
+void					ft_echo_defini(int *i, int *flag);
 
 #endif

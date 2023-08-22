@@ -52,6 +52,7 @@ SRCS        :=              libft/ft_atoi.c \
                           builtins/builtins.c \
                           builtins/ft_cd.c \
                           builtins/ft_echo.c \
+                          builtins/ft_echo_utils.c \
                           builtins/ft_export.c \
                           builtins/ft_pwd.c \
                           builtins/ft_env.c \

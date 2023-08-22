@@ -6,7 +6,7 @@
 /*   By: uguyildi <uguyildi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 13:27:05 by uguyildi          #+#    #+#             */
-/*   Updated: 2023/08/17 13:27:06 by uguyildi         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:27:31 by uguyildi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,24 +72,23 @@ void	ft_echo(t_command *cmp)
 	int			flag;
 	t_execute	*temp;
 
-	i = 1;
-	flag = 1;
+	ft_echo_defini(&i, &flag);
 	temp = cmp->execute;
 	i = skip_flag(temp->next);
-	if (i > 1)
-		flag = 0;
-	while (i--)
-		temp = temp->next;
+	temp = ft_double_n(&i, &flag, temp);
 	while (temp)
 	{
 		if (!temp->value)
 			break ;
+		if (ft_strlenn(temp->value) == 0)
+		{
+			temp = temp->next;
+			continue ;
+		}
 		put_char(temp->value);
 		if (temp->next)
 			write(STDOUT_FILENO, " ", 1);
 		temp = temp->next;
 	}
-	if (flag)
-		write(STDOUT_FILENO, "\n", 1);
-	g_glbl.erorno = 0;
+	ft_check_zero(flag);
 }
